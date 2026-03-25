@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>清明假期旅行方案 - 家庭出游</title>
+    <title>清明假期旅行方案 - 家庭出游（更新版）</title>
     <style>
         * {
             margin: 0;
@@ -32,12 +32,18 @@
             text-align: center;
         }
         .header h1 {
-            font-size: 2.2em;
+            font-size: 2em;
             margin-bottom: 10px;
         }
-        .header p {
-            font-size: 1.1em;
-            opacity: 0.9;
+        .header .update-badge {
+            display: inline-block;
+            background: #fbbf24;
+            color: #78350f;
+            padding: 5px 15px;
+            border-radius: 20px;
+            font-size: 0.85em;
+            font-weight: bold;
+            margin-top: 10px;
         }
         .info-bar {
             background: #f8f9fa;
@@ -70,6 +76,43 @@
             padding-bottom: 10px;
             border-bottom: 2px solid #667eea;
         }
+        .table-wrapper {
+            overflow-x: auto;
+            -webkit-overflow-scrolling: touch;
+            margin: 15px 0;
+            border-radius: 10px;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+            scrollbar-width: thin;
+        }
+        .table-wrapper::-webkit-scrollbar {
+            height: 6px;
+        }
+        .table-wrapper::-webkit-scrollbar-thumb {
+            background: #667eea;
+            border-radius: 3px;
+        }
+        table {
+            width: 100%;
+            min-width: max-content;
+            border-collapse: collapse;
+            background: white;
+        }
+        th, td {
+            padding: 12px 15px;
+            text-align: left;
+            border-bottom: 1px solid #e9ecef;
+        }
+        th {
+            background: #667eea;
+            color: white;
+            font-weight: bold;
+        }
+        tr:hover {
+            background: #f8f9fa;
+        }
+        .comparison-table th {
+            background: #495057;
+        }
         .plan-card {
             border: 2px solid #e9ecef;
             border-radius: 15px;
@@ -86,14 +129,17 @@
             color: white;
             font-weight: bold;
         }
-        .plan-a .plan-header {
-            background: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);
+        .plan-c .plan-header {
+            background: linear-gradient(135deg, #43e97b 0%, #38f9d7 100%);
         }
         .plan-b .plan-header {
             background: linear-gradient(135deg, #4facfe 0%, #00f2fe 100%);
         }
-        .plan-c .plan-header {
-            background: linear-gradient(135deg, #43e97b 0%, #38f9d7 100%);
+        .plan-a .plan-header {
+            background: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);
+        }
+        .plan-d .plan-header {
+            background: linear-gradient(135deg, #fa709a 0%, #fee140 100%);
         }
         .plan-body {
             padding: 20px;
@@ -130,75 +176,28 @@
         .highlight strong {
             color: #856404;
         }
-        .table-wrapper {
-            overflow-x: auto;
-            -webkit-overflow-scrolling: touch;
-            margin: 15px 0;
+        .warning {
+            background: #f8d7da;
+            padding: 15px;
             border-radius: 10px;
-            box-shadow: 0 2px 8px rgba(0,0,0,0.1);
-            scrollbar-width: thin;
+            border-left: 4px solid #dc3545;
+            margin: 15px 0;
         }
-        .table-wrapper::-webkit-scrollbar {
-            height: 6px;
+        .warning strong {
+            color: #721c24;
         }
-        .table-wrapper::-webkit-scrollbar-thumb {
-            background: #667eea;
-            border-radius: 3px;
+        .success {
+            background: #d4edda;
+            padding: 15px;
+            border-radius: 10px;
+            border-left: 4px solid #28a745;
+            margin: 15px 0;
         }
-        table {
-            width: 100%;
-            min-width: max-content;
-            border-collapse: collapse;
-            background: white;
-        }
-        th, td {
-            padding: 12px 15px;
-            text-align: left;
-            border-bottom: 1px solid #e9ecef;
-        }
-        th {
-            background: #667eea;
-            color: white;
-            font-weight: bold;
-        }
-        tr:hover {
-            background: #f8f9fa;
-        }
-        .comparison-table {
-            margin: 20px 0;
-        }
-        .comparison-table th {
-            background: #495057;
-        }
-        /* 移动端优化：小屏幕显示卡片式表格 */
-        @media (max-width: 600px) {
-            .table-wrapper {
-                border-radius: 8px;
-                margin: 10px -10px;
-            }
-            table {
-                font-size: 0.82em;
-                min-width: 100%;
-            }
-            th, td {
-                padding: 10px 12px;
-                white-space: normal;
-                word-break: break-word;
-                max-width: 180px;
-            }
-            /* 第一列稍窄，给其他列更多空间 */
-            th:first-child, td:first-child {
-                width: 80px;
-                min-width: 80px;
-                font-weight: bold;
-                background: #f8f9fa;
-            }
-            th:first-child {
-                background: #495057;
-            }
+        .success strong {
+            color: #155724;
         }
         .recommendation {
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            background: linear-gradient(135deg, #43e97b 0%, #38f9d7 100%);
             color: white;
             padding: 30px;
             border-radius: 15px;
@@ -211,21 +210,38 @@
         .recommendation .rank {
             display: inline-block;
             background: white;
-            color: #667eea;
+            color: #43e97b;
             padding: 5px 15px;
             border-radius: 20px;
             font-weight: bold;
             margin-right: 10px;
         }
-        .tips {
+        .recommendation.alt {
+            background: linear-gradient(135deg, #4facfe 0%, #00f2fe 100%);
+        }
+        .recommendation.alt .rank {
+            color: #4facfe;
+        }
+        .train-info {
             background: #e7f3ff;
             border: 1px solid #b3d9ff;
+            padding: 15px;
+            border-radius: 10px;
+            margin: 15px 0;
+        }
+        .train-info h4 {
+            color: #0056b3;
+            margin-bottom: 10px;
+        }
+        .tips {
+            background: #fff3cd;
+            border: 1px solid #ffc107;
             padding: 20px;
             border-radius: 10px;
             margin: 20px 0;
         }
         .tips h4 {
-            color: #0056b3;
+            color: #856404;
             margin-bottom: 10px;
         }
         .tips ul {
@@ -251,15 +267,6 @@
         .emoji {
             font-size: 1.2em;
         }
-        @media print {
-            body {
-                background: white;
-                padding: 0;
-            }
-            .container {
-                box-shadow: none;
-            }
-        }
         @media (max-width: 600px) {
             .header h1 {
                 font-size: 1.5em;
@@ -268,7 +275,7 @@
                 flex-direction: column;
             }
             table {
-                font-size: 0.9em;
+                font-size: 0.85em;
             }
             th, td {
                 padding: 8px 10px;
@@ -281,6 +288,7 @@
         <div class="header">
             <h1>🌸 清明假期旅行方案</h1>
             <p>三天两夜 · 家庭出游 · 老幼友好</p>
+            <div class="update-badge">📊 已根据高铁票情况更新推荐</div>
         </div>
         
         <div class="info-bar">
@@ -297,158 +305,101 @@
                 <div class="value">高铁 + 当地打车</div>
             </div>
             <div class="info-item">
-                <div class="label">🏨 住宿偏好</div>
-                <div class="value">市区/县城酒店</div>
+                <div class="label">💰 预算范围</div>
+                <div class="value">1750-3500 元</div>
             </div>
         </div>
 
         <div class="content">
-            <h2 class="section-title">📋 三个方案对比</h2>
+            <div class="success">
+                <strong>✅ 最新更新（3 月 25 日）：</strong>根据清明高铁票查询结果，衢州票源最充足（92 趟车次），景德镇票源紧张（仅 20 趟，部分需中转）。已将衢州调整为首选推荐！
+            </div>
+
+            <h2 class="section-title">📊 高铁票情况对比</h2>
             
             <div class="table-wrapper">
             <table class="comparison-table">
                 <thead>
                     <tr>
-                        <th>维度</th>
-                        <th>方案 A 上饶</th>
-                        <th>方案 B 景德镇</th>
-                        <th>方案 C 衢州</th>
+                        <th>目的地</th>
+                        <th>车次数量</th>
+                        <th>车程</th>
+                        <th>二等座</th>
+                        <th>购票难度</th>
+                        <th>推荐度</th>
                     </tr>
                 </thead>
                 <tbody>
                     <tr>
-                        <td><strong>高铁时间</strong></td>
-                        <td>约 1.5 小时</td>
-                        <td>约 2 小时</td>
-                        <td>约 40 分钟</td>
+                        <td><strong>衢州</strong></td>
+                        <td>92 趟</td>
+                        <td>40 分钟 -1 小时</td>
+                        <td>¥70-130</td>
+                        <td>⭐ 随便买</td>
+                        <td>🥇 首选</td>
                     </tr>
                     <tr>
-                        <td><strong>老幼友好度</strong></td>
-                        <td>⭐⭐⭐</td>
-                        <td>⭐⭐⭐⭐⭐</td>
-                        <td>⭐⭐⭐⭐⭐</td>
+                        <td><strong>安吉</strong></td>
+                        <td>自驾/大巴</td>
+                        <td>1 小时</td>
+                        <td>油费 + 过路费</td>
+                        <td>⭐ 无需购票</td>
+                        <td>🥈 备选</td>
                     </tr>
                     <tr>
-                        <td><strong>人流量</strong></td>
-                        <td>中等</td>
-                        <td>较少</td>
-                        <td>少</td>
+                        <td><strong>景德镇</strong></td>
+                        <td>20 趟</td>
+                        <td>2 小时</td>
+                        <td>¥150-180</td>
+                        <td>⭐⭐⭐⭐ 需抢票</td>
+                        <td>🥉 备选</td>
                     </tr>
                     <tr>
-                        <td><strong>预算（2 大 1 小）</strong></td>
-                        <td>约 2700-3000 元</td>
-                        <td>约 2400-2600 元</td>
-                        <td>约 1750-2000 元</td>
-                    </tr>
-                    <tr>
-                        <td><strong>特色</strong></td>
-                        <td>仙侠夜景<br>自然奇观</td>
-                        <td>陶瓷文化<br>古镇慢游</td>
-                        <td>生态休闲<br>浙江美食</td>
-                    </tr>
-                    <tr>
-                        <td><strong>推荐指数</strong></td>
-                        <td>⭐⭐⭐⭐</td>
-                        <td>⭐⭐⭐⭐⭐</td>
-                        <td>⭐⭐⭐⭐⭐</td>
+                        <td><strong>上饶</strong></td>
+                        <td>50 趟</td>
+                        <td>1.5 小时</td>
+                        <td>¥120-130</td>
+                        <td>⭐⭐⭐ 较紧张</td>
+                        <td>❌ 不推荐</td>
                     </tr>
                 </tbody>
             </table>
             </div>
 
-            <h2 class="section-title">🎯 方案详情</h2>
+            <h2 class="section-title">🎯 推荐方案</h2>
 
-            <!-- 方案 A -->
-            <div class="plan-card plan-a">
-                <div class="plan-header">
-                    <span class="emoji">🏔️</span> 方案 A：上饶仙侠田园之旅
-                </div>
-                <div class="plan-body">
-                    <h4>📅 行程安排</h4>
-                    <ul>
-                        <li><strong>第一天：</strong>杭州→上饶→望仙谷（仙侠夜景）</li>
-                        <li><strong>第二天：</strong>三清山（可选）或 市区休闲</li>
-                        <li><strong>第三天：</strong>婺源篁岭→返程</li>
-                    </ul>
-                    
-                    <h4>🏨 酒店推荐</h4>
-                    <div class="table-wrapper">
-                    <table>
-                        <tr><th>酒店</th><th>位置</th><th>价格/晚</th></tr>
-                        <tr><td>全季酒店（万达广场店）</td><td>万达广场</td><td>250-300 元</td></tr>
-                        <tr><td>亚朵酒店（市中心广场店）</td><td>市中心</td><td>280-350 元</td></tr>
-                        <tr><td>万达嘉华酒店</td><td>万达广场</td><td>400-500 元</td></tr>
-                    </table>
-                    </div>
-
-                    <h4>🍜 餐厅推荐</h4>
-                    <div class="table-wrapper">
-                    <table>
-                        <tr><th>餐厅</th><th>推荐菜</th><th>人均</th></tr>
-                        <tr><td>白鱼赤乌美食集市</td><td>炒粉、灯盏粿</td><td>50-80 元</td></tr>
-                        <tr><td>老上饶菜馆</td><td>荷包红鲤鱼</td><td>60-90 元</td></tr>
-                        <tr><td>赣东北人家</td><td>三清山土鸡汤</td><td>70-100 元</td></tr>
-                    </table>
-                    </div>
-
-                    <div class="highlight">
-                        <strong>⚠️ 注意事项：</strong> 有三清山爬山行程，老人小孩可能较累，建议第二天改市区休闲。
-                    </div>
-                </div>
-            </div>
-
-            <!-- 方案 B -->
-            <div class="plan-card plan-b">
-                <div class="plan-header">
-                    <span class="emoji">🏺</span> 方案 B：景德镇陶瓷文化之旅 ⭐ 推荐
-                </div>
-                <div class="plan-body">
-                    <h4>📅 行程安排</h4>
-                    <ul>
-                        <li><strong>第一天：</strong>杭州→景德镇→陶溪川文创街区（玩陶艺）</li>
-                        <li><strong>第二天：</strong>御窑厂遗址 + 瑶里古镇（人少景美）</li>
-                        <li><strong>第三天：</strong>中国陶瓷博物馆→返程</li>
-                    </ul>
-                    
-                    <h4>🏨 酒店推荐</h4>
-                    <div class="table-wrapper">
-                    <table>
-                        <tr><th>酒店</th><th>位置</th><th>价格/晚</th></tr>
-                        <tr><td>全季酒店（人民广场店）</td><td>人民广场</td><td>250-300 元</td></tr>
-                        <tr><td>亚朵酒店（陶瓷大学店）</td><td>陶瓷大学</td><td>280-350 元</td></tr>
-                        <tr><td>陶溪川凯悦臻选</td><td>陶溪川景区</td><td>500-600 元</td></tr>
-                    </table>
-                    </div>
-
-                    <h4>🍜 餐厅推荐</h4>
-                    <div class="table-wrapper">
-                    <table>
-                        <tr><th>餐厅</th><th>推荐菜</th><th>人均</th></tr>
-                        <tr><td>抚州弄美食街</td><td>冷粉、饺子粑</td><td>40-60 元</td></tr>
-                        <tr><td>陶溪川餐厅</td><td>创意赣菜</td><td>80-120 元</td></tr>
-                        <tr><td>回家吃饭</td><td>家常赣菜</td><td>60-90 元</td></tr>
-                    </table>
-                    </div>
-
-                    <div class="highlight">
-                        <strong>✨ 亮点：</strong> 小孩可以体验陶艺拉坯，老人可以看瓷器历史，全程不用爬山，轻松愉快！
-                    </div>
-                </div>
-            </div>
-
-            <!-- 方案 C -->
+            <!-- 方案 C：衢州（首选） -->
             <div class="plan-card plan-c">
                 <div class="plan-header">
-                    <span class="emoji">🌿</span> 方案 C：衢州开化生态休闲之旅
+                    <span class="emoji">🥇</span> 方案 C：衢州开化生态休闲之旅 ⭐ 强烈推荐
                 </div>
                 <div class="plan-body">
+                    <div class="success">
+                        <strong>✅ 推荐原因：</strong>高铁票随便买（92 趟）+ 车程最短（40 分钟）+ 预算最低 + 老幼友好
+                    </div>
+
                     <h4>📅 行程安排</h4>
                     <ul>
                         <li><strong>第一天：</strong>杭州→衢州→水亭门古街（吃烤饼）</li>
                         <li><strong>第二天：</strong>开化根宫佛国（坐观光车）</li>
                         <li><strong>第三天：</strong>钱江源国家公园→返程</li>
                     </ul>
-                    
+
+                    <h4>🚄 推荐高铁车次</h4>
+                    <div class="train-info">
+                        <h4>去程（4 月 3 日）- 杭州东→衢州</h4>
+                        <div class="table-wrapper">
+                        <table>
+                            <tr><th>车次</th><th>出发</th><th>到达</th><th>时长</th><th>二等座</th><th>备注</th></tr>
+                            <tr><td>G251</td><td>14:48</td><td>15:45</td><td>57 分钟</td><td>¥131</td><td>最快</td></tr>
+                            <tr><td>G1633</td><td>10:24</td><td>11:32</td><td>1 小时 8 分</td><td>¥121</td><td>上午推荐</td></tr>
+                            <tr><td>G7691</td><td>11:09</td><td>12:26</td><td>1 小时 17 分</td><td>¥109</td><td>性价比高</td></tr>
+                            <tr><td>C481</td><td>08:43</td><td>11:06</td><td>2 小时 23 分</td><td>¥76</td><td>最便宜</td></tr>
+                        </table>
+                        </div>
+                        <p style="margin-top:10px;"><strong>返程（4 月 5 日）：</strong>下午/晚上车次非常多，建议买 15:00-18:00 之间的车次</p>
+                    </div>
+
                     <h4>🏨 酒店推荐</h4>
                     <div class="table-wrapper">
                     <table>
@@ -469,9 +420,143 @@
                     </table>
                     </div>
 
-                    <div class="highlight">
-                        <strong>💰 优势：</strong> 预算最低，高铁仅 40 分钟，不出省，饮食接近杭州口味。
+                    <h4>💰 费用预估（4 人）</h4>
+                    <ul>
+                        <li>高铁往返：¥800</li>
+                        <li>当地打车：¥300</li>
+                        <li>住宿（2 晚）：¥600</li>
+                        <li>门票：¥600</li>
+                        <li>餐饮：¥800</li>
+                        <li><strong>总计：约¥3100（人均¥775）</strong></li>
+                    </ul>
+                </div>
+            </div>
+
+            <!-- 方案 D：安吉（新备选） -->
+            <div class="plan-card plan-d">
+                <div class="plan-header">
+                    <span class="emoji">🥈</span> 方案 D：安吉竹海氧吧之旅 ⭐ 备选推荐
+                </div>
+                <div class="plan-body">
+                    <div class="success">
+                        <strong>✅ 推荐原因：</strong>无需高铁票 + 自驾 1 小时 + 生态环境好 + 适合老人小孩
                     </div>
+
+                    <h4>📅 行程安排</h4>
+                    <ul>
+                        <li><strong>第一天：</strong>杭州→安吉→中南百草原</li>
+                        <li><strong>第二天：</strong>中国大竹海 + 天荒坪</li>
+                        <li><strong>第三天：</strong>安吉竹博园→返程</li>
+                    </ul>
+
+                    <h4>🚗 交通方式</h4>
+                    <div class="train-info">
+                        <h4>自驾（推荐）</h4>
+                        <ul>
+                            <li>路线：杭州→长深高速→杭长高速→安吉</li>
+                            <li>距离：约 65 公里</li>
+                            <li>时间：约 1 小时</li>
+                            <li>费用：油费 + 过路费约¥100（单程）</li>
+                        </ul>
+                        <h4>大巴备选</h4>
+                        <ul>
+                            <li>杭州北站→安吉客运中心</li>
+                            <li>班次：约 30 分钟一班</li>
+                            <li>票价：¥25-30/人</li>
+                            <li>时间：约 1.5 小时</li>
+                        </ul>
+                    </div>
+
+                    <h4>🏨 酒店推荐</h4>
+                    <div class="table-wrapper">
+                    <table>
+                        <tr><th>酒店</th><th>位置</th><th>价格/晚</th></tr>
+                        <tr><td>安吉 JW 万豪酒店</td><td>递铺镇</td><td>800-1000 元</td></tr>
+                        <tr><td>安吉涵田度假村</td><td>灵峰山</td><td>400-600 元</td></tr>
+                        <tr><td>全季酒店（安吉店）</td><td>县城</td><td>250-300 元</td></tr>
+                    </table>
+                    </div>
+
+                    <h4>🎋 主要景点</h4>
+                    <ul>
+                        <li><strong>中国大竹海：</strong>《卧虎藏龙》取景地，门票¥58</li>
+                        <li><strong>中南百草原：</strong>动物园 + 游乐园，门票¥180</li>
+                        <li><strong>安吉竹博园：</strong>看大熊猫，门票¥80</li>
+                        <li><strong>天荒坪：</strong>盘山公路，观景台免费</li>
+                    </ul>
+
+                    <h4>💰 费用预估（4 人）</h4>
+                    <ul>
+                        <li>自驾油费 + 过路费：¥400</li>
+                        <li>住宿（2 晚）：¥800</li>
+                        <li>门票：¥800</li>
+                        <li>餐饮：¥700</li>
+                        <li><strong>总计：约¥2700（人均¥675）</strong></li>
+                    </ul>
+                </div>
+            </div>
+
+            <!-- 方案 B：景德镇（备选） -->
+            <div class="plan-card plan-b">
+                <div class="plan-header">
+                    <span class="emoji">🥉</span> 方案 B：景德镇陶瓷文化之旅 ⚠️ 需抢票
+                </div>
+                <div class="plan-body">
+                    <div class="warning">
+                        <strong>⚠️ 注意事项：</strong>高铁票紧张（仅 20 趟），部分车次需中转，建议提前 14 天抢票或考虑自驾
+                    </div>
+
+                    <h4>📅 行程安排</h4>
+                    <ul>
+                        <li><strong>第一天：</strong>杭州→景德镇→陶溪川文创街区（玩陶艺）</li>
+                        <li><strong>第二天：</strong>御窑厂遗址 + 瑶里古镇（人少景美）</li>
+                        <li><strong>第三天：</strong>中国陶瓷博物馆→返程</li>
+                    </ul>
+
+                    <h4>🚄 推荐高铁车次</h4>
+                    <div class="train-info">
+                        <h4>去程（4 月 3 日）- 杭州西→景德镇北</h4>
+                        <div class="table-wrapper">
+                        <table>
+                            <tr><th>车次</th><th>出发</th><th>到达</th><th>时长</th><th>二等座</th><th>备注</th></tr>
+                            <tr><td>G1415</td><td>08:44</td><td>10:48</td><td>2 小时 4 分</td><td>¥168</td><td>直达推荐</td></tr>
+                            <tr><td>G2863</td><td>08:50</td><td>10:43</td><td>1 小时 53 分</td><td>¥180</td><td>最快</td></tr>
+                            <tr><td>G3073</td><td>09:52</td><td>11:50</td><td>1 小时 58 分</td><td>¥168</td><td>上午推荐</td></tr>
+                        </table>
+                        </div>
+                        <p style="margin-top:10px;"><strong>中转方案（如果直达没票）：</strong>杭州西→黄山北→景德镇北，全程约 2 小时 50 分</p>
+                        <p style="margin-top:10px; color:#dc3545;"><strong>⚠️ 重要：</strong>需提前 14 天（3 月 20 日）准点抢票！12306 APP 优先</p>
+                    </div>
+
+                    <h4>🏨 酒店推荐</h4>
+                    <div class="table-wrapper">
+                    <table>
+                        <tr><th>酒店</th><th>位置</th><th>价格/晚</th></tr>
+                        <tr><td>全季酒店（人民广场店）</td><td>人民广场</td><td>250-300 元</td></tr>
+                        <tr><td>亚朵酒店（陶瓷大学店）</td><td>陶瓷大学</td><td>280-350 元</td></tr>
+                        <tr><td>陶溪川凯悦臻选</td><td>陶溪川景区</td><td>500-600 元</td></tr>
+                    </table>
+                    </div>
+
+                    <h4>🍜 餐厅推荐</h4>
+                    <div class="table-wrapper">
+                    <table>
+                        <tr><th>餐厅</th><th>推荐菜</th><th>人均</th></tr>
+                        <tr><td>抚州弄美食街</td><td>冷粉、饺子粑</td><td>40-60 元</td></tr>
+                        <tr><td>陶溪川餐厅</td><td>创意赣菜</td><td>80-120 元</td></tr>
+                        <tr><td>回家吃饭</td><td>家常赣菜</td><td>60-90 元</td></tr>
+                    </table>
+                    </div>
+
+                    <h4>💰 费用预估（4 人）</h4>
+                    <ul>
+                        <li>高铁往返：¥1400</li>
+                        <li>当地打车：¥400</li>
+                        <li>住宿（2 晚）：¥600</li>
+                        <li>门票：¥400</li>
+                        <li>餐饮：¥700</li>
+                        <li><strong>总计：约¥3500（人均¥875）</strong></li>
+                    </ul>
                 </div>
             </div>
 
@@ -480,57 +565,61 @@
             <div class="recommendation">
                 <h3>
                     <span class="rank">🥇 首选</span>
-                    方案 B：景德镇陶瓷文化之旅
-                </h3>
-                <p><strong>推荐理由：</strong></p>
-                <ul style="margin-left: 20px; margin-top: 10px;">
-                    <li>✅ 文化体验丰富，小孩可以玩陶艺，老人可以看瓷器</li>
-                    <li>✅ 几乎不用爬山，全程平缓，老幼友好</li>
-                    <li>✅ 瑶里古镇原生态，人少清静，适合家庭拍照</li>
-                    <li>✅ 美食丰富且辣度适中，预算适中</li>
-                    <li>✅ 高铁直达，市区酒店选择多</li>
-                </ul>
-            </div>
-
-            <div class="recommendation" style="background: linear-gradient(135deg, #43e97b 0%, #38f9d7 100%);">
-                <h3>
-                    <span class="rank">🥈 备选</span>
                     方案 C：衢州开化生态休闲之旅
                 </h3>
                 <p><strong>推荐理由：</strong></p>
                 <ul style="margin-left: 20px; margin-top: 10px;">
-                    <li>✅ 最省心，高铁 40 分钟直达</li>
-                    <li>✅ 预算最低（约 1750-2000 元）</li>
-                    <li>✅ 语言相通，饮食接近杭州</li>
-                    <li>✅ 开化生态环境好，空气清新</li>
+                    <li>✅ 高铁票随便买（92 趟车次，随时有票）</li>
+                    <li>✅ 车程最短（40 分钟 -1 小时，老人小孩不累）</li>
+                    <li>✅ 预算最低（4 人约¥3100，人均¥775）</li>
+                    <li>✅ 不出省，饮食接近杭州</li>
+                    <li>✅ 老幼友好，几乎不用爬山</li>
+                    <li>✅ 清明下雨也有室内景点（根宫佛国）</li>
+                </ul>
+            </div>
+
+            <div class="recommendation alt">
+                <h3>
+                    <span class="rank">🥈 备选</span>
+                    方案 D：安吉竹海氧吧之旅
+                </h3>
+                <p><strong>推荐理由：</strong></p>
+                <ul style="margin-left: 20px; margin-top: 10px;">
+                    <li>✅ 无需高铁票，自驾 1 小时直达</li>
+                    <li>✅ 生态环境好，天然氧吧</li>
+                    <li>✅ 预算适中（4 人约¥2700）</li>
+                    <li>✅ 景点分散，人少清静</li>
+                    <li>✅ 适合老人小孩，强度低</li>
                 </ul>
             </div>
 
             <div class="tips">
                 <h4>📝 出行前准备</h4>
                 <ul>
-                    <li>清明是旺季，建议提前 3-5 天预订酒店</li>
-                    <li>高铁票提前 14 天开售，记得抢票</li>
-                    <li>部分景点（中国陶瓷博物馆、根宫佛国）需要提前预约</li>
+                    <li><strong>衢州方案：</strong>高铁票随时买，酒店提前 3-5 天预订，根宫佛国建议美团/携程预约</li>
+                    <li><strong>安吉方案：</strong>检查车况，提前订酒店，景点门票可现场买</li>
+                    <li><strong>景德镇方案：</strong>提前 14 天准点抢票（12306 APP），陶瓷博物馆必须公众号预约</li>
                     <li>清明期间可能有雨，带好雨具和外套</li>
                     <li>老人常用药品备好，山上温差大</li>
                     <li>点菜时记得说"不要辣"或"微辣"</li>
                 </ul>
             </div>
 
-            <div class="tips" style="background: #fff3cd; border-color: #ffc107;">
-                <h4 style="color: #856404;">📞 需要进一步帮助？</h4>
-                <ul style="color: #856404;">
-                    <li>具体高铁车次推荐</li>
+            <div class="tips" style="background: #e7f3ff; border-color: #b3d9ff;">
+                <h4 style="color: #0056b3;">📞 需要进一步帮助？</h4>
+                <ul style="color: #0056b3;">
+                    <li>具体酒店预订（带链接）</li>
                     <li>每天详细时间安排</li>
                     <li>打车路线和预估费用</li>
                     <li>景点预约链接和方式</li>
+                    <li>行李清单准备</li>
                 </ul>
             </div>
         </div>
 
         <div class="footer">
-            <p>📌 生成时间：2026 年 3 月 25 日 | 和家人商量后告诉我最终选择，我帮你细化行程！</p>
+            <p>📌 更新时间：2026 年 3 月 25 日 18:59 | 和家人商量后告诉我最终选择，我帮你细化行程！</p>
+            <p>📊 数据来源：携程/12306 实时查询</p>
         </div>
     </div>
 </body>
