@@ -1,0 +1,483 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>清明假期旅行方案 - 家庭出游</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+            line-height: 1.6;
+            color: #333;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            padding: 20px;
+        }
+        .container {
+            max-width: 900px;
+            margin: 0 auto;
+            background: white;
+            border-radius: 20px;
+            box-shadow: 0 20px 60px rgba(0,0,0,0.3);
+            overflow: hidden;
+        }
+        .header {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 40px 30px;
+            text-align: center;
+        }
+        .header h1 {
+            font-size: 2.2em;
+            margin-bottom: 10px;
+        }
+        .header p {
+            font-size: 1.1em;
+            opacity: 0.9;
+        }
+        .info-bar {
+            background: #f8f9fa;
+            padding: 15px 30px;
+            display: flex;
+            justify-content: space-around;
+            flex-wrap: wrap;
+            border-bottom: 1px solid #e9ecef;
+        }
+        .info-item {
+            text-align: center;
+            padding: 10px 20px;
+        }
+        .info-item .label {
+            font-size: 0.9em;
+            color: #6c757d;
+        }
+        .info-item .value {
+            font-size: 1.2em;
+            font-weight: bold;
+            color: #667eea;
+        }
+        .content {
+            padding: 30px;
+        }
+        .section-title {
+            font-size: 1.5em;
+            color: #667eea;
+            margin: 30px 0 20px 0;
+            padding-bottom: 10px;
+            border-bottom: 2px solid #667eea;
+        }
+        .plan-card {
+            border: 2px solid #e9ecef;
+            border-radius: 15px;
+            margin: 20px 0;
+            overflow: hidden;
+            transition: transform 0.3s, box-shadow 0.3s;
+        }
+        .plan-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 30px rgba(0,0,0,0.15);
+        }
+        .plan-header {
+            padding: 20px;
+            color: white;
+            font-weight: bold;
+        }
+        .plan-a .plan-header {
+            background: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);
+        }
+        .plan-b .plan-header {
+            background: linear-gradient(135deg, #4facfe 0%, #00f2fe 100%);
+        }
+        .plan-c .plan-header {
+            background: linear-gradient(135deg, #43e97b 0%, #38f9d7 100%);
+        }
+        .plan-body {
+            padding: 20px;
+            background: #f8f9fa;
+        }
+        .plan-body h4 {
+            color: #495057;
+            margin: 15px 0 10px 0;
+            font-size: 1.1em;
+        }
+        .plan-body ul {
+            list-style: none;
+            padding-left: 0;
+        }
+        .plan-body li {
+            padding: 5px 0;
+            padding-left: 20px;
+            position: relative;
+        }
+        .plan-body li:before {
+            content: "✓";
+            position: absolute;
+            left: 0;
+            color: #28a745;
+            font-weight: bold;
+        }
+        .highlight {
+            background: #fff3cd;
+            padding: 15px;
+            border-radius: 10px;
+            border-left: 4px solid #ffc107;
+            margin: 15px 0;
+        }
+        .highlight strong {
+            color: #856404;
+        }
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 15px 0;
+            background: white;
+            border-radius: 10px;
+            overflow: hidden;
+        }
+        th, td {
+            padding: 12px 15px;
+            text-align: left;
+            border-bottom: 1px solid #e9ecef;
+        }
+        th {
+            background: #667eea;
+            color: white;
+            font-weight: bold;
+        }
+        tr:hover {
+            background: #f8f9fa;
+        }
+        .comparison-table {
+            margin: 20px 0;
+        }
+        .comparison-table th {
+            background: #495057;
+        }
+        .recommendation {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 30px;
+            border-radius: 15px;
+            margin: 30px 0;
+        }
+        .recommendation h3 {
+            font-size: 1.5em;
+            margin-bottom: 15px;
+        }
+        .recommendation .rank {
+            display: inline-block;
+            background: white;
+            color: #667eea;
+            padding: 5px 15px;
+            border-radius: 20px;
+            font-weight: bold;
+            margin-right: 10px;
+        }
+        .tips {
+            background: #e7f3ff;
+            border: 1px solid #b3d9ff;
+            padding: 20px;
+            border-radius: 10px;
+            margin: 20px 0;
+        }
+        .tips h4 {
+            color: #0056b3;
+            margin-bottom: 10px;
+        }
+        .tips ul {
+            list-style: none;
+        }
+        .tips li {
+            padding: 5px 0;
+            padding-left: 25px;
+            position: relative;
+        }
+        .tips li:before {
+            content: "💡";
+            position: absolute;
+            left: 0;
+        }
+        .footer {
+            background: #f8f9fa;
+            padding: 20px 30px;
+            text-align: center;
+            color: #6c757d;
+            border-top: 1px solid #e9ecef;
+        }
+        .emoji {
+            font-size: 1.2em;
+        }
+        @media print {
+            body {
+                background: white;
+                padding: 0;
+            }
+            .container {
+                box-shadow: none;
+            }
+        }
+        @media (max-width: 600px) {
+            .header h1 {
+                font-size: 1.5em;
+            }
+            .info-bar {
+                flex-direction: column;
+            }
+            table {
+                font-size: 0.9em;
+            }
+            th, td {
+                padding: 8px 10px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <h1>🌸 清明假期旅行方案</h1>
+            <p>三天两夜 · 家庭出游 · 老幼友好</p>
+        </div>
+        
+        <div class="info-bar">
+            <div class="info-item">
+                <div class="label">📅 出行时间</div>
+                <div class="value">2026 年 4 月 3-5 日</div>
+            </div>
+            <div class="info-item">
+                <div class="label">👨‍👩‍👧‍👦 出行人数</div>
+                <div class="value">2 大 1 小 + 老人</div>
+            </div>
+            <div class="info-item">
+                <div class="label">🚄 出行方式</div>
+                <div class="value">高铁 + 当地打车</div>
+            </div>
+            <div class="info-item">
+                <div class="label">🏨 住宿偏好</div>
+                <div class="value">市区/县城酒店</div>
+            </div>
+        </div>
+
+        <div class="content">
+            <h2 class="section-title">📋 三个方案对比</h2>
+            
+            <table class="comparison-table">
+                <thead>
+                    <tr>
+                        <th>维度</th>
+                        <th>方案 A 上饶</th>
+                        <th>方案 B 景德镇</th>
+                        <th>方案 C 衢州</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td><strong>高铁时间</strong></td>
+                        <td>约 1.5 小时</td>
+                        <td>约 2 小时</td>
+                        <td>约 40 分钟</td>
+                    </tr>
+                    <tr>
+                        <td><strong>老幼友好度</strong></td>
+                        <td>⭐⭐⭐</td>
+                        <td>⭐⭐⭐⭐⭐</td>
+                        <td>⭐⭐⭐⭐⭐</td>
+                    </tr>
+                    <tr>
+                        <td><strong>人流量</strong></td>
+                        <td>中等</td>
+                        <td>较少</td>
+                        <td>少</td>
+                    </tr>
+                    <tr>
+                        <td><strong>预算（2 大 1 小）</strong></td>
+                        <td>约 2700-3000 元</td>
+                        <td>约 2400-2600 元</td>
+                        <td>约 1750-2000 元</td>
+                    </tr>
+                    <tr>
+                        <td><strong>特色</strong></td>
+                        <td>仙侠夜景<br>自然奇观</td>
+                        <td>陶瓷文化<br>古镇慢游</td>
+                        <td>生态休闲<br>浙江美食</td>
+                    </tr>
+                    <tr>
+                        <td><strong>推荐指数</strong></td>
+                        <td>⭐⭐⭐⭐</td>
+                        <td>⭐⭐⭐⭐⭐</td>
+                        <td>⭐⭐⭐⭐⭐</td>
+                    </tr>
+                </tbody>
+            </table>
+
+            <h2 class="section-title">🎯 方案详情</h2>
+
+            <!-- 方案 A -->
+            <div class="plan-card plan-a">
+                <div class="plan-header">
+                    <span class="emoji">🏔️</span> 方案 A：上饶仙侠田园之旅
+                </div>
+                <div class="plan-body">
+                    <h4>📅 行程安排</h4>
+                    <ul>
+                        <li><strong>第一天：</strong>杭州→上饶→望仙谷（仙侠夜景）</li>
+                        <li><strong>第二天：</strong>三清山（可选）或 市区休闲</li>
+                        <li><strong>第三天：</strong>婺源篁岭→返程</li>
+                    </ul>
+                    
+                    <h4>🏨 酒店推荐</h4>
+                    <table>
+                        <tr><th>酒店</th><th>位置</th><th>价格/晚</th></tr>
+                        <tr><td>全季酒店（万达广场店）</td><td>万达广场</td><td>250-300 元</td></tr>
+                        <tr><td>亚朵酒店（市中心广场店）</td><td>市中心</td><td>280-350 元</td></tr>
+                        <tr><td>万达嘉华酒店</td><td>万达广场</td><td>400-500 元</td></tr>
+                    </table>
+
+                    <h4>🍜 餐厅推荐</h4>
+                    <table>
+                        <tr><th>餐厅</th><th>推荐菜</th><th>人均</th></tr>
+                        <tr><td>白鱼赤乌美食集市</td><td>炒粉、灯盏粿</td><td>50-80 元</td></tr>
+                        <tr><td>老上饶菜馆</td><td>荷包红鲤鱼</td><td>60-90 元</td></tr>
+                        <tr><td>赣东北人家</td><td>三清山土鸡汤</td><td>70-100 元</td></tr>
+                    </table>
+
+                    <div class="highlight">
+                        <strong>⚠️ 注意事项：</strong> 有三清山爬山行程，老人小孩可能较累，建议第二天改市区休闲。
+                    </div>
+                </div>
+            </div>
+
+            <!-- 方案 B -->
+            <div class="plan-card plan-b">
+                <div class="plan-header">
+                    <span class="emoji">🏺</span> 方案 B：景德镇陶瓷文化之旅 ⭐ 推荐
+                </div>
+                <div class="plan-body">
+                    <h4>📅 行程安排</h4>
+                    <ul>
+                        <li><strong>第一天：</strong>杭州→景德镇→陶溪川文创街区（玩陶艺）</li>
+                        <li><strong>第二天：</strong>御窑厂遗址 + 瑶里古镇（人少景美）</li>
+                        <li><strong>第三天：</strong>中国陶瓷博物馆→返程</li>
+                    </ul>
+                    
+                    <h4>🏨 酒店推荐</h4>
+                    <table>
+                        <tr><th>酒店</th><th>位置</th><th>价格/晚</th></tr>
+                        <tr><td>全季酒店（人民广场店）</td><td>人民广场</td><td>250-300 元</td></tr>
+                        <tr><td>亚朵酒店（陶瓷大学店）</td><td>陶瓷大学</td><td>280-350 元</td></tr>
+                        <tr><td>陶溪川凯悦臻选</td><td>陶溪川景区</td><td>500-600 元</td></tr>
+                    </table>
+
+                    <h4>🍜 餐厅推荐</h4>
+                    <table>
+                        <tr><th>餐厅</th><th>推荐菜</th><th>人均</th></tr>
+                        <tr><td>抚州弄美食街</td><td>冷粉、饺子粑</td><td>40-60 元</td></tr>
+                        <tr><td>陶溪川餐厅</td><td>创意赣菜</td><td>80-120 元</td></tr>
+                        <tr><td>回家吃饭</td><td>家常赣菜</td><td>60-90 元</td></tr>
+                    </table>
+
+                    <div class="highlight">
+                        <strong>✨ 亮点：</strong> 小孩可以体验陶艺拉坯，老人可以看瓷器历史，全程不用爬山，轻松愉快！
+                    </div>
+                </div>
+            </div>
+
+            <!-- 方案 C -->
+            <div class="plan-card plan-c">
+                <div class="plan-header">
+                    <span class="emoji">🌿</span> 方案 C：衢州开化生态休闲之旅
+                </div>
+                <div class="plan-body">
+                    <h4>📅 行程安排</h4>
+                    <ul>
+                        <li><strong>第一天：</strong>杭州→衢州→水亭门古街（吃烤饼）</li>
+                        <li><strong>第二天：</strong>开化根宫佛国（坐观光车）</li>
+                        <li><strong>第三天：</strong>钱江源国家公园→返程</li>
+                    </ul>
+                    
+                    <h4>🏨 酒店推荐</h4>
+                    <table>
+                        <tr><th>酒店</th><th>位置</th><th>价格/晚</th></tr>
+                        <tr><td>全季酒店（水亭门店）</td><td>水亭门</td><td>250-300 元</td></tr>
+                        <tr><td>亚朵酒店（市政府店）</td><td>市政府</td><td>280-350 元</td></tr>
+                        <tr><td>衢州东方大酒店</td><td>水亭门</td><td>400-500 元</td></tr>
+                    </table>
+
+                    <h4>🍜 餐厅推荐</h4>
+                    <table>
+                        <tr><th>餐厅</th><th>推荐菜</th><th>人均</th></tr>
+                        <tr><td>古铺良食</td><td>衢州烤饼</td><td>60-90 元</td></tr>
+                        <tr><td>开化清水鱼庄</td><td>清水鱼</td><td>80-120 元</td></tr>
+                        <tr><td>杨家巷烤饼店</td><td>烤饼</td><td>10-20 元</td></tr>
+                    </table>
+
+                    <div class="highlight">
+                        <strong>💰 优势：</strong> 预算最低，高铁仅 40 分钟，不出省，饮食接近杭州口味。
+                    </div>
+                </div>
+            </div>
+
+            <h2 class="section-title">💡 最终推荐</h2>
+            
+            <div class="recommendation">
+                <h3>
+                    <span class="rank">🥇 首选</span>
+                    方案 B：景德镇陶瓷文化之旅
+                </h3>
+                <p><strong>推荐理由：</strong></p>
+                <ul style="margin-left: 20px; margin-top: 10px;">
+                    <li>✅ 文化体验丰富，小孩可以玩陶艺，老人可以看瓷器</li>
+                    <li>✅ 几乎不用爬山，全程平缓，老幼友好</li>
+                    <li>✅ 瑶里古镇原生态，人少清静，适合家庭拍照</li>
+                    <li>✅ 美食丰富且辣度适中，预算适中</li>
+                    <li>✅ 高铁直达，市区酒店选择多</li>
+                </ul>
+            </div>
+
+            <div class="recommendation" style="background: linear-gradient(135deg, #43e97b 0%, #38f9d7 100%);">
+                <h3>
+                    <span class="rank">🥈 备选</span>
+                    方案 C：衢州开化生态休闲之旅
+                </h3>
+                <p><strong>推荐理由：</strong></p>
+                <ul style="margin-left: 20px; margin-top: 10px;">
+                    <li>✅ 最省心，高铁 40 分钟直达</li>
+                    <li>✅ 预算最低（约 1750-2000 元）</li>
+                    <li>✅ 语言相通，饮食接近杭州</li>
+                    <li>✅ 开化生态环境好，空气清新</li>
+                </ul>
+            </div>
+
+            <div class="tips">
+                <h4>📝 出行前准备</h4>
+                <ul>
+                    <li>清明是旺季，建议提前 3-5 天预订酒店</li>
+                    <li>高铁票提前 14 天开售，记得抢票</li>
+                    <li>部分景点（中国陶瓷博物馆、根宫佛国）需要提前预约</li>
+                    <li>清明期间可能有雨，带好雨具和外套</li>
+                    <li>老人常用药品备好，山上温差大</li>
+                    <li>点菜时记得说"不要辣"或"微辣"</li>
+                </ul>
+            </div>
+
+            <div class="tips" style="background: #fff3cd; border-color: #ffc107;">
+                <h4 style="color: #856404;">📞 需要进一步帮助？</h4>
+                <ul style="color: #856404;">
+                    <li>具体高铁车次推荐</li>
+                    <li>每天详细时间安排</li>
+                    <li>打车路线和预估费用</li>
+                    <li>景点预约链接和方式</li>
+                </ul>
+            </div>
+        </div>
+
+        <div class="footer">
+            <p>📌 生成时间：2026 年 3 月 25 日 | 和家人商量后告诉我最终选择，我帮你细化行程！</p>
+        </div>
+    </div>
+</body>
+</html>
