@@ -14,6 +14,8 @@
   .card h2 { color: #333; font-size: 19px; margin-bottom: 14px; padding-bottom: 10px; border-bottom: 2px solid #667eea; }
   .card h3 { color: #667eea; font-size: 15px; margin: 14px 0 8px; }
   table { width: 100%; border-collapse: collapse; margin: 10px 0; font-size: 13px; }
+  .scroll-wrap { overflow-x: auto; -webkit-overflow-scrolling: touch; margin: 10px 0; }
+  .scroll-wrap table { margin: 0; min-width: 600px; }
   th { background: #667eea; color: #fff; padding: 8px 6px; text-align: center; }
   td { padding: 7px 6px; text-align: center; border-bottom: 1px solid #eee; }
   tr:nth-child(even) { background: #f8f9ff; }
@@ -72,22 +74,26 @@
 <div class="card">
 <h2>🚄 已购票信息 & 返程推荐</h2>
 <h3>✅ 去程已买（3人合计 ¥1,130）</h3>
-<table>
+<div class="scroll-wrap">
+<div class="scroll-wrap"><div class="scroll-wrap"><table>
   <tr><th>车次</th><th>区间</th><th>时间</th><th>时长</th><th>成人×2</th><th>儿童×1</th><th>合计</th></tr>
   <tr class="highlight"><td>G1633</td><td>杭州东→厦门北</td><td>10:24→15:35</td><td>5h11m</td><td>¥900</td><td>¥230</td><td>¥1,130</td></tr>
-</table>
+</div>
+</table></div>
 
 <h3>⏳ 返程待购（4月30日下午 厦门北→杭州东）</h3>
-<table>
+<div class="scroll-wrap"><table>
+<div class="scroll-wrap">
   <tr><th>推荐</th><th>车次</th><th>出发</th><th>到达</th><th>时长</th><th>二等座</th><th>成人×2</th><th>儿童</th><th>3人合计</th></tr>
   <tr class="highlight"><td class="rec">⭐ 首选</td><td>G3022</td><td>14:53</td><td>20:46</td><td>5h53m</td><td>¥403</td><td>¥806</td><td>¥202</td><td>¥1,008</td></tr>
   <tr><td>🥈 备选</td><td>G1662</td><td>13:29</td><td>18:49</td><td>5h20m</td><td>¥493</td><td>¥986</td><td>¥247</td><td>¥1,233</td></tr>
   <tr><td>🥉 备选</td><td>G1656</td><td>15:43</td><td>21:03</td><td>5h20m</td><td>¥464</td><td>¥928</td><td>¥232</td><td>¥1,160</td></tr>
   <tr><td>💰 最省</td><td>D2282</td><td>13:14</td><td>19:59</td><td>6h45m</td><td>¥352</td><td>¥704</td><td>¥176</td><td>¥880</td></tr>
-</table>
+</table></div>
 <div class="note">
 💡 <strong>推荐 G3022（14:53→20:46）</strong>：时间最舒适，不赶早不晚到，¥403/人 性价比高。<br>
 ⚠️ 4月30日是五一前一天，返程票紧张，确定后尽快买！<strong>4月15日开售</strong>。
+</div>
 </div>
 </div>
 
@@ -159,6 +165,7 @@
 <h3>📐 三套方案酒店总览</h3>
 <table>
   <tr><th>方案</th><th>第1晚（北站附近）</th><th>第2晚（海滩旁）</th><th>第3晚（植物园旁）</th><th>第4晚（北站附近）</th><th>4晚合计</th></tr>
+<div class="scroll-wrap">
   <tr class="highlight">
     <td><strong>A 轻奢</strong></td>
     <td>波特曼·曦海<br>亲子房 ¥700</td>
@@ -181,6 +188,7 @@
     <td>黄厝民宿<br>家庭房 ¥150</td>
     <td>厦门宾馆<br>舒适房 ¥420<br><span class="save">含早+送票</span></td>
     <td>集美区民宿<br>家庭房 ¥120</td>
+</div>
     <td><strong>~¥599</strong><br><span class="save">等效扣¥241</span></td>
   </tr>
 </table>
