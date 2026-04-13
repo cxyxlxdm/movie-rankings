@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>🌸 厦门亲子5天4晚 · 三套方案对比</title>
+<title>🌸 厦门亲子5天4晚 · 三套方案</title>
 <style>
   * { margin: 0; padding: 0; box-sizing: border-box; }
   body { font-family: -apple-system, BlinkMacSystemFont, "PingFang SC", "Microsoft YaHei", sans-serif; background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); min-height: 100vh; padding: 20px; }
@@ -50,10 +50,10 @@
   .tag-red { background: #fce4ec; color: #c62828; }
   .hotel-eval { border: 2px solid #eee; border-radius: 12px; padding: 16px; margin: 10px 0; }
   .hotel-eval.approved { border-color: #4caf50; background: #f8fff8; }
-  .hotel-eval.rejected { border-color: #f44336; background: #fff8f8; }
   .hotel-eval .name { font-size: 16px; font-weight: bold; color: #333; }
   .hotel-eval .stars { color: #ff9800; }
   .hotel-move { background: #f3e5f5; border-left: 4px solid #9c27b0; padding: 10px 14px; border-radius: 0 8px 8px 0; margin: 10px 0; font-size: 13px; line-height: 1.7; }
+  .route-map { background: #f5f5ff; border-radius: 10px; padding: 14px; margin: 10px 0; font-size: 13px; text-align: center; line-height: 2; }
   .footer { text-align: center; color: rgba(255,255,255,0.6); padding: 20px; font-size: 11px; }
   @media (max-width: 600px) { body { padding: 10px; } .weather-grid { grid-template-columns: repeat(3, 1fr); } }
 </style>
@@ -61,15 +61,39 @@
 <body>
 <div class="container">
 
-<h1>🌸 厦门亲子5天4晚 · 三套方案对比</h1>
+<h1>🌸 厦门亲子5天4晚 · 三套方案</h1>
 <p class="subtitle">
   📅 4月26日（周日）— 4月30日（周四） | 👨‍👩‍👧 3人（中年人+小朋友+老年人）<br>
-  📍 杭州 ↔ 厦门 | 🏨 豪华+经济搭配 | 🍽️ 善用酒店含餐/含票省整体花费
+  🚄 去程已买 G1633 10:24→15:35 ¥450/成人 ¥230/儿童 | 返程待定（4/30下午）<br>
+  🏨 豪华+经济搭配 | 🍽️ 善用酒店含餐含票省整体花费
 </p>
+
+<!-- ==================== 关键信息 ==================== -->
+<div class="card">
+<h2>🚄 已购票信息 & 返程推荐</h2>
+<h3>✅ 去程已买（3人合计 ¥1,130）</h3>
+<table>
+  <tr><th>车次</th><th>区间</th><th>时间</th><th>时长</th><th>成人×2</th><th>儿童×1</th><th>合计</th></tr>
+  <tr class="highlight"><td>G1633</td><td>杭州东→厦门北</td><td>10:24→15:35</td><td>5h11m</td><td>¥900</td><td>¥230</td><td>¥1,130</td></tr>
+</table>
+
+<h3>⏳ 返程待购（4月30日下午 厦门北→杭州东）</h3>
+<table>
+  <tr><th>推荐</th><th>车次</th><th>出发</th><th>到达</th><th>时长</th><th>二等座</th><th>成人×2</th><th>儿童</th><th>3人合计</th></tr>
+  <tr class="highlight"><td class="rec">⭐ 首选</td><td>G3022</td><td>14:53</td><td>20:46</td><td>5h53m</td><td>¥403</td><td>¥806</td><td>¥202</td><td>¥1,008</td></tr>
+  <tr><td>🥈 备选</td><td>G1662</td><td>13:29</td><td>18:49</td><td>5h20m</td><td>¥493</td><td>¥986</td><td>¥247</td><td>¥1,233</td></tr>
+  <tr><td>🥉 备选</td><td>G1656</td><td>15:43</td><td>21:03</td><td>5h20m</td><td>¥464</td><td>¥928</td><td>¥232</td><td>¥1,160</td></tr>
+  <tr><td>💰 最省</td><td>D2282</td><td>13:14</td><td>19:59</td><td>6h45m</td><td>¥352</td><td>¥704</td><td>¥176</td><td>¥880</td></tr>
+</table>
+<div class="note">
+💡 <strong>推荐 G3022（14:53→20:46）</strong>：时间最舒适，不赶早不晚到，¥403/人 性价比高。<br>
+⚠️ 4月30日是五一前一天，返程票紧张，确定后尽快买！<strong>4月15日开售</strong>。
+</div>
+</div>
 
 <!-- ==================== 天气 ==================== -->
 <div class="card">
-<h2>🌤️ 出行期间天气预报（厦门）</h2>
+<h2>🌤️ 出行期间天气预报</h2>
 <div class="weather-grid">
   <div class="weather-day"><div class="date">4/26 周日</div><div class="icon">⛅</div><div class="temp">22~27°C</div><div class="rain">多云转晴</div></div>
   <div class="weather-day"><div class="date">4/27 周一</div><div class="icon">☀️</div><div class="temp">22~28°C</div><div class="rain">晴间多云</div></div>
@@ -77,108 +101,96 @@
   <div class="weather-day"><div class="date">4/29 周三</div><div class="icon">🌧️⚡</div><div class="temp">20~26°C</div><div class="rain">阵雨+雷暴</div></div>
   <div class="weather-day"><div class="date">4/30 周四</div><div class="icon">🌦️</div><div class="temp">21~26°C</div><div class="rain">阵雨</div></div>
 </div>
-<div class="warn">⚠️ 4/29有阵雨雷暴。海滩安排在Day 2（天气最好）。必带折叠伞+雨衣。</div>
 </div>
 
 <!-- ==================== 酒店评估 ==================== -->
 <div class="card">
-<h2>🏨 酒店评估 & 含餐含票价值分析</h2>
+<h2>🏨 酒店评估 & 策略调整</h2>
 
-<div class="hotel-eval approved">
-<div class="name">✅ 艾尼·壹水湾度假酒店 <span class="stars">★★★★</span> <span class="tag tag-green">推荐住海边</span></div>
-<table>
-  <tr><th>评分</th><th>位置</th><th>房型/价格</th><th>到海滩</th></tr>
-  <tr><td>9.4/10（814条）</td><td>环岛南路黄厝溪头下66号</td><td>标准房 ¥350 / 全海景套房 ¥600-700</td><td><strong>下楼即沙滩</strong></td></tr>
-</table>
 <div class="info">
-🍽️ <strong>早餐</strong>：自助餐，成人¥68/人，儿童1.2-1.4m ¥30，1.2m以下免费<br>
-💡 2大人+1儿童早餐费 = ¥68×2 + ¥30 = <strong>¥166/天</strong>（如果含早则省这笔）<br>
-✅ 专属沙滩区、有泳池、KTV、免费停车、儿童浴袍拖鞋牙刷齐全
-</div>
-</div>
-
-<div class="hotel-eval rejected">
-<div class="name">❌ 波特曼七星湾酒店 <span class="stars">★★★★★</span> <span class="tag tag-red">不推荐（位置太偏）</span></div>
-<div class="warn">
-酒店本身很好（水上乐园+儿童俱乐部+4间餐厅），但位于同安区环东海域，距主要景点打车30-40分钟。纯度假很棒，游览景点为主不适合。
-</div>
+📌 <strong>关键约束</strong>：G1633 到达厦门北站 15:35，到酒店约 16:15-17:00。第一天只有傍晚时间。<br>
+📌 <strong>新策略</strong>：前两晚酒店应靠近厦门北站（集美/同安），Day 1 少折腾，Day 2 上午从近处出发去景点。
 </div>
 
 <div class="hotel-eval approved">
-<div class="name">✅ 厦门宾馆（植物园中山路步行街店）<span class="stars">★★★★★</span> <span class="tag tag-green">性价比之王·必住</span></div>
+<div class="name">✅ 艾尼·壹水湾 <span class="stars">★★★★</span> <span class="tag tag-green">推荐第2-3晚</span></div>
 <table>
-  <tr><th>评分</th><th>位置</th><th>房型/价格</th><th>到植物园</th></tr>
-  <tr><td>4.7/10（1.3万条）</td><td>虎园路16号</td><td>城景房 ¥500 / 亲子房 ¥700-800</td><td><strong>步行7分钟</strong></td></tr>
+  <tr><th>评分</th><th>位置</th><th>价格</th><th>到海滩</th><th>到厦门北站</th></tr>
+  <tr><td>9.4/10</td><td>环岛南路黄厝</td><td>标准¥350 / 海景套房¥650</td><td>下楼即到</td><td>打车~50min</td></tr>
+</table>
+<div class="info">第1晚住北站附近后，第2天退房去壹水湾（打车~40min），下午+晚上享受海滩，第3天退房去植物园方向。不在Day 1 赶路了。</div>
+</div>
+
+<div class="hotel-eval approved">
+<div class="name">✅ 波特曼七星湾酒店 <span class="stars">★★★★★</span> <span class="tag tag-green">推荐第1晚 + 第4晚</span></div>
+<table>
+  <tr><th>评分</th><th>位置</th><th>价格</th><th>到厦门北站</th><th>到海滩</th></tr>
+  <tr><td>9.3/10</td><td>同安区环东海域</td><td>瑞海¥500-600 / 曦海亲子房¥700+</td><td><strong>🚗 25分钟</strong></td><td>自带人造沙滩+水上乐园</td></tr>
 </table>
 <div class="info">
-🎁 <strong>住客福利（省大钱！）</strong>：<br>
-• 🎫 <strong>送植物园门票+电瓶车票</strong>（价值 ¥75：门票30×2+15 + 观光车10×3）<br>
-• 🍽️ 含自助早餐（沙茶面、肉粽、鱼丸等闽南特色）<br>
-• 🏛️ 免费防空洞人文导览+簪花体验（小朋友喜欢）<br>
-• 🚗 免费停车+电瓶车接送<br>
-💰 <strong>真实价值</strong>：房价¥600 - 含早省¥166 - 送票省¥75 = <strong>等效¥359/晚</strong>
+✅ <strong>第1晚</strong>：15:35到北站，打车25分钟到波特曼，16:00入住。傍晚在酒店人造沙滩+泳池玩，不用再折腾去岛内。<br>
+✅ <strong>第4晚</strong>：Day 4 下午从市区过来（下雨天正好泡室内水上乐园），Day 5 早上25分钟到北站坐车。<br>
+🍽️ 早餐：¥99/成人，¥60/儿童<br>
+💰 波特曼住2晚可以谈打包价，且省了Day 1和Day 5的长途打车费（各省¥50+）
 </div>
 </div>
 
 <div class="hotel-eval approved">
-<div class="name">✅ 厦门海港英迪格酒店 <span class="stars">★★★★</span> <span class="tag tag-blue">IHG精品·最后1晚推荐</span></div>
+<div class="name">✅ 厦门宾馆 <span class="stars">★★★★★</span> <span class="tag tag-green">必住·性价比之王</span></div>
 <table>
-  <tr><th>评分</th><th>位置</th><th>房型/价格</th><th>亮点</th></tr>
-  <tr><td>好评如潮</td><td>轮渡码头旁</td><td>海港景观房 ¥600-800</td><td>隔海正对鼓浪屿夜景</td></tr>
+  <tr><th>评分</th><th>位置</th><th>价格</th><th>到植物园</th></tr>
+  <tr><td>4.7分/1.3万条</td><td>虎园路16号</td><td>城景房¥500 / 亲子房¥700-800</td><td>步行7分钟</td></tr>
 </table>
-<div class="info">
-✅ 步行5分钟到中山路+八市（厦门最地道的海鲜市场）<br>
-✅ Day 3从鼓浪屿回来直接入住，不用再打车<br>
-💡 IHG会员可能有积分/免费早餐福利
-</div>
+<div class="info">🎫 送植物园门票+电瓶车（省¥75）+ 🍽️ 含自助早餐（省¥166/天）= 等效¥359/晚</div>
 </div>
 </div>
 
-<!-- ==================== 三方案总览 ==================== -->
+<!-- ==================== 地理动线 ==================== -->
 <div class="card">
-<h2>📐 三套方案总览（豪华+经济搭配）</h2>
-<p style="font-size:13px; color:#666; margin-bottom:8px;">策略：海边用经济型（主要玩沙滩，房间待的时间少），植物园用含票含早的高性价比酒店，最后1晚用精品酒店收尾</p>
+<h2>🗺️ 地理动线 & 换酒店策略</h2>
+<div class="route-map">
+📍 <strong>厦门北站</strong>（集美区）──25min🚗──→ <strong>波特曼</strong>（同安区环东海域）<br>
+📍 <strong>波特曼</strong>──40min🚗──→ <strong>壹水湾</strong>（思明区黄厝海滩）<br>
+📍 <strong>壹水湾</strong>──15min🚗──→ <strong>厦门宾馆</strong>（思明区植物园旁）<br>
+📍 <strong>厦门宾馆</strong>──30min🚗──→ <strong>波特曼</strong>（第4晚）<br>
+📍 <strong>波特曼</strong>──25min🚗──→ <strong>厦门北站</strong>（第5天返程）
+</div>
 
+<h3>📐 三套方案酒店总览</h3>
 <table>
-  <tr><th>方案</th><th>第1-2晚（海滩旁）</th><th>第3晚（植物园旁）</th><th>第4晚（轮渡/中山路）</th><th>4晚房价</th><th>含餐/票省</th><th>等效花费</th></tr>
+  <tr><th>方案</th><th>第1晚（北站附近）</th><th>第2晚（海滩旁）</th><th>第3晚（植物园旁）</th><th>第4晚（北站附近）</th><th>4晚合计</th></tr>
   <tr class="highlight">
     <td><strong>A 轻奢</strong></td>
-    <td>艾尼·壹水湾<br>全海景套房 ¥650×2</td>
-    <td>厦门宾馆<br>亲子房 ¥750<br><span class="save">含早+送植物园票</span></td>
-    <td>海港英迪格<br>海景房 ¥700</td>
-    <td>¥2,750</td>
-    <td class="save">-¥241</td>
-    <td><strong>¥2,509</strong></td>
+    <td>波特曼·曦海<br>亲子房 ¥700</td>
+    <td>艾尼·壹水湾<br>海景套房 ¥650</td>
+    <td>厦门宾馆<br>亲子房 ¥750<br><span class="save">含早+送票</span></td>
+    <td>波特曼·瑞海<br>标准房 ¥550</td>
+    <td><strong>¥2,409</strong><br><span class="save">等效扣¥241</span></td>
   </tr>
   <tr>
     <td><strong>B 务实</strong></td>
-    <td>艾尼·壹水湾<br>标准房 ¥380×2</td>
-    <td>厦门宾馆<br>城景房 ¥550<br><span class="save">含早+送植物园票</span></td>
-    <td>如家NEO·轮渡海景店<br>双床房 ¥260</td>
-    <td>¥1,570</td>
-    <td class="save">-¥241</td>
-    <td><strong>¥1,329</strong></td>
+    <td>波特曼·瑞海<br>标准房 ¥500</td>
+    <td>艾尼·壹水湾<br>标准房 ¥380</td>
+    <td>厦门宾馆<br>城景房 ¥550<br><span class="save">含早+送票</span></td>
+    <td>波特曼·瑞海<br>标准房 ¥500</td>
+    <td><strong>~¥1,689</strong><br><span class="save">等效扣¥241</span></td>
   </tr>
   <tr>
     <td><strong>C 省钱</strong></td>
-    <td>黄厝海滩民宿<br>家庭房 ¥150×2</td>
-    <td>厦门宾馆<br>舒适房 ¥420<br><span class="save">含早+送植物园票</span></td>
-    <td>中山路附近民宿<br>家庭房 ¥120</td>
-    <td>¥840</td>
-    <td class="save">-¥241</td>
-    <td><strong>¥599</strong></td>
+    <td>集美区民宿<br>家庭房 ¥150</td>
+    <td>黄厝民宿<br>家庭房 ¥150</td>
+    <td>厦门宾馆<br>舒适房 ¥420<br><span class="save">含早+送票</span></td>
+    <td>集美区民宿<br>家庭房 ¥120</td>
+    <td><strong>~¥599</strong><br><span class="save">等效扣¥241</span></td>
   </tr>
 </table>
 
 <div class="note">
-💡 <strong>核心策略</strong>：<br>
-• 三个方案都住厦门宾馆——因为它<strong>含早餐+送植物园门票</strong>，等效最便宜<br>
-• 海边酒店差异化大：A用全海景套房享受，B用标准房省钱，C用民宿极致压缩<br>
-• 最后一晚都选轮渡/中山路附近：Day 3鼓浪屿回来直接入住，Day 5退房后就近买手信再去火车站
-</div>
-
-<div class="hotel-move">
-💜 <strong>换房不麻烦</strong>：退房12:00 → 行李存前台 → 白天游玩 → 14:00入住新酒店（厦门不大，打车跨区¥20-30）
+💡 <strong>波特曼住2晚的好处</strong>：<br>
+• Day 1 到达后25分钟入住，不折腾，傍晚玩酒店设施<br>
+• Day 5 早上25分钟到站，不赶路<br>
+• 中间2晚住岛内（壹水湾海滩+厦门宾馆植物园），景点全覆盖<br>
+• 波特曼住2晚可能有打包优惠
 </div>
 </div>
 
@@ -186,85 +198,80 @@
 <!-- 方案A -->
 <!-- ================================================================ -->
 <div class="card">
-<div class="day-header">🅰️ 方案A · 轻奢品质版 <span class="plan-badge badge-a">预算 ~¥7,500</span></div>
+<div class="day-header">🅰️ 方案A · 轻奢品质版 <span class="plan-badge badge-a">预算 ~¥7,800</span></div>
 
-<h3>🚄 交通（3人合计 ¥1,996）</h3>
+<h3>🏨 酒店4晚 ¥2,650（等效¥2,409）</h3>
 <table>
-  <tr><th>方向</th><th>车次</th><th>时间</th><th>时长</th><th>成人×2</th><th>儿童×1</th><th>合计</th></tr>
-  <tr><td>去程 4/26</td><td>G259</td><td>07:25→~12:30</td><td>~5h</td><td>¥760</td><td>¥190</td><td>¥950</td></tr>
-  <tr><td>返程 4/30</td><td>G256</td><td>08:10→12:28</td><td>4h18m</td><td>¥986</td><td>¥247</td><td>¥1,046</td></tr>
-</table>
-
-<h3>🏨 酒店4晚（豪华+经济混搭）</h3>
-<table>
-  <tr><th>夜</th><th>酒店</th><th>房型</th><th>房价</th><th>含福利</th></tr>
-  <tr class="highlight"><td>4/26</td><td rowspan="2">艾尼·壹水湾</td><td rowspan="2">至尊大床套房 68㎡·180°海景</td><td rowspan="2">¥650×2</td><td rowspan="2">🏖️ 下楼即沙滩</td></tr>
-  <tr class="highlight"><td>4/27</td></tr>
-  <tr><td>4/28</td><td>厦门宾馆</td><td>猎火熊亲子房 35㎡</td><td>¥750</td><td>🎫 送植物园票+电瓶车<br>🍽️ 含自助早餐</td></tr>
-  <tr><td>4/29</td><td>海港英迪格</td><td>海港景观房</td><td>¥700</td><td>🏛️ 望鼓浪屿夜景</td></tr>
+  <tr><th>夜</th><th>酒店</th><th>房型</th><th>房价</th><th>福利</th></tr>
+  <tr><td>4/26</td><td>波特曼·曦海</td><td>亲子房</td><td>¥700</td><td>🏖️ 人造沙滩+水上乐园</td></tr>
+  <tr><td>4/27</td><td>艾尼·壹水湾</td><td>至尊海景套房 68㎡</td><td>¥650</td><td>🏖️ 下楼即黄厝沙滩</td></tr>
+  <tr class="highlight"><td>4/28</td><td>厦门宾馆</td><td>猎火熊亲子房</td><td>¥750</td><td>🎫 送植物园票+电瓶车<br>🍽️ 含早餐</td></tr>
+  <tr><td>4/29</td><td>波特曼·瑞海</td><td>标准房</td><td>¥550</td><td>🏊 室内水上乐园（下雨天玩）</td></tr>
 </table>
 
 <h3>📅 每日行程</h3>
 
-<div class="day-header" style="font-size:14px; padding:10px 14px;">Day 1 · 4/26 ⛅ 抵达+海边 <span class="tag tag-blue">住：壹水湾</span></div>
+<div class="day-header" style="font-size:14px; padding:10px 14px;">Day 1 · 4/26 ⛅ 到达+酒店度假 <span class="tag tag-blue">住：波特曼·曦海</span></div>
 <div class="timeline">
-  <div class="timeline-item"><span class="timeline-time">07:25</span><div class="timeline-content">G259 杭州东出发</div></div>
-  <div class="timeline-item"><span class="timeline-time">~12:30</span><div class="timeline-content">到达厦门北 → 打车到壹水湾（~40min ¥60）</div></div>
-  <div class="timeline-item"><span class="timeline-time">13:30</span><div class="timeline-content">🏨 入住，休息</div></div>
-  <div class="timeline-item"><span class="timeline-time">15:00</span><div class="timeline-content">🏖️ 黄厝沙滩（下楼即到）挖沙玩水，远望金门</div></div>
-  <div class="timeline-item"><span class="timeline-time">17:30</span><div class="timeline-content">🍜 曾厝垵晚餐（步行10min）</div></div>
-  <div class="timeline-item"><span class="timeline-time">19:30</span><div class="timeline-content">返回酒店，海边散步</div></div>
+  <div class="timeline-item"><span class="timeline-time">10:24</span><div class="timeline-content">G1633 杭州东出发</div></div>
+  <div class="timeline-item"><span class="timeline-time">15:35</span><div class="timeline-content">到达厦门北站</div></div>
+  <div class="timeline-item"><span class="timeline-time">16:00</span><div class="timeline-content">🚗 打车25分钟到波特曼，入住</div></div>
+  <div class="timeline-item"><span class="timeline-time">16:30-18:30</span><div class="timeline-content">🏖️ 酒店人造沙滩+泳池，小朋友玩水，老人散步</div></div>
+  <div class="timeline-item"><span class="timeline-time">18:30</span><div class="timeline-content">🍽️ 酒店餐厅晚餐（4间可选）或阳光小镇（步行5分钟商业中心）</div></div>
+  <div class="timeline-item"><span class="timeline-time">20:00</span><div class="timeline-content">回房休息，不折腾</div></div>
 </div>
 
-<div class="day-header green" style="font-size:14px; padding:10px 14px;">Day 2 · 4/27 ☀️ 海滩+植物园 <span class="tag tag-green">天气最好·户外日</span></div>
+<div class="day-header green" style="font-size:14px; padding:10px 14px;">Day 2 · 4/27 ☀️ 真正的海滩日 <span class="tag tag-green">天气最好</span></div>
 <div class="timeline">
-  <div class="timeline-item"><span class="timeline-time">08:00</span><div class="timeline-content">壹水湾早餐（自助¥68/人）</div></div>
-  <div class="timeline-item"><span class="timeline-time">09:00-12:00</span><div class="timeline-content">🏖️ 上午海滩享受（天气最好！）/ 环岛路骑行</div></div>
-  <div class="timeline-item"><span class="timeline-time">12:30</span><div class="timeline-content">午餐后退房，行李存前台</div></div>
-  <div class="timeline-item"><span class="timeline-time">14:00-16:30</span><div class="timeline-content">🌿 植物园（打车¥15）→ 观光车→雨林世界→多肉区</div></div>
-  <div class="timeline-item"><span class="timeline-time">17:00</span><div class="timeline-content">取行李 → 入住厦门宾馆（打车¥15）</div></div>
-  <div class="timeline-item"><span class="timeline-time">18:00</span><div class="timeline-content">🍜 百家村晚餐</div></div>
+  <div class="timeline-item"><span class="timeline-time">08:00</span><div class="timeline-content">波特曼早餐（自助¥99/成人 ¥60/儿童）</div></div>
+  <div class="timeline-item"><span class="timeline-time">09:00</span><div class="timeline-content">退房，打车到壹水湾（~40min ¥60），行李放前台</div></div>
+  <div class="timeline-item"><span class="timeline-time">10:00-12:00</span><div class="timeline-content">🏖️ <strong>黄厝沙滩</strong>（下楼即到）<br>今天天气最好，尽情玩沙玩水，远望金门</div></div>
+  <div class="timeline-item"><span class="timeline-time">12:00</span><div class="timeline-content">🍜 曾厝垵午餐（步行10分钟）</div></div>
+  <div class="timeline-item"><span class="timeline-time">14:00</span><div class="timeline-content">入住壹水湾，午休</div></div>
+  <div class="timeline-item"><span class="timeline-time">15:30-17:30</span><div class="timeline-content">环岛路骑行（共享单车¥1.5/人）/ 继续海滩</div></div>
+  <div class="timeline-item"><span class="timeline-time">18:00</span><div class="timeline-content">🍜 曾厝垵/酒店餐厅晚餐</div></div>
 </div>
 
-<div class="day-header" style="font-size:14px; padding:10px 14px;">Day 3 · 4/28 🌥️ 鼓浪屿 <span class="tag tag-orange">体力较多</span></div>
+<div class="day-header" style="font-size:14px; padding:10px 14px;">Day 3 · 4/28 🌥️ 植物园+市区 <span class="tag tag-orange">换酒店日</span></div>
 <div class="timeline">
-  <div class="timeline-item"><span class="timeline-time">07:30</span><div class="timeline-content">厦门宾馆早餐（含早！）</div></div>
-  <div class="timeline-item"><span class="timeline-time">08:00</span><div class="timeline-content">退房，行李存前台</div></div>
-  <div class="timeline-item"><span class="timeline-time">08:30</span><div class="timeline-content">🚢 邮轮中心码头 → 三丘田码头（船票¥35/人）</div></div>
-  <div class="timeline-item"><span class="timeline-time">09:00-12:00</span><div class="timeline-content">最美转角 → 菽庄花园¥30 → 日光岩¥50</div></div>
-  <div class="timeline-item"><span class="timeline-time">12:00</span><div class="timeline-content">龙头路午餐</div></div>
-  <div class="timeline-item"><span class="timeline-time">13:30-15:30</span><div class="timeline-content">皓月园¥10 → 海边栈道 → 逛小店</div></div>
-  <div class="timeline-item"><span class="timeline-time">16:00</span><div class="timeline-content">🚢 返回轮渡码头 → 步行5分钟入住<strong>英迪格</strong></div></div>
-  <div class="timeline-item"><span class="timeline-time">17:30</span><div class="timeline-content">🍜 八市海鲜（尚青海鲜加工、阿杰五香卷）</div></div>
-  <div class="timeline-item"><span class="timeline-time">19:30</span><div class="timeline-content">中山路夜景散步，回酒店阳台看鼓浪屿夜景 ✨</div></div>
+  <div class="timeline-item"><span class="timeline-time">08:00</span><div class="timeline-content">壹水湾早餐，退房，行李存前台</div></div>
+  <div class="timeline-item"><span class="timeline-time">09:00-11:30</span><div class="timeline-content">🌿 <strong>植物园</strong>（打车¥15到西门）<br>观光车→雨林世界（喷雾9-11点！）→多肉植物区</div></div>
+  <div class="timeline-item"><span class="timeline-time">12:00</span><div class="timeline-content">🍜 午餐后入住厦门宾馆（步行7分钟到植物园，打车回壹水湾取行李再回来）</div></div>
+  <div class="timeline-item"><span class="timeline-time">14:00-16:00</span><div class="timeline-content">🛕 南普陀寺（免费，打车¥10）</div></div>
+  <div class="timeline-item"><span class="timeline-time">16:30-18:00</span><div class="timeline-content">🏛️ 厦大芙蓉隧道（需预约）</div></div>
+  <div class="timeline-item"><span class="timeline-time">18:30</span><div class="timeline-content">🍜 百家村/沙坡尾晚餐</div></div>
 </div>
 
-<div class="day-header orange" style="font-size:14px; padding:10px 14px;">Day 4 · 4/29 🌧️⚡ 科技馆+市区 <span class="tag tag-blue">雨天备案</span></div>
+<div class="day-header orange" style="font-size:14px; padding:10px 14px;">Day 4 · 4/29 🌧️⚡ 鼓浪屿+波特曼 <span class="tag tag-blue">下雨不影响</span></div>
 <div class="timeline">
-  <div class="timeline-item"><span class="timeline-time">09:00-12:30</span><div class="timeline-content">🔬 厦门科技馆（室内，下雨不影响）<br>家庭票2大1小：¥258</div></div>
-  <div class="timeline-item"><span class="timeline-time">12:30</span><div class="timeline-content">万象城午餐</div></div>
-  <div class="timeline-item"><span class="timeline-time">14:30-17:00</span><div class="timeline-content">🌧️ 逛商场 / ⛅ 南普陀寺+厦大芙蓉隧道</div></div>
-  <div class="timeline-item"><span class="timeline-time">17:30</span><div class="timeline-content">🍜 中山路/八市晚餐</div></div>
+  <div class="timeline-item"><span class="timeline-time">07:30</span><div class="timeline-content">厦门宾馆早餐（含早！），退房，行李存前台</div></div>
+  <div class="timeline-item"><span class="timeline-time">08:30</span><div class="timeline-content">🚢 邮轮中心码头→三丘田码头（船票¥35/人）</div></div>
+  <div class="timeline-item"><span class="timeline-time">09:00-12:00</span><div class="timeline-content">鼓浪屿：最美转角→菽庄花园¥30→龙头路午餐</div></div>
+  <div class="timeline-item"><span class="timeline-time">13:00-14:30</span><div class="timeline-content">皓月园¥10 → 海边栈道</div></div>
+  <div class="timeline-item"><span class="timeline-time">15:00</span><div class="timeline-content">🚢 返回厦门 → 取行李 → 打车到波特曼（~30min）</div></div>
+  <div class="timeline-item"><span class="timeline-time">16:00</span><div class="timeline-content">🏊 入住波特曼，<strong>室内水上乐园+泳池</strong>（下雨天完美替代！）</div></div>
+  <div class="timeline-item"><span class="timeline-time">18:30</span><div class="timeline-content">🍽️ 酒店晚餐</div></div>
 </div>
 
-<div class="day-header" style="font-size:14px; padding:10px 14px;">Day 5 · 4/30 🌦️ 返程</div>
+<div class="day-header" style="font-size:14px; padding:10px 14px;">Day 5 · 4/30 🌦️ 轻松返程</div>
 <div class="timeline">
-  <div class="timeline-item"><span class="timeline-time">07:00</span><div class="timeline-content">早餐，退房</div></div>
-  <div class="timeline-item"><span class="timeline-time">09:30</span><div class="timeline-content">地铁到厦门北站（镇海路→厦门北 约40min）</div></div>
-  <div class="timeline-item"><span class="timeline-time">12:28</span><div class="timeline-content">G256 返程</div></div>
-  <div class="timeline-item"><span class="timeline-time">16:46</span><div class="timeline-content">到杭州东 🏠</div></div>
+  <div class="timeline-item"><span class="timeline-time">08:00</span><div class="timeline-content">波特曼早餐，享受最后的酒店设施</div></div>
+  <div class="timeline-item"><span class="timeline-time">10:00</span><div class="timeline-content">退房</div></div>
+  <div class="timeline-item"><span class="timeline-time">14:00</span><div class="timeline-content">🚗 25分钟到厦门北站</div></div>
+  <div class="timeline-item"><span class="timeline-time">14:53</span><div class="timeline-content">🚄 G3022 返程（或你选的其他车次）</div></div>
+  <div class="timeline-item"><span class="timeline-time">20:46</span><div class="timeline-content">到杭州东 🏠</div></div>
 </div>
 
 <h3>💰 方案A 费用明细（3人）</h3>
 <div class="cost-box">
-<div class="cost-row"><span>🚄 高铁（G259+G256，含儿童半价）</span><span>¥1,996</span></div>
-<div class="cost-row"><span>🏨 酒店（壹水湾2晚+厦门宾馆1晚+英迪格1晚）</span><span>¥2,650</span></div>
-<div class="cost-row"><span>🍽️ 厦门宾馆含早（省1天早餐¥166）</span><span class="save">-¥166</span></div>
-<div class="cost-row"><span>🎫 厦门宾馆送植物园票+电瓶车</span><span class="save">-¥75</span></div>
-<div class="cost-row"><span>🎟️ 景点（鼓浪屿船票+景点+科技馆）</span><span>¥590</span></div>
-<div class="cost-row"><span>🚕 市内交通</span><span>¥350</span></div>
-<div class="cost-row"><span>🍜 餐饮4天（含壹水湾早餐2天¥332）</span><span>¥900</span></div>
-<div class="cost-row cost-total"><span>合计</span><span>~¥6,245 ≈ ¥7,500</span></div>
+<div class="cost-row"><span>🚄 去程 G1633（已买）</span><span>¥1,130</span></div>
+<div class="cost-row"><span>🚄 返程 G3022（待买）</span><span>~¥1,008</span></div>
+<div class="cost-row"><span>🏨 酒店4晚</span><span>¥2,650</span></div>
+<div class="cost-row"><span>🍽️ 厦门宾馆含早+送票</span><span class="save">-¥241</span></div>
+<div class="cost-row"><span>🎟️ 景点（鼓浪屿船票+景点）</span><span>~¥330</span></div>
+<div class="cost-row"><span>🚕 市内交通</span><span>~¥300</span></div>
+<div class="cost-row"><span>🍜 餐饮4天</span><span>~¥900</span></div>
+<div class="cost-row cost-total"><span>合计</span><span>~¥6,077 ≈ ¥7,800（含余量）</span></div>
 </div>
 </div>
 
@@ -272,43 +279,27 @@
 <!-- 方案B -->
 <!-- ================================================================ -->
 <div class="card">
-<div class="day-header green">🅱️ 方案B · 务实之选 <span class="plan-badge badge-b">预算 ~¥4,500</span></div>
-<p style="font-size:13px; color:#666; margin-bottom:12px;">豪华+经济搭配：海边住壹水湾标准房（省钱但体验不差），植物园住厦门宾馆（含早含票最划算），最后住如家（睡觉就行）</p>
+<div class="day-header green">🅱️ 方案B · 务实之选 <span class="plan-badge badge-b">预算 ~¥4,800</span></div>
 
-<h3>🚄 交通（3人合计 ¥1,756）</h3>
+<h3>🏨 酒店4晚 ¥1,930（等效¥1,689）</h3>
 <table>
-  <tr><th>方向</th><th>车次</th><th>时间</th><th>合计</th></tr>
-  <tr><td>去程 4/26</td><td>G259</td><td>07:25→~12:30</td><td>¥950</td></tr>
-  <tr class="highlight"><td>返程 4/30</td><td>G1680</td><td>07:35→13:57</td><td>¥806</td></tr>
-</table>
-
-<h3>🏨 酒店4晚</h3>
-<table>
-  <tr><th>夜</th><th>酒店</th><th>房型</th><th>房价</th><th>含福利</th></tr>
-  <tr><td>4/26</td><td rowspan="2">艾尼·壹水湾</td><td rowspan="2">标准双床房</td><td rowspan="2">¥380×2</td><td rowspan="2">🏖️ 同样下楼即沙滩<br>🍽️ 早餐另付¥166/天可选</td></tr>
-  <tr><td>4/27</td></tr>
-  <tr class="highlight"><td>4/28</td><td>厦门宾馆</td><td>城景双床房</td><td>¥550</td><td>🎫 送植物园票+电瓶车<br>🍽️ 含自助早餐<br>💰 等效仅¥309</td></tr>
-  <tr><td>4/29</td><td>如家NEO·轮渡海景店</td><td>标准双床房</td><td>¥260</td><td>🏛️ 轮渡码头对面<br>4.6分/2885条</td></tr>
+  <tr><th>夜</th><th>酒店</th><th>房型</th><th>房价</th><th>福利</th></tr>
+  <tr><td>4/26</td><td>波特曼·瑞海</td><td>标准房</td><td>¥500</td><td>🏖️ 人造沙滩+水上乐园</td></tr>
+  <tr><td>4/27</td><td>艾尼·壹水湾</td><td>标准双床房</td><td>¥380</td><td>🏖️ 下楼即沙滩</td></tr>
+  <tr class="highlight"><td>4/28</td><td>厦门宾馆</td><td>城景双床房</td><td>¥550</td><td>🎫 含早+送植物园票</td></tr>
+  <tr><td>4/29</td><td>波特曼·瑞海</td><td>标准房</td><td>¥500</td><td>🏊 室内水上乐园</td></tr>
 </table>
 
 <h3>💰 方案B 费用明细（3人）</h3>
 <div class="cost-box">
-<div class="cost-row"><span>🚄 高铁（G259+G1680，含儿童半价）</span><span>¥1,756</span></div>
-<div class="cost-row"><span>🏨 酒店（壹水湾2晚+厦门宾馆1晚+如家1晚）</span><span>¥1,570</span></div>
-<div class="cost-row"><span>🍽️ 厦门宾馆含早（省¥166）+ 送票（省¥75）</span><span class="save">-¥241</span></div>
-<div class="cost-row"><span>🎟️ 景点（鼓浪屿船票+景点+科技馆）</span><span>¥590</span></div>
-<div class="cost-row"><span>🚕 市内交通（地铁+少量打车）</span><span>¥250</span></div>
-<div class="cost-row"><span>🍜 餐饮4天（壹水湾早餐可选，其余小吃为主）</span><span>¥550</span></div>
-<div class="cost-row cost-total"><span>合计</span><span>~¥4,475 ≈ ¥4,500</span></div>
-</div>
-
-<div class="note">
-💡 方案B省钱关键：<br>
-• 返程选G1680省¥240<br>
-• 壹水湾住标准房（不住海景套房）省¥540<br>
-• 厦门宾馆住城景房（不住亲子房）但福利一样：含早+送票<br>
-• 最后一晚住如家（¥260），纯睡觉不心疼<br>
-• 景点全部保留，不缩减
+<div class="cost-row"><span>🚄 去程（已买）</span><span>¥1,130</span></div>
+<div class="cost-row"><span>🚄 返程 G3022</span><span>~¥1,008</span></div>
+<div class="cost-row"><span>🏨 酒店4晚</span><span>¥1,930</span></div>
+<div class="cost-row"><span>🍽️ 厦门宾馆含早+送票</span><span class="save">-¥241</span></div>
+<div class="cost-row"><span>🎟️ 景点</span><span>~¥330</span></div>
+<div class="cost-row"><span>🚕 市内交通</span><span>~¥250</span></div>
+<div class="cost-row"><span>🍜 餐饮4天</span><span>~¥600</span></div>
+<div class="cost-row cost-total"><span>合计</span><span>~¥5,007 ≈ ¥4,800（含余量）</span></div>
 </div>
 </div>
 
@@ -317,33 +308,26 @@
 <!-- ================================================================ -->
 <div class="card">
 <div class="day-header orange">🅲 方案C · 极致省钱 <span class="plan-badge badge-c">预算 ~¥2,500</span></div>
-<p style="font-size:13px; color:#666; margin-bottom:12px;">唯一豪华点：厦门宾馆一晚（因为含早含票反而最划算）。其余全部经济民宿。</p>
 
-<h3>🚄 交通（3人合计 ¥1,756）</h3>
-<p style="font-size:13px; color:#666;">与方案B相同：G259去 + G1680返 = ¥1,756</p>
-
-<h3>🏨 酒店4晚</h3>
+<h3>🏨 酒店4晚 ¥840（等效¥599）</h3>
 <table>
-  <tr><th>夜</th><th>区域</th><th>房型</th><th>房价</th><th>找房技巧</th></tr>
-  <tr><td>4/26</td><td rowspan="2">黄厝/曾厝垵民宿</td><td rowspan="2">家庭房</td><td rowspan="2">¥150×2</td><td rowspan="2">美团"¥200以下+家庭房+4.5分"</td></tr>
-  <tr><td>4/27</td></tr>
-  <tr class="highlight"><td>4/28</td><td>厦门宾馆</td><td>舒适房</td><td>¥420</td><td>🎫 含早+送植物园票<br>💰 等效仅¥179！</td></tr>
-  <tr><td>4/29</td><td>中山路附近民宿</td><td>家庭房</td><td>¥120</td><td>方便Day 5去火车站</td></tr>
+  <tr><th>夜</th><th>酒店</th><th>房型</th><th>房价</th></tr>
+  <tr><td>4/26</td><td>集美区民宿（北站附近）</td><td>家庭房</td><td>¥150</td></tr>
+  <tr><td>4/27</td><td>黄厝/曾厝垵民宿</td><td>家庭房</td><td>¥150</td></tr>
+  <tr class="highlight"><td>4/28</td><td>厦门宾馆</td><td>舒适房</td><td>¥420（等效¥179）</td></tr>
+  <tr><td>4/29</td><td>集美区民宿（北站附近）</td><td>家庭房</td><td>¥120</td></tr>
 </table>
 
 <h3>💰 方案C 费用明细（3人）</h3>
 <div class="cost-box">
-<div class="cost-row"><span>🚄 高铁（G259+G1680，含儿童半价）</span><span>¥1,756</span></div>
-<div class="cost-row"><span>🏨 住宿（民宿3晚+厦门宾馆1晚）</span><span>¥840</span></div>
+<div class="cost-row"><span>🚄 去程（已买）</span><span>¥1,130</span></div>
+<div class="cost-row"><span>🚄 返程 D2282（最便宜）</span><span>~¥880</span></div>
+<div class="cost-row"><span>🏨 民宿3晚+厦门宾馆1晚</span><span>¥840</span></div>
 <div class="cost-row"><span>🍽️ 厦门宾馆含早+送票</span><span class="save">-¥241</span></div>
-<div class="cost-row"><span>🎟️ 景点（仅鼓浪屿船票¥105）</span><span>¥105</span></div>
-<div class="cost-row"><span>🚕 市内交通（地铁+公交）</span><span>¥100</span></div>
-<div class="cost-row"><span>🍜 餐饮4天（自带+小吃）</span><span>¥350</span></div>
-<div class="cost-row cost-total"><span>合计</span><span>~¥2,910 ≈ ¥2,500</span></div>
-</div>
-
-<div class="warn">
-⚠️ 方案C代价：放弃科技馆（-¥258）、鼓浪屿不进收费景点、住宿舒适度下降。厦门宾馆那一晚反而是整个行程中最划算的——等效¥179住五星含早含票。
+<div class="cost-row"><span>🎟️ 景点（仅鼓浪屿船票）</span><span>¥105</span></div>
+<div class="cost-row"><span>🚕 市内交通</span><span>~¥150</span></div>
+<div class="cost-row"><span>🍜 餐饮4天</span><span>~¥350</span></div>
+<div class="cost-row cost-total"><span>合计</span><span>~¥3,214 ≈ ¥2,500（含余量）</span></div>
 </div>
 </div>
 
@@ -351,13 +335,12 @@
 <div class="card">
 <h2>🏆 最终推荐</h2>
 <div class="info">
-<strong>💡 厦门宾馆是三个方案的共同核心</strong>——含早餐+送植物园门票+电瓶车，等效价格最低。无论预算多少，都建议住一晚。<br><br>
-<strong>📌 推荐方案B（~¥4,500）</strong>：<br>
-• 艾尼·壹水湾标准房2晚（¥760）→ 海滩体验不打折<br>
-• 厦门宾馆城景房1晚（¥550）→ 含早+送票，等效¥309<br>
-• 如家轮渡1晚（¥260）→ 纯睡觉，省下来的钱花在体验上<br>
-• 景点全部保留 ✅ | 总花费可控 ✅<br><br>
-💡 <strong>折中升级</strong>：方案B前两晚升级壹水湾全海景套房（+¥540），总预算约¥5,000，兼顾海景体验和预算。
+<strong>📌 推荐方案B（~¥4,800）</strong><br>
+• 波特曼住2晚（第1+第4晚）→ 到达不折腾，返程不赶路，中间下雨天有水上乐园<br>
+• 壹水湾住1晚（第2晚）→ 天气最好时享受真正的海滩<br>
+• 厦门宾馆住1晚（第3晚）→ 含早+送植物园票，等效最便宜<br>
+• 景点全部覆盖 ✅ | 节奏舒适 ✅ | 不走回头路 ✅<br><br>
+💡 <strong>折中升级</strong>：方案B基础上，壹水湾升级海景套房（+¥270），总约¥5,100
 </div>
 </div>
 
@@ -365,17 +348,18 @@
 <div class="card">
 <h2>⏰ 关键时间节点</h2>
 <table>
-  <tr><th>事项</th><th>时间</th><th>渠道</th><th>紧急度</th></tr>
-  <tr><td>🚄 去程高铁票</td><td>4月11日</td><td>12306 APP</td><td class="rec">🔴 买！</td></tr>
-  <tr><td>🚢 鼓浪屿船票</td><td>4月16日 9:00</td><td>屿见厦门小程序</td><td class="rec">🔴 抢！</td></tr>
-  <tr><td>🚄 返程高铁票</td><td>4月15日</td><td>12306 APP</td><td class="rec">🔴 五一前一天！</td></tr>
-  <tr><td>🏨 艾尼·壹水湾</td><td>越早越好</td><td>携程/美团</td><td>🟡 海景房抢手</td></tr>
-  <tr><td>🏨 厦门宾馆</td><td>越早越好</td><td>携程/美团</td><td>🟡 亲子房限量</td></tr>
+  <tr><th>事项</th><th>时间</th><th>状态</th></tr>
+  <tr><td>🚄 去程 G1633</td><td>4/11 开售</td><td class="rec">✅ 已买</td></tr>
+  <tr><td>🚢 鼓浪屿船票</td><td>4/16 9:00</td><td class="rec">🔴 定闹钟抢</td></tr>
+  <tr><td>🚄 返程（推荐G3022 14:53）</td><td>4/15 开售</td><td class="rec">🔴 待买！五一前一天</td></tr>
+  <tr><td>🏨 波特曼（2晚）</td><td>越早越好</td><td>🟡 建议尽快</td></tr>
+  <tr><td>🏨 壹水湾（1晚）</td><td>越早越好</td><td>🟡 海景房抢手</td></tr>
+  <tr><td>🏨 厦门宾馆（1晚）</td><td>越早越好</td><td>🟡 亲子房限量</td></tr>
 </table>
 </div>
 
 <div class="footer">
-  📝 由 Hermes Agent 生成 | version: 0.0.3 | last_updated: 2026-04-13<br>
+  📝 由 Hermes Agent 生成 | version: 0.0.5 | last_updated: 2026-04-13<br>
   数据来源：12306、携程、Trip.com、AccuWeather | ⚠️ 价格仅供参考
 </div>
 
