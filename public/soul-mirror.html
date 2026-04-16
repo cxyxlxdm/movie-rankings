@@ -197,18 +197,21 @@
 <button class="config-toggle" onclick="toggleConfig()" title="API 配置">⚙</button>
 
 <div class="config-panel" id="config-panel">
-  <h3>⚙ API 配置</h3>
+  <h3>⚙ 自定义 API（可选）</h3>
+  <p style="font-size: 0.8rem; color: var(--text-dim); margin-bottom: 16px; line-height: 1.6;">
+    默认使用服务端 API，无需配置。如果你有自己的 API Key，填入后将优先使用你自己的额度。
+  </p>
   <div class="config-field">
     <label>API Base URL</label>
-    <input type="text" id="cfg-base-url" placeholder="https://api.openai.com/v1" />
+    <input type="text" id="cfg-base-url" placeholder="https://openrouter.ai/api/v1" />
   </div>
   <div class="config-field">
     <label>API Key</label>
-    <input type="password" id="cfg-api-key" placeholder="sk-..." />
+    <input type="password" id="cfg-api-key" placeholder="sk-or-v1-..." />
   </div>
   <div class="config-field">
     <label>Model</label>
-    <input type="text" id="cfg-model" placeholder="gpt-4o" />
+    <input type="text" id="cfg-model" placeholder="deepseek/deepseek-chat-v3-0324" />
   </div>
   <div class="config-field">
     <label>题目数量</label>
@@ -220,7 +223,7 @@
   </div>
   <p style="font-size: 0.75rem; color: var(--text-dim); margin-top: 16px; line-height: 1.6;">
     API Key 仅保存在浏览器本地存储中，不会上传到任何服务器。<br>
-    支持任何 OpenAI 兼容格式的 API（Qwen / DeepSeek / Claude 等）。
+    支持 OpenRouter / OpenAI / DeepSeek / Qwen 等任何兼容 OpenAI 格式的 API。
   </p>
 </div>
 
@@ -434,15 +437,10 @@ let currentIndex = 0;
 let answers = [];
 
 async function startQuiz() {
-  const cfg = saveConfig();
-  if (!cfg.apiKey) {
-    toggleConfig();
-    alert('请先配置 API Key');
-    return;
-  }
   if (QUESTIONS.length === 0) {
     await loadQuestions();
   }
+  const cfg = JSON.parse(localStorage.getItem(CONFIG_KEY) || '{}');
   const count = parseInt(cfg.count) || 40;
   currentQuestions = sampleQuestions(QUESTIONS, count);
   currentIndex = 0;
@@ -494,7 +492,6 @@ async function finishQuiz() {
     `${i + 1}. ${a.question}\n   选了「${a.chosen}」，没选「${a.rejected}」`
   ).join('\n');
 
-  // 分类统计
   const catStats = {};
   for (const a of answers) {
     if (!catStats[a.category]) catStats[a.category] = { total: 0, choices: [] };
@@ -522,24 +519,35 @@ async function finishQuiz() {
 用户的选择明细：
 ${choicesSummary}`;
 
+  const messages = [
+    { role: 'system', content: systemPrompt },
+    { role: 'user', content: '请根据我的选择，生成灵魂画像。' },
+  ];
+
+  const body = JSON.stringify({ messages, temperature: 0.8, max_tokens: 2000 });
+
   try {
-    const baseUrl = cfg.baseUrl || 'https://api.openai.com/v1';
-    const response = await fetch(`${baseUrl}/chat/completions`, {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-        'Authorization': `Bearer ${cfg.apiKey}`,
-      },
-      body: JSON.stringify({
-        model: cfg.model || 'gpt-4o',
-        messages: [
-          { role: 'system', content: systemPrompt },
-          { role: 'user', content: '请根据我的选择，生成灵魂画像。' },
-        ],
-        temperature: 0.8,
-        max_tokens: 2000,
-      }),
-    });
+    let response;
+
+    // 优先走本服务器 API（无需用户配置）
+    if (!cfg.apiKey) {
+      response = await fetch('/api/soul-mirror', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body,
+      });
+    } else {
+      // 用户自定义 API
+      const baseUrl = cfg.baseUrl || 'https://api.openai.com/v1';
+      response = await fetch(`${baseUrl}/chat/completions`, {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+          'Authorization': `Bearer ${cfg.apiKey}`,
+        },
+        body,
+      });
+    }
 
     if (!response.ok) {
       const err = await response.text();
@@ -549,7 +557,7 @@ ${choicesSummary}`;
     const data = await response.json();
     renderResult(data.choices[0].message.content);
   } catch (err) {
-    renderResult(`生成失败：${err.message}\n\n请检查 API 配置后重试。`);
+    renderResult(`生成失败：${err.message}\n\n你可以点击右上角 ⚙ 配置自己的 API Key 后重试。`);
   }
 }
 
