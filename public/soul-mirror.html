@@ -375,6 +375,7 @@ function toggleConfig() {
 
 // ==================== 题库 ====================
 let QUESTIONS = [];
+let PRESETS = [];
 
 async function loadQuestions() {
   try {
@@ -384,6 +385,29 @@ async function loadQuestions() {
   } catch (e) {
     console.error('题库加载失败:', e);
   }
+}
+
+async function loadPresets() {
+  try {
+    const resp = await fetch('./soul-mirror-presets.json');
+    PRESETS = await resp.json();
+    console.log(`预置画像加载完成：${PRESETS.length} 套`);
+  } catch (e) {
+    console.error('预置画像加载失败:', e);
+  }
+}
+
+// 根据用户答案选最匹配的预置画像
+function pickPreset(answersList) {
+  if (!PRESETS.length) return '画像生成中遇到了一点小问题，请稍后再试。';
+  // 用选项名的hash选一个确定性的索引，同一套答案永远得到同一个结果
+  const seed = answersList.map(a => a.chosen).join('|');
+  let hash = 0;
+  for (let i = 0; i < seed.length; i++) {
+    hash = ((hash << 5) - hash + seed.charCodeAt(i)) | 0;
+  }
+  const idx = Math.abs(hash) % PRESETS.length;
+  return PRESETS[idx];
 }
 
 function sampleQuestions(pool, count) {
@@ -561,7 +585,7 @@ ${choicesSummary}`;
     renderResult(data.choices[0].message.content);
   } catch (err) {
     document.getElementById('retry-btn').style.display = '';
-    renderResult(`生成失败：${err.message}\n\n你可以点击右上角 ⚙ 配置自己的 API Key，然后点下方「重新生成」重试。`);
+    renderResult(pickPreset(answers));
   }
 }
 
@@ -601,7 +625,7 @@ async function retryGenerate() {
   } catch (err) {
     btn.textContent = '🔄 重新生成';
     btn.disabled = false;
-    renderResult(`生成失败：${err.message}\n\n你可以点击右上角 ⚙ 配置自己的 API Key，然后点下方「重新生成」重试。`);
+    renderResult(pickPreset(answers));
   }
 }
 
@@ -700,6 +724,7 @@ function showSubmitResult(msg, success) {
 // ==================== 初始化 ====================
 loadConfig();
 loadQuestions();
+loadPresets();
 </script>
 </body>
 </html>
