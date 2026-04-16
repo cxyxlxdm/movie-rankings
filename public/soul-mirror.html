@@ -203,19 +203,19 @@
   </p>
   <div class="config-field">
     <label>API Base URL</label>
-    <input type="text" id="cfg-base-url" placeholder="https://openrouter.ai/api/v1" />
+    <input type="text" id="cfg-base-url" placeholder="https://openrouter.ai/api/v1" onchange="saveConfig()" />
   </div>
   <div class="config-field">
     <label>API Key</label>
-    <input type="password" id="cfg-api-key" placeholder="sk-or-v1-..." />
+    <input type="password" id="cfg-api-key" placeholder="sk-or-v1-..." onchange="saveConfig()" />
   </div>
   <div class="config-field">
     <label>Model</label>
-    <input type="text" id="cfg-model" placeholder="deepseek/deepseek-chat-v3-0324" />
+    <input type="text" id="cfg-model" placeholder="deepseek/deepseek-chat-v3-0324" onchange="saveConfig()" />
   </div>
   <div class="config-field">
     <label>题目数量</label>
-    <select id="cfg-count">
+    <select id="cfg-count" onchange="saveConfig()">
       <option value="30" selected>30 题</option>
       <option value="40">40 题</option>
       <option value="50">50 题</option>
