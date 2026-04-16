@@ -279,6 +279,7 @@
     </div>
     <div id="result-content"></div>
     <div class="result-footer">
+      <button class="btn-secondary" id="retry-btn" onclick="retryGenerate()" style="display:none;">🔄 重新生成</button>
       <button class="btn-secondary" onclick="copyResult()">复制结果</button>
       <button class="btn-secondary" onclick="goTo('start-screen')">再做一次</button>
       <button class="btn-secondary" onclick="goTo('submit-screen')">贡献题目</button>
@@ -525,6 +526,7 @@ ${choicesSummary}`;
   ];
 
   const body = JSON.stringify({ messages, temperature: 0.8, max_tokens: 2000 });
+  window._lastSoulMirrorBody = body; // 保存供重试用
 
   try {
     let response;
@@ -555,9 +557,51 @@ ${choicesSummary}`;
     }
 
     const data = await response.json();
+    document.getElementById('retry-btn').style.display = 'none';
     renderResult(data.choices[0].message.content);
   } catch (err) {
-    renderResult(`生成失败：${err.message}\n\n你可以点击右上角 ⚙ 配置自己的 API Key 后重试。`);
+    document.getElementById('retry-btn').style.display = '';
+    renderResult(`生成失败：${err.message}\n\n你可以点击右上角 ⚙ 配置自己的 API Key，然后点下方「重新生成」重试。`);
+  }
+}
+
+async function retryGenerate() {
+  const body = window._lastSoulMirrorBody;
+  if (!body) return;
+  const cfg = JSON.parse(localStorage.getItem(CONFIG_KEY) || '{}');
+  const btn = document.getElementById('retry-btn');
+  btn.textContent = '⏳ 生成中...';
+  btn.disabled = true;
+  try {
+    let response;
+    if (!cfg.apiKey) {
+      response = await fetch('/api/soul-mirror', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body,
+      });
+    } else {
+      const baseUrl = cfg.baseUrl || 'https://api.openai.com/v1';
+      response = await fetch(`${baseUrl}/chat/completions`, {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+          'Authorization': `Bearer ${cfg.apiKey}`,
+        },
+        body,
+      });
+    }
+    if (!response.ok) {
+      const err = await response.text();
+      throw new Error(`API 请求失败: ${response.status} ${err}`);
+    }
+    const data = await response.json();
+    btn.style.display = 'none';
+    renderResult(data.choices[0].message.content);
+  } catch (err) {
+    btn.textContent = '🔄 重新生成';
+    btn.disabled = false;
+    renderResult(`生成失败：${err.message}\n\n你可以点击右上角 ⚙ 配置自己的 API Key，然后点下方「重新生成」重试。`);
   }
 }
 
