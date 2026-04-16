@@ -377,7 +377,7 @@ let QUESTIONS = [];
 
 async function loadQuestions() {
   try {
-    const resp = await fetch('./soul-mirror-questions.json');
+    const resp = await fetch('./soul-mirror-questions-v2.json');
     QUESTIONS = await resp.json();
     console.log(`题库加载完成：${QUESTIONS.length} 道题`);
   } catch (e) {
