@@ -116,6 +116,7 @@
   .result-header { text-align: center; margin-bottom: 40px; }
   .result-header h2 { font-size: 1.8rem; color: var(--text-bright); margin-bottom: 8px; }
   .result-header .stats { font-size: 0.85rem; color: var(--text-dim); }
+  .soul-word { font-size: 3rem; font-weight: 800; text-align: center; padding: 40px 20px 20px; color: var(--accent); letter-spacing: 0.15em; text-shadow: 0 0 40px rgba(var(--accent-rgb, 99,102,241), 0.3); }
   .result-section { margin-bottom: 24px; padding: 24px; background: var(--card); border-radius: var(--radius); border-left: 3px solid var(--accent); }
   .result-section h3 { font-size: 1rem; color: var(--accent); margin-bottom: 12px; font-weight: 600; }
   .result-section p { font-size: 0.95rem; color: var(--text); line-height: 1.9; }
@@ -528,16 +529,17 @@ async function finishQuiz() {
 
 请根据用户的选择，生成一份灵魂画像。要求：
 
-1. **语气**：温和、尊重、不冒犯。像一位懂你的朋友在和你聊天，而不是医生在写诊断报告。多用"可能""或许""在某种程度上"等温和表达。
-2. **内容**：从以下几个维度分析（可以适当增减）：
+1. **灵魂词**：在回答的第一行，用「你的灵魂词是：XXX」格式，输出一个最能概括这个人的中文词（2-4个字）。这个词应该是具象的意象（如「月光」「旧书」「深海」「篝火」），而不是抽象概念（如「善良」「理性」）。
+2. **语气**：温和、尊重、不冒犯。像一位懂你的朋友在和你聊天，而不是医生在写诊断报告。多用"可能""或许""在某种程度上"等温和表达。
+3. **内容**：从以下几个维度分析（可以适当增减）：
    - 审美偏好（喜欢什么样的故事、什么样的表达方式）
    - 性格特质（从选择中折射出的性格特点）
    - 价值取向（对世界、对人生的态度）
    - 情感模式（如何处理情感、如何与人相处）
    - 内心世界（表面之下可能藏着什么）
-3. **格式**：分成 3-5 个段落，每段一个小标题（用 ## 开头）。总字数 800-1200 字。
-4. **结尾**：用一句温柔的话收尾。
-5. **禁忌**：不要给 MBTI 类型、不要给分数、不要用"你是一个 XX 的人"这种定义句式。不要评价用户的选择好坏。
+4. **格式**：分成 3-5 个段落，每段一个小标题（用 ## 开头）。总字数 800-1200 字。
+5. **结尾**：用一句温柔的话收尾。
+6. **禁忌**：不要给 MBTI 类型、不要给分数、不要用"你是一个 XX 的人"这种定义句式。不要评价用户的选择好坏。
 
 各分类的选择统计：${JSON.stringify(catStats)}
 
@@ -631,10 +633,27 @@ async function retryGenerate() {
 
 function renderResult(text) {
   showScreen('result-screen');
+
+  // 提取灵魂词
+  let soulWord = '';
+  const wordMatch = text.match(/^你的灵魂词是[：:]\s*(.+?)$/m);
+  if (wordMatch) {
+    soulWord = wordMatch[1].trim();
+    text = text.replace(/^你的灵魂词是[：:].+?\n?/, '').trim();
+  }
+
   document.getElementById('result-stats').textContent = `在 ${answers.length} 次选择中，看见了你`;
 
   const content = document.getElementById('result-content');
   content.innerHTML = '';
+
+  // 灵魂词大标题
+  if (soulWord) {
+    const wordDiv = document.createElement('div');
+    wordDiv.className = 'soul-word';
+    wordDiv.textContent = soulWord;
+    content.appendChild(wordDiv);
+  }
 
   const sections = text.split(/(?=##\s)/).filter(s => s.trim());
 
@@ -653,10 +672,16 @@ function renderResult(text) {
     div.className = 'result-section';
     div.innerHTML = `<h3>你的灵魂画像</h3><p>${text.replace(/\n/g, '<br>')}</p>`;
     content.innerHTML = '';
+    if (soulWord) {
+      const wordDiv = document.createElement('div');
+      wordDiv.className = 'soul-word';
+      wordDiv.textContent = soulWord;
+      content.appendChild(wordDiv);
+    }
     content.appendChild(div);
   }
 
-  window._resultText = text;
+  window._resultText = soulWord ? `你的灵魂词是：${soulWord}\n\n${text}` : text;
 }
 
 function copyResult() {
