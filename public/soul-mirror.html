@@ -116,7 +116,7 @@
   .result-header { text-align: center; margin-bottom: 40px; }
   .result-header h2 { font-size: 1.8rem; color: var(--text-bright); margin-bottom: 8px; }
   .result-header .stats { font-size: 0.85rem; color: var(--text-dim); }
-  .soul-word { font-size: 3rem; font-weight: 800; text-align: center; padding: 40px 20px 20px; color: var(--accent); letter-spacing: 0.15em; text-shadow: 0 0 40px rgba(var(--accent-rgb, 99,102,241), 0.3); }
+  .soul-word { font-size: 1.5rem; font-weight: 700; text-align: center; padding: 40px 24px 20px; color: var(--accent); letter-spacing: 0.05em; line-height: 1.6; text-shadow: 0 0 40px rgba(var(--accent-rgb, 99,102,241), 0.3); }
   .result-section { margin-bottom: 24px; padding: 24px; background: var(--card); border-radius: var(--radius); border-left: 3px solid var(--accent); }
   .result-section h3 { font-size: 1rem; color: var(--accent); margin-bottom: 12px; font-weight: 600; }
   .result-section p { font-size: 0.95rem; color: var(--text); line-height: 1.9; }
@@ -529,7 +529,7 @@ async function finishQuiz() {
 
 请根据用户的选择，生成一份灵魂画像。要求：
 
-1. **灵魂词**：在回答的第一行，用「你的灵魂词是：XXX」格式，输出一个最能概括这个人的中文词（2-4个字）。这个词应该是具象的意象（如「月光」「旧书」「深海」「篝火」），而不是抽象概念（如「善良」「理性」）。
+1. **灵魂签名**：在回答的第一行，用「你的灵魂签名是：XXX」格式，输出一句最能概括这个人的短句（10-20字）。格式为「意象+含义」，如「在深夜书房里独自发光的人」「篝火边永远留着一个位置的人」。有画面感，同时让人一看就懂。
 2. **语气**：温和、尊重、不冒犯。像一位懂你的朋友在和你聊天，而不是医生在写诊断报告。多用"可能""或许""在某种程度上"等温和表达。
 3. **内容**：从以下几个维度分析（可以适当增减）：
    - 审美偏好（喜欢什么样的故事、什么样的表达方式）
@@ -634,12 +634,12 @@ async function retryGenerate() {
 function renderResult(text) {
   showScreen('result-screen');
 
-  // 提取灵魂词
+  // 提取灵魂签名
   let soulWord = '';
-  const wordMatch = text.match(/^你的灵魂词是[：:]\s*(.+?)$/m);
+  const wordMatch = text.match(/^你的灵魂签名是[：:]\s*(.+?)$/m);
   if (wordMatch) {
     soulWord = wordMatch[1].trim();
-    text = text.replace(/^你的灵魂词是[：:].+?\n?/, '').trim();
+    text = text.replace(/^你的灵魂签名是[：:].+?\n?/, '').trim();
   }
 
   document.getElementById('result-stats').textContent = `在 ${answers.length} 次选择中，看见了你`;
@@ -681,7 +681,7 @@ function renderResult(text) {
     content.appendChild(div);
   }
 
-  window._resultText = soulWord ? `你的灵魂词是：${soulWord}\n\n${text}` : text;
+  window._resultText = soulWord ? `你的灵魂签名是：${soulWord}\n\n${text}` : text;
 }
 
 function copyResult() {
