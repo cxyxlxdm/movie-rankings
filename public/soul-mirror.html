@@ -182,6 +182,16 @@
   .bottom-nav button.active { color: var(--accent); }
   .bottom-nav button:hover { color: var(--text); }
 
+  /* ===== 结果页统计 ===== */
+  .generation-stats {
+    text-align: center;
+    color: var(--success);
+    font-size: 0.85rem;
+    margin-top: 16px;
+    padding: 8px;
+    opacity: 0.8;
+  }
+
   /* ===== 响应式 ===== */
   @media (max-width: 600px) {
     .choices { flex-direction: column; }
@@ -222,6 +232,13 @@
       <option value="50">50 题</option>
     </select>
   </div>
+
+  <!-- 当前配置状态 -->
+  <div class="config-status" id="config-status" style="margin-top: 16px; padding: 12px; background: var(--card); border-radius: 8px; font-size: 0.85rem;">
+    <div style="color: var(--text-dim); margin-bottom: 8px;">当前使用的配置</div>
+    <div id="config-status-content">加载中...</div>
+  </div>
+
   <p style="font-size: 0.75rem; color: var(--text-dim); margin-top: 16px; line-height: 1.6;">
     API Key 仅保存在浏览器本地存储中，不会上传到任何服务器。<br>
     支持 OpenRouter / OpenAI / DeepSeek / Qwen 等任何兼容 OpenAI 格式的 API。
@@ -279,6 +296,10 @@
       <div class="stats" id="result-stats"></div>
     </div>
     <div id="result-content"></div>
+
+    <!-- 配置状态（结果页底部） -->
+    <div id="result-config-status" style="padding: 12px; text-align: center; font-size: 0.8rem; color: var(--text-dim); border-top: 1px solid var(--divider); margin-top: 16px;"></div>
+
     <div class="result-footer">
       <button class="btn-secondary" id="retry-btn" onclick="retryGenerate()" style="display:none;">🔄 重新生成</button>
       <button class="btn-secondary" onclick="copyResult()">复制结果</button>
@@ -357,6 +378,7 @@ function loadConfig() {
       document.getElementById('cfg-count').value = cfg.count || '40';
     }
   } catch {}
+  updateConfigStatus();
 }
 
 function saveConfig() {
@@ -367,7 +389,45 @@ function saveConfig() {
     count: document.getElementById('cfg-count').value,
   };
   localStorage.setItem(CONFIG_KEY, JSON.stringify(cfg));
+  updateConfigStatus();
   return cfg;
+}
+
+function updateConfigStatus() {
+  const cfg = JSON.parse(localStorage.getItem(CONFIG_KEY) || '{}');
+  const statusEl = document.getElementById('config-status-content');
+  if (!statusEl) return;
+
+  const hasKey = !!cfg.apiKey;
+  const apiType = hasKey ? '🔑 用户自定义 API' : '🌐 服务端默认 API';
+  const baseUrl = cfg.baseUrl || (hasKey ? 'https://api.openai.com/v1' : 'https://openrouter.ai/api/v1');
+  const model = cfg.model || (hasKey ? 'deepseek/deepseek-chat-v3-0324' : 'SOUL_MIRROR_MODEL');
+
+  // 获取历史统计
+  const stats = JSON.parse(localStorage.getItem('soul-mirror-stats') || '[]');
+  const lastStat = stats[0];
+  const avgTime = stats.length ? Math.round(stats.reduce((a, b) => a + b.durationMs, 0) / stats.length) : null;
+
+  let html = `
+    <div style="display: flex; gap: 12px; flex-wrap: wrap; margin-bottom: 8px;">
+      <span style="color: ${hasKey ? '#4ecdc4' : '#7c6aef'}; font-weight: 600;">${apiType}</span>
+    </div>
+    <div style="color: var(--text-dim); font-size: 0.8rem; line-height: 1.6;">
+      模型: <code style="background: var(--divider); padding: 2px 6px; border-radius: 4px;">${model}</code><br>
+      地址: <code style="background: var(--divider); padding: 2px 6px; border-radius: 4px;">${baseUrl}</code>
+    </div>
+  `;
+
+  if (lastStat) {
+    html += `
+      <div style="margin-top: 8px; padding-top: 8px; border-top: 1px solid var(--divider); color: var(--text-dim); font-size: 0.8rem;">
+        最近一次: ${lastStat.success ? '✅ 成功' : '❌ 失败'} · ${lastStat.durationMs}ms
+        ${avgTime ? `<br>平均耗时: ${avgTime}ms (共 ${stats.length} 次)` : ''}
+      </div>
+    `;
+  }
+
+  statusEl.innerHTML = html;
 }
 
 function toggleConfig() {
@@ -510,9 +570,75 @@ function selectChoice(choice) {
 }
 
 // ==================== 结果生成 ====================
+// 指数退避重试配置
+const MAX_RETRIES = 3;
+const BASE_DELAY = 1000; // 1秒
+
+// 带指数退避的请求函数
+async function callLLMWithRetry(body, cfg, attempt = 1, startTime = null) {
+  const isBackend = !cfg.apiKey;
+  const baseUrl = isBackend ? '/api/soul-mirror' : (cfg.baseUrl || 'https://api.openai.com/v1');
+  const useOpenRouter = !isBackend && baseUrl.includes('openrouter');
+
+  console.log(`[SoulMirror] 尝试 ${attempt}/${MAX_RETRIES}: ${isBackend ? '后端API' : '用户API'} → ${baseUrl}`);
+
+  const fetchOpts = isBackend
+    ? { method: 'POST', headers: { 'Content-Type': 'application/json' }, body }
+    : {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+          'Authorization': `Bearer ${cfg.apiKey}`,
+          ...(useOpenRouter ? {
+            'HTTP-Referer': window.location.origin,
+            'X-Title': 'Soul Mirror'
+          } : {})
+        },
+        body
+      };
+
+  const response = await fetch(baseUrl + (isBackend ? '' : '/chat/completions'), fetchOpts);
+
+  if (!response.ok) {
+    const errText = await response.text();
+    let err = new Error(`API 请求失败: ${response.status} ${errText}`);
+
+    // 判断是否可重试：429（速率限制）、500、502、503、504
+    const retryable = [429, 500, 502, 503, 504].includes(response.status);
+    if (retryable && attempt < MAX_RETRIES) {
+      const delay = BASE_DELAY * Math.pow(2, attempt - 1) + Math.random() * 500;
+      console.warn(`[SoulMirror] 请求失败 (${response.status})，${Math.round(delay)}ms 后重试...`);
+      await new Promise(r => setTimeout(r, delay));
+      return callLLMWithRetry(body, cfg, attempt + 1, startTime);
+    }
+
+    throw err;
+  }
+
+  return response;
+}
+
+// 记录请求耗时
+function recordStats(cfg, startTime, success = true) {
+  const duration = Date.now() - startTime;
+  const stats = {
+    timestamp: new Date().toISOString(),
+    apiType: cfg.apiKey ? 'user' : 'backend',
+    model: cfg.model || (cfg.apiKey ? 'deepseek/deepseek-chat-v3-0324' : 'SOUL_MIRROR_MODEL'),
+    baseUrl: cfg.baseUrl || (cfg.apiKey ? 'https://api.openai.com/v1' : 'openrouter.ai'),
+    durationMs: duration,
+    success
+  };
+  const history = JSON.parse(localStorage.getItem('soul-mirror-stats') || '[]');
+  history.unshift(stats);
+  localStorage.setItem('soul-mirror-stats', JSON.stringify(history.slice(0, 50))); // 保留最近50条
+  return duration;
+}
+
 async function finishQuiz() {
   showScreen('loading-screen');
   const cfg = JSON.parse(localStorage.getItem(CONFIG_KEY) || '{}');
+  const startTime = Date.now();
 
   const choicesSummary = answers.map((a, i) =>
     `${i + 1}. ${a.question}\n   选了「${a.chosen}」，没选「${a.rejected}」`
@@ -555,47 +681,27 @@ ${choicesSummary}`;
   window._lastSoulMirrorBody = body; // 保存供重试用
 
   try {
-    let response;
-
-    // 优先走本服务器 API（无需用户配置）
-    if (!cfg.apiKey) {
-      console.log('[SoulMirror] 使用后端 API');
-      response = await fetch('/api/soul-mirror', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body,
-      });
-    } else {
-      // 用户自定义 API
-      console.log('[SoulMirror] 使用用户自定义 API:', cfg.baseUrl, cfg.model);
-      const baseUrl = cfg.baseUrl || 'https://api.openai.com/v1';
-      response = await fetch(`${baseUrl}/chat/completions`, {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-          'Authorization': `Bearer ${cfg.apiKey}`,
-        },
-        body,
-      });
-    }
-
-    if (!response.ok) {
-      const err = await response.text();
-      throw new Error(`API 请求失败: ${response.status} ${err}`);
-    }
+    // 调用 LLM（带重试）
+    const response = await callLLMWithRetry(body, cfg, 1, startTime);
 
     const data = await response.json();
     document.getElementById('retry-btn').style.display = 'none';
-    console.log('[SoulMirror] API 成功返回');
-    renderResult(data.choices[0].message.content);
+
+    // 记录成功耗时
+    const duration = recordStats(cfg, startTime, true);
+    console.log(`[SoulMirror] API 成功返回，耗时: ${duration}ms`);
+
+    renderResult(data.choices[0].message.content, duration);
   } catch (err) {
     console.error('[SoulMirror] 生成失败:', err);
-    // 区分是 API 错误还是兜底
+
+    // 记录失败耗时
+    recordStats(cfg, startTime, false);
+
     const errorMsg = err.message || '生成失败，使用备用方案';
     document.getElementById('retry-btn').style.display = '';
-    // 在结果中也显示错误信息，方便调试
     const resultText = `⚠️ 生成遇到问题：${errorMsg}\n\n---\n\n` + pickPreset(answers);
-    renderResult(resultText);
+    renderResult(resultText, null);
   }
 }
 
@@ -604,45 +710,35 @@ async function retryGenerate() {
   if (!body) return;
   const cfg = JSON.parse(localStorage.getItem(CONFIG_KEY) || '{}');
   const btn = document.getElementById('retry-btn');
+  const startTime = Date.now();
   btn.textContent = '⏳ 生成中...';
   btn.disabled = true;
   try {
-    let response;
-    if (!cfg.apiKey) {
-      response = await fetch('/api/soul-mirror', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body,
-      });
-    } else {
-      const baseUrl = cfg.baseUrl || 'https://api.openai.com/v1';
-      response = await fetch(`${baseUrl}/chat/completions`, {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-          'Authorization': `Bearer ${cfg.apiKey}`,
-        },
-        body,
-      });
-    }
-    if (!response.ok) {
-      const err = await response.text();
-      throw new Error(`API 请求失败: ${response.status} ${err}`);
-    }
+    // 调用 LLM（带重试）
+    const response = await callLLMWithRetry(body, cfg, 1, startTime);
     const data = await response.json();
     btn.style.display = 'none';
-    renderResult(data.choices[0].message.content);
+
+    // 记录成功耗时
+    const duration = recordStats(cfg, startTime, true);
+    console.log(`[SoulMirror] 重试成功，耗时: ${duration}ms`);
+
+    renderResult(data.choices[0].message.content, duration);
   } catch (err) {
     console.error('[SoulMirror] 重试失败:', err);
+
+    // 记录失败耗时
+    recordStats(cfg, startTime, false);
+
     const errorMsg = err.message || '生成失败，使用备用方案';
     btn.textContent = '🔄 重新生成';
     btn.disabled = false;
     const resultText = `⚠️ 生成遇到问题：${errorMsg}\n\n---\n\n` + pickPreset(answers);
-    renderResult(resultText);
+    renderResult(resultText, null);
   }
 }
 
-function renderResult(text) {
+function renderResult(text, duration) {
   showScreen('result-screen');
 
   // 提取灵魂签名
@@ -692,7 +788,30 @@ function renderResult(text) {
     content.appendChild(div);
   }
 
+  // 显示耗时信息（如果成功）
+  if (duration !== null && duration !== undefined) {
+    const statsDiv = document.createElement('div');
+    statsDiv.className = 'generation-stats';
+    statsDiv.innerHTML = `⚡ 生成耗时: ${duration}ms`;
+    content.appendChild(statsDiv);
+  }
+
+  // 更新结果页底部的配置状态
+  updateResultConfigStatus();
+
   window._resultText = soulWord ? `你的灵魂签名是：${soulWord}\n\n${text}` : text;
+}
+
+function updateResultConfigStatus() {
+  const cfg = JSON.parse(localStorage.getItem(CONFIG_KEY) || '{}');
+  const statusEl = document.getElementById('result-config-status');
+  if (!statusEl) return;
+
+  const hasKey = !!cfg.apiKey;
+  const apiType = hasKey ? '🔑 用户 API' : '🌐 服务端 API';
+  const model = cfg.model || (hasKey ? 'deepseek/deepseek-chat-v3-0324' : 'SOUL_MIRROR_MODEL');
+
+  statusEl.innerHTML = `${apiType} · 模型: ${model}`;
 }
 
 function copyResult() {
