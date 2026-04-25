@@ -370,14 +370,19 @@ const CONFIG_KEY = 'soul-mirror-config';
 function loadConfig() {
   try {
     const saved = localStorage.getItem(CONFIG_KEY);
+    console.log('[Config] 加载配置，raw:', saved);
     if (saved) {
       const cfg = JSON.parse(saved);
+      console.log('[Config] 解析后:', cfg);
       document.getElementById('cfg-base-url').value = cfg.baseUrl || '';
       document.getElementById('cfg-api-key').value = cfg.apiKey || '';
       document.getElementById('cfg-model').value = cfg.model || '';
-      document.getElementById('cfg-count').value = cfg.count || '40';
+      const countEl = document.getElementById('cfg-count');
+      if (countEl) countEl.value = cfg.count || '40';
     }
-  } catch {}
+  } catch (e) {
+    console.error('[Config] 加载失败:', e);
+  }
   updateConfigStatus();
 }
 
@@ -549,6 +554,7 @@ async function startQuiz() {
   }
   const cfg = JSON.parse(localStorage.getItem(CONFIG_KEY) || '{}');
   const count = parseInt(cfg.count) || 40;
+  console.log('[Quiz] 开始答题，配置count:', cfg.count, '→ 实际使用:', count, '题');
   currentQuestions = sampleQuestions(QUESTIONS, count);
   currentIndex = 0;
   answers = [];
