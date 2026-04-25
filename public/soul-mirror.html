@@ -603,8 +603,17 @@ async function callLLMWithRetry(body, cfg, attempt = 1, startTime = null) {
     const errText = await response.text();
     let err = new Error(`API 请求失败: ${response.status} ${errText}`);
 
-    // 判断是否可重试：429（速率限制）、500、502、503、504
-    const retryable = [429, 500, 502, 503, 504].includes(response.status);
+    // 尝试解析 OpenRouter 的错误体，提取原始错误码
+    let retryable = [429, 500, 502, 503, 504].includes(response.status);
+    try {
+      const errObj = JSON.parse(errText);
+      const upstreamCode = errObj?.error?.code;
+      if (upstreamCode === 429) {
+        retryable = true;
+        console.warn(`[SoulMirror] OpenRouter 速率限制 (code:${upstreamCode})，将重试`);
+      }
+    } catch { /* 不是 JSON，忽略 */ }
+
     if (retryable && attempt < MAX_RETRIES) {
       const delay = BASE_DELAY * Math.pow(2, attempt - 1) + Math.random() * 500;
       console.warn(`[SoulMirror] 请求失败 (${response.status})，${Math.round(delay)}ms 后重试...`);
