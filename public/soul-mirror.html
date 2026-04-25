@@ -442,6 +442,34 @@ function updateConfigStatus() {
     `;
   }
 
+  // LLM 调用历史显示
+  if (lastStat && lastStat.llmLogs && lastStat.llmLogs.length > 0) {
+    html += `
+      <div style="margin-top: 12px; padding-top: 8px; border-top: 1px solid var(--divider);">
+        <div style="color: var(--text-dim); font-size: 0.8rem; margin-bottom: 6px;">LLM 调用记录 (最近 ${lastStat.llmLogs.length} 次尝试)</div>
+        <div style="font-size: 0.75rem; font-family: monospace; line-height: 1.6;">
+    `;
+
+    for (const log of lastStat.llmLogs) {
+      const statusColor = log.success ? '#4ecdc4' : (log.upstreamCode === 429 ? '#f0a500' : '#ff6b6b');
+      const statusIcon = log.success ? '✅' : (log.upstreamCode === 429 ? '⏳' : '❌');
+      html += `
+        <div style="padding: 4px 8px; background: var(--card); border-radius: 4px; margin-bottom: 4px;">
+          <span style="color: ${statusColor}">${statusIcon} 尝试 ${log.attempt}</span>
+          <span style="color: var(--text-dim); margin-left: 6px;">
+            ${log.apiType} · ${log.model}
+          </span>
+          ${log.status ? `<span style="color: var(--text-dim); margin-left: 6px;">HTTP ${log.status}</span>` : ''}
+          ${log.upstreamCode ? `<span style="color: #f0a500; margin-left: 6px;">upstream:${log.upstreamCode}</span>` : ''}
+          ${log.retryAfter ? `<span style="color: var(--warn); margin-left: 6px;">${log.retryAfter}ms后重试</span>` : ''}
+          ${log.error ? `<div style="color: #ff6b6b; margin-top: 2px; font-size: 0.7rem; overflow: hidden; text-overflow: ellipsis;">${log.error}</div>` : ''}
+        </div>
+      `;
+    }
+
+    html += `</div></div>`;
+  }
+
   // 调试信息（开发模式显示，加 ?debug=1 查看）
   if (window.location.search.includes('debug')) {
     const rawCfg = JSON.stringify(cfg);
@@ -601,13 +629,24 @@ function selectChoice(choice) {
 const MAX_RETRIES = 3;
 const BASE_DELAY = 1000; // 1秒
 
+// 临时收集当前 LLM 调用的所有重试日志
+let currentLlmAttempts = [];
+
 // 带指数退避的请求函数
 async function callLLMWithRetry(body, cfg, attempt = 1, startTime = null) {
   const isBackend = !cfg.apiKey;
   const baseUrl = isBackend ? '/api/soul-mirror' : (cfg.baseUrl || 'https://api.openai.com/v1');
   const useOpenRouter = !isBackend && baseUrl.includes('openrouter');
 
-  console.log(`[SoulMirror] 尝试 ${attempt}/${MAX_RETRIES}: ${isBackend ? '后端API' : '用户API'} → ${baseUrl}`);
+  const logEntry = {
+    attempt,
+    timestamp: Date.now(),
+    apiType: isBackend ? 'backend' : 'user',
+    baseUrl: isBackend ? '/api/soul-mirror' : baseUrl,
+    model: cfg.model || (isBackend ? 'SOUL_MIRROR_MODEL' : 'deepseek/deepseek-chat-v3-0324'),
+  };
+
+  console.log(`[SoulMirror] 尝试 ${attempt}/${MAX_RETRIES}: ${logEntry.apiType} → ${logEntry.baseUrl}`);
 
   const fetchOpts = isBackend
     ? { method: 'POST', headers: { 'Content-Type': 'application/json' }, body }
@@ -624,50 +663,77 @@ async function callLLMWithRetry(body, cfg, attempt = 1, startTime = null) {
         body
       };
 
-  const response = await fetch(baseUrl + (isBackend ? '' : '/chat/completions'), fetchOpts);
+  try {
+    const response = await fetch(baseUrl + (isBackend ? '' : '/chat/completions'), fetchOpts);
+    logEntry.status = response.status;
+    logEntry.statusText = response.statusText;
 
-  if (!response.ok) {
-    const errText = await response.text();
-    let err = new Error(`API 请求失败: ${response.status} ${errText}`);
+    if (!response.ok) {
+      const errText = await response.text();
+      logEntry.error = errText.slice(0, 200); // 只保留前 200 字符
 
-    // 尝试解析 OpenRouter 的错误体，提取原始错误码
-    let retryable = [429, 500, 502, 503, 504].includes(response.status);
-    try {
-      const errObj = JSON.parse(errText);
-      const upstreamCode = errObj?.error?.code;
-      if (upstreamCode === 429) {
-        retryable = true;
-        console.warn(`[SoulMirror] OpenRouter 速率限制 (code:${upstreamCode})，将重试`);
+      // 尝试解析 OpenRouter 的错误体，提取原始错误码
+      let retryable = [429, 500, 502, 503, 504].includes(response.status);
+      try {
+        const errObj = JSON.parse(errText);
+        const upstreamCode = errObj?.error?.code;
+        if (upstreamCode === 429) {
+          retryable = true;
+          logEntry.upstreamCode = 429;
+          logEntry.upstreamMsg = errObj?.error?.message || 'Rate limited';
+          console.warn(`[SoulMirror] OpenRouter 速率限制 (code:${upstreamCode})，将重试`);
+        }
+      } catch { /* 不是 JSON，忽略 */ }
+
+      if (retryable && attempt < MAX_RETRIES) {
+        const delay = BASE_DELAY * Math.pow(2, attempt - 1) + Math.random() * 500;
+        logEntry.retryAfter = Math.round(delay);
+        currentLlmAttempts.push(logEntry);
+        console.warn(`[SoulMirror] 请求失败 (${response.status})，${logEntry.retryAfter}ms 后重试...`);
+        await new Promise(r => setTimeout(r, delay));
+        return callLLMWithRetry(body, cfg, attempt + 1, startTime);
       }
-    } catch { /* 不是 JSON，忽略 */ }
 
-    if (retryable && attempt < MAX_RETRIES) {
-      const delay = BASE_DELAY * Math.pow(2, attempt - 1) + Math.random() * 500;
-      console.warn(`[SoulMirror] 请求失败 (${response.status})，${Math.round(delay)}ms 后重试...`);
-      await new Promise(r => setTimeout(r, delay));
-      return callLLMWithRetry(body, cfg, attempt + 1, startTime);
+      throw new Error(`API 请求失败: ${response.status} ${errText.slice(0, 100)}`);
     }
 
+    logEntry.success = true;
+    currentLlmAttempts.push(logEntry);
+    return response;
+
+  } catch (err) {
+    logEntry.error = err.message?.slice(0, 100) || 'Unknown error';
+    currentLlmAttempts.push(logEntry);
     throw err;
   }
-
-  return response;
 }
 
-// 记录请求耗时
-function recordStats(cfg, startTime, success = true) {
+// 记录请求耗时和详细日志
+function recordStats(cfg, startTime, success = true, llmLogs = []) {
   const duration = Date.now() - startTime;
+
+  // 如果传入空数组，则使用当前收集的 attempts
+  const logsToSave = llmLogs.length ? llmLogs : currentLlmAttempts;
+
   const stats = {
     timestamp: new Date().toISOString(),
     apiType: cfg.apiKey ? 'user' : 'backend',
     model: cfg.model || (cfg.apiKey ? 'deepseek/deepseek-chat-v3-0324' : 'SOUL_MIRROR_MODEL'),
     baseUrl: cfg.baseUrl || (cfg.apiKey ? 'https://api.openai.com/v1' : 'openrouter.ai'),
     durationMs: duration,
-    success
+    success,
+    // 脱敏：只显示 key 的前 8 位
+    apiKeyPreview: cfg.apiKey ? `${cfg.apiKey.slice(0, 8)}...` : 'N/A',
+    llmLogs: logsToSave.slice(-10), // 保存最近 10 条尝试记录
   };
+
   const history = JSON.parse(localStorage.getItem('soul-mirror-stats') || '[]');
   history.unshift(stats);
   localStorage.setItem('soul-mirror-stats', JSON.stringify(history.slice(0, 50))); // 保留最近50条
+
+  // 清空临时日志
+  currentLlmAttempts = [];
+
   return duration;
 }
 
@@ -734,9 +800,9 @@ ${choicesSummary}`;
     // 记录失败耗时
     recordStats(cfg, startTime, false);
 
-    const errorMsg = err.message || '生成失败，使用备用方案';
+    // 不向用户显示具体错误信息，只显示通用提示
     document.getElementById('retry-btn').style.display = '';
-    const resultText = `⚠️ 生成遇到问题：${errorMsg}\n\n---\n\n` + pickPreset(answers);
+    const resultText = `⚠️ 生成遇到问题，已切换至备用方案\n\n---\n\n` + pickPreset(answers);
     renderResult(resultText, null);
   }
 }
@@ -766,10 +832,10 @@ async function retryGenerate() {
     // 记录失败耗时
     recordStats(cfg, startTime, false);
 
-    const errorMsg = err.message || '生成失败，使用备用方案';
+    // 不向用户显示具体错误信息
     btn.textContent = '🔄 重新生成';
     btn.disabled = false;
-    const resultText = `⚠️ 生成遇到问题：${errorMsg}\n\n---\n\n` + pickPreset(answers);
+    const resultText = `⚠️ 生成遇到问题，已切换至备用方案\n\n---\n\n` + pickPreset(answers);
     renderResult(resultText, null);
   }
 }
