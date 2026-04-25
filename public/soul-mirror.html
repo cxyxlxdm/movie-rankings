@@ -408,11 +408,15 @@ function updateConfigStatus() {
   const lastStat = stats[0];
   const avgTime = stats.length ? Math.round(stats.reduce((a, b) => a + b.durationMs, 0) / stats.length) : null;
 
+  // 调试：显示完整配置对象
+  console.log('[ConfigStatus] 当前配置:', cfg);
+
   let html = `
     <div style="display: flex; gap: 12px; flex-wrap: wrap; margin-bottom: 8px;">
       <span style="color: ${hasKey ? '#4ecdc4' : '#7c6aef'}; font-weight: 600;">${apiType}</span>
     </div>
     <div style="color: var(--text-dim); font-size: 0.8rem; line-height: 1.6;">
+      题目数: <code style="background: var(--divider); padding: 2px 6px; border-radius: 4px;">${cfg.count || '默认(40)'}</code><br>
       模型: <code style="background: var(--divider); padding: 2px 6px; border-radius: 4px;">${model}</code><br>
       地址: <code style="background: var(--divider); padding: 2px 6px; border-radius: 4px;">${baseUrl}</code>
     </div>
@@ -425,6 +429,17 @@ function updateConfigStatus() {
         ${avgTime ? `<br>平均耗时: ${avgTime}ms (共 ${stats.length} 次)` : ''}
       </div>
     `;
+  }
+
+  // 调试信息（开发模式显示，加 ?debug=1 查看）
+  if (window.location.search.includes('debug')) {
+    const rawCfg = JSON.stringify(cfg);
+    const parsedCount = parseInt(cfg.count);
+    html += `<div style="margin-top:8px;padding:8px;background:rgba(255,165,0,0.1);border-radius:4px;font-size:0.75rem;color:#f0a500;">
+      <strong>调试信息</strong><br>
+      raw cfg: ${rawCfg}<br>
+      count 字段: "${cfg.count}" → parseInt: ${parsedCount} || 40 = ${parsedCount || 40}
+    </div>`;
   }
 
   statusEl.innerHTML = html;
