@@ -382,15 +382,21 @@ function loadConfig() {
 }
 
 function saveConfig() {
-  const cfg = {
-    baseUrl: document.getElementById('cfg-base-url').value,
-    apiKey: document.getElementById('cfg-api-key').value,
-    model: document.getElementById('cfg-model').value,
-    count: document.getElementById('cfg-count').value,
-  };
-  localStorage.setItem(CONFIG_KEY, JSON.stringify(cfg));
-  updateConfigStatus();
-  return cfg;
+  try {
+    const cfg = {
+      baseUrl: document.getElementById('cfg-base-url').value,
+      apiKey: document.getElementById('cfg-api-key').value,
+      model: document.getElementById('cfg-model').value,
+      count: document.getElementById('cfg-count').value,
+    };
+    localStorage.setItem(CONFIG_KEY, JSON.stringify(cfg));
+    console.log('[Config] 配置已保存:', cfg);
+    updateConfigStatus();
+    return cfg;
+  } catch (e) {
+    console.error('[Config] 保存失败:', e);
+    return null;
+  }
 }
 
 function updateConfigStatus() {
