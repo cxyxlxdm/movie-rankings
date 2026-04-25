@@ -559,6 +559,7 @@ ${choicesSummary}`;
 
     // 优先走本服务器 API（无需用户配置）
     if (!cfg.apiKey) {
+      console.log('[SoulMirror] 使用后端 API');
       response = await fetch('/api/soul-mirror', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
@@ -566,6 +567,7 @@ ${choicesSummary}`;
       });
     } else {
       // 用户自定义 API
+      console.log('[SoulMirror] 使用用户自定义 API:', cfg.baseUrl, cfg.model);
       const baseUrl = cfg.baseUrl || 'https://api.openai.com/v1';
       response = await fetch(`${baseUrl}/chat/completions`, {
         method: 'POST',
@@ -584,10 +586,16 @@ ${choicesSummary}`;
 
     const data = await response.json();
     document.getElementById('retry-btn').style.display = 'none';
+    console.log('[SoulMirror] API 成功返回');
     renderResult(data.choices[0].message.content);
   } catch (err) {
+    console.error('[SoulMirror] 生成失败:', err);
+    // 区分是 API 错误还是兜底
+    const errorMsg = err.message || '生成失败，使用备用方案';
     document.getElementById('retry-btn').style.display = '';
-    renderResult(pickPreset(answers));
+    // 在结果中也显示错误信息，方便调试
+    const resultText = `⚠️ 生成遇到问题：${errorMsg}\n\n---\n\n` + pickPreset(answers);
+    renderResult(resultText);
   }
 }
 
@@ -625,9 +633,12 @@ async function retryGenerate() {
     btn.style.display = 'none';
     renderResult(data.choices[0].message.content);
   } catch (err) {
+    console.error('[SoulMirror] 重试失败:', err);
+    const errorMsg = err.message || '生成失败，使用备用方案';
     btn.textContent = '🔄 重新生成';
     btn.disabled = false;
-    renderResult(pickPreset(answers));
+    const resultText = `⚠️ 生成遇到问题：${errorMsg}\n\n---\n\n` + pickPreset(answers);
+    renderResult(resultText);
   }
 }
 

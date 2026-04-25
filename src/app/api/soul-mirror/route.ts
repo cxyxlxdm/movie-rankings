@@ -11,6 +11,13 @@ export async function POST(req: NextRequest) {
     const baseUrl = process.env.SOUL_MIRROR_BASE_URL || 'https://openrouter.ai/api/v1';
     const model = process.env.SOUL_MIRROR_MODEL || 'deepseek/deepseek-chat-v3-0324';
 
+    console.log('[SoulMirror] 配置检查:', {
+      apiKey: apiKey ? `${apiKey.slice(0, 8)}...` : 'MISSING',
+      baseUrl,
+      model,
+      envKeys: Object.keys(process.env).filter(k => k.includes('SOUL'))
+    });
+
     if (!apiKey) {
       return NextResponse.json(
         { error: 'API 未配置，请联系管理员设置 SOUL_MIRROR_API_KEY' },
