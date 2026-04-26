@@ -1,0 +1,987 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>灵魂镜像 — 你是谁？</title>
+<meta name="description" content="在你爱的那些作品里，藏着你是谁的答案。通过二选一的直觉选择，生成你的灵魂画像。">
+<style>
+  :root {
+    --bg: #0a0a0f;
+    --card: #141420;
+    --card-hover: #1c1c2e;
+    --accent: #7c6aef;
+    --accent-dim: #5a4cb8;
+    --text: #e8e6f0;
+    --text-dim: #8a88a0;
+    --text-bright: #ffffff;
+    --divider: #2a2a3e;
+    --success: #4ecdc4;
+    --warn: #f0a500;
+    --radius: 16px;
+  }
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  body {
+    font-family: -apple-system, "PingFang SC", "Noto Sans SC", "Helvetica Neue", sans-serif;
+    background: var(--bg);
+    color: var(--text);
+    min-height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+
+  .container {
+    width: 100%;
+    max-width: 720px;
+    padding: 24px;
+    position: relative;
+  }
+
+  /* ===== 公共 ===== */
+  .btn-primary {
+    background: var(--accent);
+    color: white;
+    border: none;
+    padding: 14px 48px;
+    font-size: 1.1rem;
+    border-radius: 50px;
+    cursor: pointer;
+    transition: all 0.3s;
+    font-weight: 600;
+    letter-spacing: 0.1em;
+  }
+  .btn-primary:hover {
+    background: var(--accent-dim);
+    transform: translateY(-2px);
+    box-shadow: 0 8px 30px rgba(124,106,239,0.3);
+  }
+  .btn-primary:disabled {
+    opacity: 0.4;
+    cursor: not-allowed;
+    transform: none;
+    box-shadow: none;
+  }
+  .btn-secondary {
+    background: transparent;
+    color: var(--text-dim);
+    border: 1px solid var(--divider);
+    padding: 10px 28px;
+    font-size: 0.9rem;
+    border-radius: 50px;
+    cursor: pointer;
+    transition: all 0.3s;
+  }
+  .btn-secondary:hover {
+    border-color: var(--accent);
+    color: var(--accent);
+  }
+
+  /* ===== 开始页 ===== */
+  #start-screen { text-align: center; animation: fadeIn 0.8s ease; }
+  #start-screen h1 { font-size: 2.4rem; font-weight: 700; color: var(--text-bright); margin-bottom: 12px; }
+  #start-screen .subtitle { font-size: 1.1rem; color: var(--text-dim); margin-bottom: 40px; line-height: 1.8; }
+  #start-screen .hint { font-size: 0.85rem; color: var(--text-dim); margin-bottom: 32px; opacity: 0.7; }
+
+  /* ===== 答题页 ===== */
+  #quiz-screen { display: none; }
+  .progress-bar { width: 100%; height: 3px; background: var(--divider); border-radius: 2px; margin-bottom: 32px; overflow: hidden; }
+  .progress-fill { height: 100%; background: linear-gradient(90deg, var(--accent), var(--success)); border-radius: 2px; transition: width 0.5s ease; }
+  .progress-text { text-align: center; font-size: 0.85rem; color: var(--text-dim); margin-bottom: 24px; }
+  .question-label { text-align: center; font-size: 0.9rem; color: var(--accent); margin-bottom: 8px; font-weight: 500; }
+  .question-title { text-align: center; font-size: 1.3rem; color: var(--text-bright); margin-bottom: 40px; line-height: 1.6; min-height: 2.6em; display: flex; align-items: center; justify-content: center; }
+  .choices { display: flex; gap: 16px; }
+  .choice-card {
+    flex: 1; background: var(--card); border: 2px solid var(--divider); border-radius: var(--radius);
+    padding: 32px 20px; text-align: center; cursor: pointer; transition: all 0.3s ease;
+    user-select: none; -webkit-tap-highlight-color: transparent;
+  }
+  .choice-card:hover { background: var(--card-hover); border-color: var(--accent-dim); transform: translateY(-4px); box-shadow: 0 12px 40px rgba(0,0,0,0.3); }
+  .choice-card:active { transform: translateY(-1px); border-color: var(--accent); }
+  .choice-card .label { font-size: 0.75rem; color: var(--accent); margin-bottom: 12px; font-weight: 600; letter-spacing: 0.15em; }
+  .choice-card .title { font-size: 1.1rem; color: var(--text-bright); font-weight: 600; margin-bottom: 8px; line-height: 1.4; }
+  .choice-card .meta { font-size: 0.8rem; color: var(--text-dim); line-height: 1.5; }
+
+  /* ===== 加载页 ===== */
+  #loading-screen { display: none; text-align: center; }
+  .loading-icon { font-size: 3rem; margin-bottom: 24px; animation: pulse 2s ease-in-out infinite; }
+  .loading-text { font-size: 1.1rem; color: var(--text-dim); line-height: 1.8; }
+  .loading-dots::after { content: ''; animation: dots 1.5s steps(4, end) infinite; }
+  @keyframes dots { 0%,20% { content:''; } 40% { content:'.'; } 60% { content:'..'; } 80%,100% { content:'...'; } }
+
+  /* ===== 结果页 ===== */
+  #result-screen { display: none; animation: fadeIn 1s ease; }
+  .result-header { text-align: center; margin-bottom: 40px; }
+  .result-header h2 { font-size: 1.8rem; color: var(--text-bright); margin-bottom: 8px; }
+  .result-header .stats { font-size: 0.85rem; color: var(--text-dim); }
+  .soul-word { font-size: 1.5rem; font-weight: 700; text-align: center; padding: 40px 24px 20px; color: var(--accent); letter-spacing: 0.05em; line-height: 1.6; text-shadow: 0 0 40px rgba(var(--accent-rgb, 99,102,241), 0.3); }
+  .result-section { margin-bottom: 24px; padding: 24px; background: var(--card); border-radius: var(--radius); border-left: 3px solid var(--accent); }
+  .result-section h3 { font-size: 1rem; color: var(--accent); margin-bottom: 12px; font-weight: 600; }
+  .result-section p { font-size: 0.95rem; color: var(--text); line-height: 1.9; }
+  .result-footer { text-align: center; margin-top: 40px; padding-top: 32px; border-top: 1px solid var(--divider); }
+  .result-footer .btn-secondary { margin: 0 8px; }
+
+  /* ===== 提交题目页 ===== */
+  #submit-screen { display: none; animation: fadeIn 0.5s ease; }
+  #submit-screen h2 { text-align: center; font-size: 1.4rem; color: var(--text-bright); margin-bottom: 8px; }
+  #submit-screen .desc { text-align: center; font-size: 0.9rem; color: var(--text-dim); margin-bottom: 32px; line-height: 1.6; }
+  .form-group { margin-bottom: 20px; }
+  .form-group label { display: block; font-size: 0.85rem; color: var(--text-dim); margin-bottom: 6px; }
+  .form-group input, .form-group select, .form-group textarea {
+    width: 100%; padding: 12px 14px; background: var(--card); border: 1px solid var(--divider);
+    border-radius: 10px; color: var(--text); font-size: 0.95rem; font-family: inherit;
+  }
+  .form-group input:focus, .form-group select:focus, .form-group textarea:focus { outline: none; border-color: var(--accent); }
+  .form-group textarea { resize: vertical; min-height: 60px; }
+  .form-row { display: flex; gap: 16px; }
+  .form-row .form-group { flex: 1; }
+  .submit-result { text-align: center; margin-top: 20px; padding: 16px; border-radius: 10px; display: none; }
+  .submit-result.success { display: block; background: rgba(78,205,196,0.1); color: var(--success); border: 1px solid rgba(78,205,196,0.3); }
+  .submit-result.error { display: block; background: rgba(240,165,0,0.1); color: var(--warn); border: 1px solid rgba(240,165,0,0.3); }
+
+  /* ===== 配置面板 ===== */
+  .config-toggle {
+    position: fixed; top: 16px; right: 16px; background: var(--card); border: 1px solid var(--divider);
+    color: var(--text-dim); width: 36px; height: 36px; border-radius: 50%; cursor: pointer;
+    font-size: 1rem; display: flex; align-items: center; justify-content: center;
+    transition: all 0.3s; z-index: 100;
+  }
+  .config-toggle:hover { border-color: var(--accent); color: var(--accent); }
+  .config-panel {
+    display: none; position: fixed; top: 0; right: 0; width: 360px; height: 100vh;
+    background: var(--card); border-left: 1px solid var(--divider); padding: 60px 24px 24px;
+    z-index: 99; overflow-y: auto;
+  }
+  .config-panel.open { display: block; }
+  .config-panel h3 { color: var(--text-bright); margin-bottom: 20px; font-size: 1rem; }
+  .config-field { margin-bottom: 16px; }
+  .config-field label { display: block; font-size: 0.8rem; color: var(--text-dim); margin-bottom: 6px; }
+  .config-field input, .config-field select {
+    width: 100%; padding: 10px 12px; background: var(--bg); border: 1px solid var(--divider);
+    border-radius: 8px; color: var(--text); font-size: 0.85rem;
+  }
+  .config-field input:focus, .config-field select:focus { outline: none; border-color: var(--accent); }
+
+  /* ===== 动画 ===== */
+  @keyframes fadeIn { from { opacity: 0; transform: translateY(20px); } to { opacity: 1; transform: translateY(0); } }
+  @keyframes pulse { 0%,100% { transform: scale(1); opacity: 1; } 50% { transform: scale(1.1); opacity: 0.7; } }
+  .slide-in { animation: slideIn 0.4s ease; }
+  @keyframes slideIn { from { opacity: 0; transform: translateX(30px); } to { opacity: 1; transform: translateX(0); } }
+
+  /* ===== 底部导航 ===== */
+  .bottom-nav {
+    position: fixed; bottom: 0; left: 0; right: 0; background: var(--card); border-top: 1px solid var(--divider);
+    display: flex; justify-content: center; gap: 0; z-index: 100; padding: 0;
+  }
+  .bottom-nav button {
+    flex: 1; padding: 14px 0; background: transparent; border: none; color: var(--text-dim);
+    font-size: 0.85rem; cursor: pointer; transition: color 0.3s; font-family: inherit;
+  }
+  .bottom-nav button.active { color: var(--accent); }
+  .bottom-nav button:hover { color: var(--text); }
+
+  /* ===== 结果页统计 ===== */
+  .generation-stats {
+    text-align: center;
+    color: var(--success);
+    font-size: 0.85rem;
+    margin-top: 16px;
+    padding: 8px;
+    opacity: 0.8;
+  }
+
+  /* ===== 响应式 ===== */
+  @media (max-width: 600px) {
+    .choices { flex-direction: column; }
+    .question-title { font-size: 1.1rem; }
+    #start-screen h1 { font-size: 1.8rem; }
+    .config-panel { width: 100%; }
+    .form-row { flex-direction: column; gap: 0; }
+  }
+  body { padding-bottom: 56px; }
+</style>
+</head>
+<body>
+
+<button class="config-toggle" onclick="toggleConfig()" title="API 配置">⚙</button>
+
+<div class="config-panel" id="config-panel">
+  <h3>⚙ 自定义 API（可选）</h3>
+  <p style="font-size: 0.8rem; color: var(--text-dim); margin-bottom: 16px; line-height: 1.6;">
+    默认使用服务端 API，无需配置。如果你有自己的 API Key，填入后将优先使用你自己的额度。
+  </p>
+  <div class="config-field">
+    <label>API Base URL</label>
+    <input type="text" id="cfg-base-url" placeholder="https://openrouter.ai/api/v1" onchange="saveConfig()" />
+  </div>
+  <div class="config-field">
+    <label>API Key</label>
+    <input type="password" id="cfg-api-key" placeholder="sk-or-v1-..." onchange="saveConfig()" />
+  </div>
+  <div class="config-field">
+    <label>Model</label>
+    <input type="text" id="cfg-model" placeholder="deepseek/deepseek-chat-v3-0324" onchange="saveConfig()" />
+  </div>
+  <div class="config-field">
+    <label>题目数量</label>
+    <select id="cfg-count" onchange="saveConfig()">
+      <option value="30" selected>30 题</option>
+      <option value="40">40 题</option>
+      <option value="50">50 题</option>
+    </select>
+  </div>
+
+  <!-- 当前配置状态 -->
+  <div class="config-status" id="config-status" style="margin-top: 16px; padding: 12px; background: var(--card); border-radius: 8px; font-size: 0.85rem;">
+    <div style="color: var(--text-dim); margin-bottom: 8px;">当前使用的配置</div>
+    <div id="config-status-content">加载中...</div>
+  </div>
+
+  <p style="font-size: 0.75rem; color: var(--text-dim); margin-top: 16px; line-height: 1.6;">
+    API Key 仅保存在浏览器本地存储中，不会上传到任何服务器。<br>
+    支持 OpenRouter / OpenAI / DeepSeek / Qwen 等任何兼容 OpenAI 格式的 API。
+  </p>
+</div>
+
+<div class="container">
+
+  <!-- 开始页 -->
+  <div id="start-screen">
+    <h1>灵魂镜像</h1>
+    <div class="subtitle">
+      在你爱的那些作品里<br>藏着你是谁的答案
+    </div>
+    <div class="hint">
+      二选一，不犹豫，凭直觉。<br>没有对错，只有你是谁。
+    </div>
+    <button class="btn-primary" onclick="startQuiz()">开始</button>
+  </div>
+
+  <!-- 答题页 -->
+  <div id="quiz-screen">
+    <div class="progress-bar"><div class="progress-fill" id="progress-fill"></div></div>
+    <div class="progress-text" id="progress-text"></div>
+    <div class="question-label">在你心中，哪一个更靠近你？</div>
+    <div class="question-title" id="question-title"></div>
+    <div class="choices">
+      <div class="choice-card" id="choice-a" onclick="selectChoice('A')">
+        <div class="label">A</div>
+        <div class="title" id="choice-a-title"></div>
+        <div class="meta" id="choice-a-meta"></div>
+      </div>
+      <div class="choice-card" id="choice-b" onclick="selectChoice('B')">
+        <div class="label">B</div>
+        <div class="title" id="choice-b-title"></div>
+        <div class="meta" id="choice-b-meta"></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- 加载页 -->
+  <div id="loading-screen">
+    <div class="loading-icon">🪞</div>
+    <div class="loading-text">
+      正在为你生成灵魂画像<span class="loading-dots"></span>
+      <br><br>
+      <span style="font-size: 0.85rem; opacity: 0.6;">你做的每一个选择，都在告诉我你是谁</span>
+    </div>
+  </div>
+
+  <!-- 结果页 -->
+  <div id="result-screen">
+    <div class="result-header">
+      <h2>🪞 你的灵魂画像</h2>
+      <div class="stats" id="result-stats"></div>
+    </div>
+    <div id="result-content"></div>
+
+    <!-- 配置状态（结果页底部） -->
+    <div id="result-config-status" style="padding: 12px; text-align: center; font-size: 0.8rem; color: var(--text-dim); border-top: 1px solid var(--divider); margin-top: 16px;"></div>
+
+    <div class="result-footer">
+      <button class="btn-secondary" id="retry-btn" onclick="retryGenerate()" style="display:none;">🔄 重新生成</button>
+      <button class="btn-secondary" onclick="copyResult()">复制结果</button>
+      <button class="btn-secondary" onclick="goTo('start-screen')">再做一次</button>
+      <button class="btn-secondary" onclick="goTo('submit-screen')">贡献题目</button>
+    </div>
+  </div>
+
+  <!-- 提交题目页 -->
+  <div id="submit-screen">
+    <h2>📝 贡献题目</h2>
+    <div class="desc">
+      好的题目能照见人心。贡献一道你觉得能反映性格差异的二选一。
+    </div>
+    <div class="form-group">
+      <label>选项 A</label>
+      <input type="text" id="sub-a" placeholder="例如：罗大佑" />
+    </div>
+    <div class="form-group">
+      <label>选项 B</label>
+      <input type="text" id="sub-b" placeholder="例如：周杰伦" />
+    </div>
+    <div class="form-row">
+      <div class="form-group">
+        <label>分类</label>
+        <select id="sub-category">
+          <option value="电影">电影</option>
+          <option value="导演">导演</option>
+          <option value="文学">文学</option>
+          <option value="游戏">游戏</option>
+          <option value="电视剧">电视剧</option>
+          <option value="音乐">音乐</option>
+          <option value="人物">人物</option>
+          <option value="哲学">哲学</option>
+          <option value="价值观">价值观</option>
+          <option value="生活方式">生活方式</option>
+          <option value="历史">历史</option>
+          <option value="诗词">诗词</option>
+          <option value="其他">其他</option>
+        </select>
+      </div>
+      <div class="form-group">
+        <label>对比角度（可选）</label>
+        <input type="text" id="sub-angle" placeholder="例如：两个时代的音乐人" />
+      </div>
+    </div>
+    <div style="text-align: center; margin-top: 12px;">
+      <button class="btn-primary" id="submit-btn" onclick="submitQuestion()">提交题目</button>
+    </div>
+    <div class="submit-result" id="submit-result"></div>
+    <div style="text-align: center; margin-top: 24px;">
+      <button class="btn-secondary" onclick="goTo(quizScreenBeforeSubmit || 'start-screen')">返回</button>
+    </div>
+  </div>
+
+</div>
+
+<!-- 底部导航 -->
+<div class="bottom-nav" id="bottom-nav" style="display: none;">
+  <button onclick="goTo('start-screen')" id="nav-home">🏠 首页</button>
+  <button onclick="goTo('submit-screen')" id="nav-submit">📝 出题</button>
+</div>
+
+<script>
+// ==================== 配置管理 ====================
+const CONFIG_KEY = 'soul-mirror-config';
+
+function loadConfig() {
+  try {
+    const saved = localStorage.getItem(CONFIG_KEY);
+    console.log('[Config] 加载配置，raw:', saved);
+    if (saved) {
+      const cfg = JSON.parse(saved);
+      console.log('[Config] 解析后:', cfg);
+      document.getElementById('cfg-base-url').value = cfg.baseUrl || '';
+      document.getElementById('cfg-api-key').value = cfg.apiKey || '';
+      document.getElementById('cfg-model').value = cfg.model || '';
+      const countEl = document.getElementById('cfg-count');
+      if (countEl) countEl.value = cfg.count || '40';
+    }
+  } catch (e) {
+    console.error('[Config] 加载失败:', e);
+  }
+  updateConfigStatus();
+}
+
+function saveConfig() {
+  try {
+    const cfg = {
+      baseUrl: document.getElementById('cfg-base-url').value,
+      apiKey: document.getElementById('cfg-api-key').value,
+      model: document.getElementById('cfg-model').value,
+      count: document.getElementById('cfg-count').value,
+    };
+    localStorage.setItem(CONFIG_KEY, JSON.stringify(cfg));
+    console.log('[Config] 配置已保存:', cfg);
+    updateConfigStatus();
+    return cfg;
+  } catch (e) {
+    console.error('[Config] 保存失败:', e);
+    return null;
+  }
+}
+
+function updateConfigStatus() {
+  const cfg = JSON.parse(localStorage.getItem(CONFIG_KEY) || '{}');
+  const statusEl = document.getElementById('config-status-content');
+  if (!statusEl) return;
+
+  const hasKey = !!cfg.apiKey;
+  const apiType = hasKey ? '🔑 用户自定义 API' : '🌐 服务端默认 API';
+  const baseUrl = cfg.baseUrl || (hasKey ? 'https://api.openai.com/v1' : 'https://openrouter.ai/api/v1');
+  const model = cfg.model || (hasKey ? 'deepseek/deepseek-chat-v3-0324' : 'SOUL_MIRROR_MODEL');
+
+  // 获取历史统计
+  const stats = JSON.parse(localStorage.getItem('soul-mirror-stats') || '[]');
+  const lastStat = stats[0];
+  const avgTime = stats.length ? Math.round(stats.reduce((a, b) => a + b.durationMs, 0) / stats.length) : null;
+
+  // 调试：显示完整配置对象
+  console.log('[ConfigStatus] 当前配置:', cfg);
+
+  let html = `
+    <div style="display: flex; gap: 12px; flex-wrap: wrap; margin-bottom: 8px;">
+      <span style="color: ${hasKey ? '#4ecdc4' : '#7c6aef'}; font-weight: 600;">${apiType}</span>
+    </div>
+    <div style="color: var(--text-dim); font-size: 0.8rem; line-height: 1.6;">
+      题目数: <code style="background: var(--divider); padding: 2px 6px; border-radius: 4px;">${cfg.count || '默认(40)'}</code><br>
+      模型: <code style="background: var(--divider); padding: 2px 6px; border-radius: 4px;">${model}</code><br>
+      地址: <code style="background: var(--divider); padding: 2px 6px; border-radius: 4px;">${baseUrl}</code>
+    </div>
+  `;
+
+  if (lastStat) {
+    html += `
+      <div style="margin-top: 8px; padding-top: 8px; border-top: 1px solid var(--divider); color: var(--text-dim); font-size: 0.8rem;">
+        最近一次: ${lastStat.success ? '✅ 成功' : '❌ 失败'} · ${lastStat.durationMs}ms
+        ${avgTime ? `<br>平均耗时: ${avgTime}ms (共 ${stats.length} 次)` : ''}
+      </div>
+    `;
+  }
+
+  // LLM 调用历史显示
+  if (lastStat && lastStat.llmLogs && lastStat.llmLogs.length > 0) {
+    html += `
+      <div style="margin-top: 12px; padding-top: 8px; border-top: 1px solid var(--divider);">
+        <div style="color: var(--text-dim); font-size: 0.8rem; margin-bottom: 6px;">LLM 调用记录 (最近 ${lastStat.llmLogs.length} 次尝试)</div>
+        <div style="font-size: 0.75rem; font-family: monospace; line-height: 1.6;">
+    `;
+
+    for (const log of lastStat.llmLogs) {
+      const statusColor = log.success ? '#4ecdc4' : (log.upstreamCode === 429 ? '#f0a500' : '#ff6b6b');
+      const statusIcon = log.success ? '✅' : (log.upstreamCode === 429 ? '⏳' : '❌');
+      html += `
+        <div style="padding: 4px 8px; background: var(--card); border-radius: 4px; margin-bottom: 4px;">
+          <span style="color: ${statusColor}">${statusIcon} 尝试 ${log.attempt}</span>
+          <span style="color: var(--text-dim); margin-left: 6px;">
+            ${log.apiType} · ${log.model}
+          </span>
+          ${log.status ? `<span style="color: var(--text-dim); margin-left: 6px;">HTTP ${log.status}</span>` : ''}
+          ${log.upstreamCode ? `<span style="color: #f0a500; margin-left: 6px;">upstream:${log.upstreamCode}</span>` : ''}
+          ${log.retryAfter ? `<span style="color: var(--warn); margin-left: 6px;">${log.retryAfter}ms后重试</span>` : ''}
+          ${log.error ? `<div style="color: #ff6b6b; margin-top: 2px; font-size: 0.7rem; overflow: hidden; text-overflow: ellipsis;">${log.error}</div>` : ''}
+        </div>
+      `;
+    }
+
+    html += `</div></div>`;
+  }
+
+  // 调试信息（开发模式显示，加 ?debug=1 查看）
+  if (window.location.search.includes('debug')) {
+    const rawCfg = JSON.stringify(cfg);
+    const parsedCount = parseInt(cfg.count);
+    html += `<div style="margin-top:8px;padding:8px;background:rgba(255,165,0,0.1);border-radius:4px;font-size:0.75rem;color:#f0a500;">
+      <strong>调试信息</strong><br>
+      raw cfg: ${rawCfg}<br>
+      count 字段: "${cfg.count}" → parseInt: ${parsedCount} || 40 = ${parsedCount || 40}
+    </div>`;
+  }
+
+  statusEl.innerHTML = html;
+}
+
+function toggleConfig() {
+  document.getElementById('config-panel').classList.toggle('open');
+}
+
+// ==================== 题库 ====================
+let QUESTIONS = [];
+let PRESETS = [];
+
+async function loadQuestions() {
+  try {
+    const resp = await fetch('./soul-mirror-questions-v2.json');
+    QUESTIONS = await resp.json();
+    console.log(`题库加载完成：${QUESTIONS.length} 道题`);
+  } catch (e) {
+    console.error('题库加载失败:', e);
+  }
+}
+
+async function loadPresets() {
+  try {
+    const resp = await fetch('./soul-mirror-presets.json');
+    PRESETS = await resp.json();
+    console.log(`预置画像加载完成：${PRESETS.length} 套`);
+  } catch (e) {
+    console.error('预置画像加载失败:', e);
+  }
+}
+
+// 根据用户答案选最匹配的预置画像
+function pickPreset(answersList) {
+  if (!PRESETS.length) return '画像生成中遇到了一点小问题，请稍后再试。';
+  // 用选项名的hash选一个确定性的索引，同一套答案永远得到同一个结果
+  const seed = answersList.map(a => a.chosen).join('|');
+  let hash = 0;
+  for (let i = 0; i < seed.length; i++) {
+    hash = ((hash << 5) - hash + seed.charCodeAt(i)) | 0;
+  }
+  const idx = Math.abs(hash) % PRESETS.length;
+  return PRESETS[idx];
+}
+
+function sampleQuestions(pool, count) {
+  const groups = {};
+  for (const q of pool) {
+    const cat = q.category || '其他';
+    if (!groups[cat]) groups[cat] = [];
+    groups[cat].push(q);
+  }
+  const categories = Object.keys(groups);
+  const perCategory = Math.ceil(count / categories.length);
+  let sampled = [];
+  for (const cat of categories) {
+    const shuffled = groups[cat].sort(() => Math.random() - 0.5);
+    sampled.push(...shuffled.slice(0, perCategory));
+  }
+  if (sampled.length < count) {
+    const remaining = pool.filter(q => !sampled.includes(q));
+    sampled.push(...remaining.sort(() => Math.random() - 0.5).slice(0, count - sampled.length));
+  }
+  return sampled.sort(() => Math.random() - 0.5).slice(0, count);
+}
+
+// ==================== 导航 ====================
+let quizScreenBeforeSubmit = null;
+
+function showScreen(id) {
+  ['start-screen', 'quiz-screen', 'loading-screen', 'result-screen', 'submit-screen'].forEach(s => {
+    document.getElementById(s).style.display = 'none';
+  });
+  document.getElementById(id).style.display = 'block';
+
+  // 底部导航
+  const nav = document.getElementById('bottom-nav');
+  if (id === 'quiz-screen' || id === 'loading-screen') {
+    nav.style.display = 'none';
+  } else {
+    nav.style.display = 'flex';
+    document.querySelectorAll('.bottom-nav button').forEach(b => b.classList.remove('active'));
+    if (id === 'start-screen') document.getElementById('nav-home').classList.add('active');
+    if (id === 'submit-screen') document.getElementById('nav-submit').classList.add('active');
+  }
+}
+
+function goTo(screenId) {
+  showScreen(screenId);
+}
+
+// ==================== 答题逻辑 ====================
+let currentQuestions = [];
+let currentIndex = 0;
+let answers = [];
+
+async function startQuiz() {
+  if (QUESTIONS.length === 0) {
+    await loadQuestions();
+  }
+  const cfg = JSON.parse(localStorage.getItem(CONFIG_KEY) || '{}');
+  const count = parseInt(cfg.count) || 40;
+  console.log('[Quiz] 开始答题，配置count:', cfg.count, '→ 实际使用:', count, '题');
+  currentQuestions = sampleQuestions(QUESTIONS, count);
+  currentIndex = 0;
+  answers = [];
+  showScreen('quiz-screen');
+  renderQuestion();
+}
+
+function renderQuestion() {
+  const q = currentQuestions[currentIndex];
+  const total = currentQuestions.length;
+  document.getElementById('progress-fill').style.width = `${((currentIndex) / total) * 100}%`;
+  document.getElementById('progress-text').textContent = `${currentIndex + 1} / ${total}`;
+  document.getElementById('question-title').textContent = q.prompt || '在你心中，哪个更靠近你？';
+  document.getElementById('choice-a-title').textContent = q.a;
+  document.getElementById('choice-b-title').textContent = q.b;
+  document.getElementById('choice-a-meta').textContent = q.meta_a || '';
+  document.getElementById('choice-b-meta').textContent = q.meta_b || '';
+
+  const screen = document.getElementById('quiz-screen');
+  screen.classList.remove('slide-in');
+  void screen.offsetWidth;
+  screen.classList.add('slide-in');
+}
+
+function selectChoice(choice) {
+  const q = currentQuestions[currentIndex];
+  answers.push({
+    question: q.prompt || '在你心中，哪个更靠近你？',
+    choice,
+    chosen: choice === 'A' ? q.a : q.b,
+    rejected: choice === 'A' ? q.b : q.a,
+    category: q.category,
+  });
+  currentIndex++;
+  if (currentIndex >= currentQuestions.length) {
+    finishQuiz();
+  } else {
+    renderQuestion();
+  }
+}
+
+// ==================== 结果生成 ====================
+// 指数退避重试配置
+const MAX_RETRIES = 3;
+const BASE_DELAY = 1000; // 1秒
+
+// 临时收集当前 LLM 调用的所有重试日志
+let currentLlmAttempts = [];
+
+// 带指数退避的请求函数
+async function callLLMWithRetry(body, cfg, attempt = 1, startTime = null) {
+  const isBackend = !cfg.apiKey;
+  const baseUrl = isBackend ? '/api/soul-mirror' : (cfg.baseUrl || 'https://api.openai.com/v1');
+  const useOpenRouter = !isBackend && baseUrl.includes('openrouter');
+
+  const logEntry = {
+    attempt,
+    timestamp: Date.now(),
+    apiType: isBackend ? 'backend' : 'user',
+    baseUrl: isBackend ? '/api/soul-mirror' : baseUrl,
+    model: cfg.model || (isBackend ? 'SOUL_MIRROR_MODEL' : 'deepseek/deepseek-chat-v3-0324'),
+  };
+
+  console.log(`[SoulMirror] 尝试 ${attempt}/${MAX_RETRIES}: ${logEntry.apiType} → ${logEntry.baseUrl}`);
+
+  const fetchOpts = isBackend
+    ? { method: 'POST', headers: { 'Content-Type': 'application/json' }, body }
+    : {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+          'Authorization': `Bearer ${cfg.apiKey}`,
+          ...(useOpenRouter ? {
+            'HTTP-Referer': window.location.origin,
+            'X-Title': 'Soul Mirror'
+          } : {})
+        },
+        body
+      };
+
+  try {
+    const response = await fetch(baseUrl + (isBackend ? '' : '/chat/completions'), fetchOpts);
+    logEntry.status = response.status;
+    logEntry.statusText = response.statusText;
+
+    if (!response.ok) {
+      const errText = await response.text();
+      logEntry.error = errText.slice(0, 200); // 只保留前 200 字符
+
+      // 尝试解析 OpenRouter 的错误体，提取原始错误码
+      let retryable = [429, 500, 502, 503, 504].includes(response.status);
+      try {
+        const errObj = JSON.parse(errText);
+        const upstreamCode = errObj?.error?.code;
+        if (upstreamCode === 429) {
+          retryable = true;
+          logEntry.upstreamCode = 429;
+          logEntry.upstreamMsg = errObj?.error?.message || 'Rate limited';
+          console.warn(`[SoulMirror] OpenRouter 速率限制 (code:${upstreamCode})，将重试`);
+        }
+      } catch { /* 不是 JSON，忽略 */ }
+
+      if (retryable && attempt < MAX_RETRIES) {
+        const delay = BASE_DELAY * Math.pow(2, attempt - 1) + Math.random() * 500;
+        logEntry.retryAfter = Math.round(delay);
+        currentLlmAttempts.push(logEntry);
+        console.warn(`[SoulMirror] 请求失败 (${response.status})，${logEntry.retryAfter}ms 后重试...`);
+        await new Promise(r => setTimeout(r, delay));
+        return callLLMWithRetry(body, cfg, attempt + 1, startTime);
+      }
+
+      throw new Error(`API 请求失败: ${response.status} ${errText.slice(0, 100)}`);
+    }
+
+    logEntry.success = true;
+    currentLlmAttempts.push(logEntry);
+    return response;
+
+  } catch (err) {
+    logEntry.error = err.message?.slice(0, 100) || 'Unknown error';
+    currentLlmAttempts.push(logEntry);
+    throw err;
+  }
+}
+
+// 记录请求耗时和详细日志
+function recordStats(cfg, startTime, success = true, llmLogs = []) {
+  const duration = Date.now() - startTime;
+
+  // 如果传入空数组，则使用当前收集的 attempts
+  const logsToSave = llmLogs.length ? llmLogs : currentLlmAttempts;
+
+  const stats = {
+    timestamp: new Date().toISOString(),
+    apiType: cfg.apiKey ? 'user' : 'backend',
+    model: cfg.model || (cfg.apiKey ? 'deepseek/deepseek-chat-v3-0324' : 'SOUL_MIRROR_MODEL'),
+    baseUrl: cfg.baseUrl || (cfg.apiKey ? 'https://api.openai.com/v1' : 'openrouter.ai'),
+    durationMs: duration,
+    success,
+    // 脱敏：只显示 key 的前 8 位
+    apiKeyPreview: cfg.apiKey ? `${cfg.apiKey.slice(0, 8)}...` : 'N/A',
+    llmLogs: logsToSave.slice(-10), // 保存最近 10 条尝试记录
+  };
+
+  const history = JSON.parse(localStorage.getItem('soul-mirror-stats') || '[]');
+  history.unshift(stats);
+  localStorage.setItem('soul-mirror-stats', JSON.stringify(history.slice(0, 50))); // 保留最近50条
+
+  // 清空临时日志
+  currentLlmAttempts = [];
+
+  return duration;
+}
+
+async function finishQuiz() {
+  showScreen('loading-screen');
+  const cfg = JSON.parse(localStorage.getItem(CONFIG_KEY) || '{}');
+  const startTime = Date.now();
+
+  const choicesSummary = answers.map((a, i) =>
+    `${i + 1}. ${a.question}\n   选了「${a.chosen}」，没选「${a.rejected}」`
+  ).join('\n');
+
+  const catStats = {};
+  for (const a of answers) {
+    if (!catStats[a.category]) catStats[a.category] = { total: 0, choices: [] };
+    catStats[a.category].total++;
+    catStats[a.category].choices.push(a.chosen);
+  }
+
+  const systemPrompt = `你是一位温暖而敏锐的观察者。用户通过在各种经典作品、人物、价值观之间做二选一的选择，展现了 TA 的审美偏好、价值取向和性格特质。
+
+请根据用户的选择，生成一份灵魂画像。要求：
+
+1. **灵魂签名**：在回答的第一行，用「你的灵魂签名是：XXX」格式，输出一句最能概括这个人的短句（10-20字）。格式为「意象+含义」，如「在深夜书房里独自发光的人」「篝火边永远留着一个位置的人」。有画面感，同时让人一看就懂。
+2. **语气**：温和、尊重、不冒犯。像一位懂你的朋友在和你聊天，而不是医生在写诊断报告。多用"可能""或许""在某种程度上"等温和表达。
+3. **内容**：从以下几个维度分析（可以适当增减）：
+   - 审美偏好（喜欢什么样的故事、什么样的表达方式）
+   - 性格特质（从选择中折射出的性格特点）
+   - 价值取向（对世界、对人生的态度）
+   - 情感模式（如何处理情感、如何与人相处）
+   - 内心世界（表面之下可能藏着什么）
+4. **格式**：分成 3-5 个段落，每段一个小标题（用 ## 开头）。总字数 800-1200 字。
+5. **结尾**：用一句温柔的话收尾。
+6. **禁忌**：不要给 MBTI 类型、不要给分数、不要用"你是一个 XX 的人"这种定义句式。不要评价用户的选择好坏。
+
+各分类的选择统计：${JSON.stringify(catStats)}
+
+用户的选择明细：
+${choicesSummary}`;
+
+  const messages = [
+    { role: 'system', content: systemPrompt },
+    { role: 'user', content: '请根据我的选择，生成灵魂画像。' },
+  ];
+
+  const body = JSON.stringify({ messages, temperature: 0.8, max_tokens: 2000 });
+  window._lastSoulMirrorBody = body; // 保存供重试用
+
+  try {
+    // 调用 LLM（带重试）
+    const response = await callLLMWithRetry(body, cfg, 1, startTime);
+
+    const data = await response.json();
+    document.getElementById('retry-btn').style.display = 'none';
+
+    // 记录成功耗时
+    const duration = recordStats(cfg, startTime, true);
+    console.log(`[SoulMirror] API 成功返回，耗时: ${duration}ms`);
+
+    renderResult(data.choices[0].message.content, duration);
+  } catch (err) {
+    console.error('[SoulMirror] 生成失败:', err);
+
+    // 记录失败耗时
+    recordStats(cfg, startTime, false);
+
+    // 不向用户显示具体错误信息，只显示通用提示
+    document.getElementById('retry-btn').style.display = '';
+    const resultText = `⚠️ 生成遇到问题，已切换至备用方案\n\n---\n\n` + pickPreset(answers);
+    renderResult(resultText, null);
+  }
+}
+
+async function retryGenerate() {
+  const body = window._lastSoulMirrorBody;
+  if (!body) return;
+  const cfg = JSON.parse(localStorage.getItem(CONFIG_KEY) || '{}');
+  const btn = document.getElementById('retry-btn');
+  const startTime = Date.now();
+  btn.textContent = '⏳ 生成中...';
+  btn.disabled = true;
+  try {
+    // 调用 LLM（带重试）
+    const response = await callLLMWithRetry(body, cfg, 1, startTime);
+    const data = await response.json();
+    btn.style.display = 'none';
+
+    // 记录成功耗时
+    const duration = recordStats(cfg, startTime, true);
+    console.log(`[SoulMirror] 重试成功，耗时: ${duration}ms`);
+
+    renderResult(data.choices[0].message.content, duration);
+  } catch (err) {
+    console.error('[SoulMirror] 重试失败:', err);
+
+    // 记录失败耗时
+    recordStats(cfg, startTime, false);
+
+    // 不向用户显示具体错误信息
+    btn.textContent = '🔄 重新生成';
+    btn.disabled = false;
+    const resultText = `⚠️ 生成遇到问题，已切换至备用方案\n\n---\n\n` + pickPreset(answers);
+    renderResult(resultText, null);
+  }
+}
+
+function renderResult(text, duration) {
+  showScreen('result-screen');
+
+  // 提取灵魂签名
+  let soulWord = '';
+  const wordMatch = text.match(/^你的灵魂签名是[：:]\s*(.+?)$/m);
+  if (wordMatch) {
+    soulWord = wordMatch[1].trim();
+    text = text.replace(/^你的灵魂签名是[：:].+?\n?/, '').trim();
+  }
+
+  document.getElementById('result-stats').textContent = `在 ${answers.length} 次选择中，看见了你`;
+
+  const content = document.getElementById('result-content');
+  content.innerHTML = '';
+
+  // 灵魂词大标题
+  if (soulWord) {
+    const wordDiv = document.createElement('div');
+    wordDiv.className = 'soul-word';
+    wordDiv.textContent = soulWord;
+    content.appendChild(wordDiv);
+  }
+
+  const sections = text.split(/(?=##\s)/).filter(s => s.trim());
+
+  for (const section of sections) {
+    const lines = section.trim().split('\n');
+    const titleLine = lines[0].replace(/^#+\s*/, '').trim();
+    const body = lines.slice(1).join('\n').trim();
+    const div = document.createElement('div');
+    div.className = 'result-section';
+    div.innerHTML = `<h3>${titleLine}</h3><p>${body.replace(/\n/g, '<br>')}</p>`;
+    content.appendChild(div);
+  }
+
+  if (sections.length <= 1 && !text.includes('##')) {
+    const div = document.createElement('div');
+    div.className = 'result-section';
+    div.innerHTML = `<h3>你的灵魂画像</h3><p>${text.replace(/\n/g, '<br>')}</p>`;
+    content.innerHTML = '';
+    if (soulWord) {
+      const wordDiv = document.createElement('div');
+      wordDiv.className = 'soul-word';
+      wordDiv.textContent = soulWord;
+      content.appendChild(wordDiv);
+    }
+    content.appendChild(div);
+  }
+
+  // 显示耗时信息（如果成功）
+  if (duration !== null && duration !== undefined) {
+    const statsDiv = document.createElement('div');
+    statsDiv.className = 'generation-stats';
+    statsDiv.innerHTML = `⚡ 生成耗时: ${duration}ms`;
+    content.appendChild(statsDiv);
+  }
+
+  // 更新结果页底部的配置状态
+  updateResultConfigStatus();
+
+  window._resultText = soulWord ? `你的灵魂签名是：${soulWord}\n\n${text}` : text;
+}
+
+function updateResultConfigStatus() {
+  const cfg = JSON.parse(localStorage.getItem(CONFIG_KEY) || '{}');
+  const statusEl = document.getElementById('result-config-status');
+  if (!statusEl) return;
+
+  const hasKey = !!cfg.apiKey;
+  const apiType = hasKey ? '🔑 用户 API' : '🌐 服务端 API';
+  const model = cfg.model || (hasKey ? 'deepseek/deepseek-chat-v3-0324' : 'SOUL_MIRROR_MODEL');
+
+  statusEl.innerHTML = `${apiType} · 模型: ${model}`;
+}
+
+function copyResult() {
+  if (window._resultText) {
+    navigator.clipboard.writeText(window._resultText).then(() => {
+      alert('已复制到剪贴板');
+    });
+  }
+}
+
+// ==================== 提交题目 ====================
+async function submitQuestion() {
+  const a = document.getElementById('sub-a').value.trim();
+  const b = document.getElementById('sub-b').value.trim();
+  const category = document.getElementById('sub-category').value;
+  const angle = document.getElementById('sub-angle').value.trim();
+
+  if (!a || !b) {
+    showSubmitResult('请填写选项 A 和选项 B', false);
+    return;
+  }
+
+  const btn = document.getElementById('submit-btn');
+  btn.disabled = true;
+  btn.textContent = '提交中...';
+
+  // 构造 GitHub Issue 内容
+  const title = `[题目] ${a} vs ${b}`;
+  const body = [
+    `## 新题目`,
+    ``,
+    `**选项 A**: ${a}`,
+    `**选项 B**: ${b}`,
+    `**分类**: ${category}`,
+    angle ? `**对比角度**: ${angle}` : '',
+    ``,
+    `---`,
+    `*通过灵魂镜像提交*`,
+  ].filter(Boolean).join('\n');
+
+  // 通过 GitHub Issues API 提交（需要用户手动跳转）
+  const issueUrl = `https://github.com/cxyxlxdm/movie-rankings/issues/new?title=${encodeURIComponent(title)}&body=${encodeURIComponent(body)}&labels=soul-mirror`;
+
+  // 尝试直接打开 GitHub Issue 页面
+  window.open(issueUrl, '_blank');
+
+  showSubmitResult('已打开 GitHub Issues 页面，请点击提交即可。感谢你的贡献！', true);
+
+  btn.disabled = false;
+  btn.textContent = '提交题目';
+
+  // 清空表单
+  document.getElementById('sub-a').value = '';
+  document.getElementById('sub-b').value = '';
+  document.getElementById('sub-angle').value = '';
+}
+
+function showSubmitResult(msg, success) {
+  const el = document.getElementById('submit-result');
+  el.textContent = msg;
+  el.className = `submit-result ${success ? 'success' : 'error'}`;
+  setTimeout(() => { el.className = 'submit-result'; }, 8000);
+}
+
+// ==================== 初始化 ====================
+loadConfig();
+loadQuestions();
+loadPresets();
+</script>
+</body>
+</html>

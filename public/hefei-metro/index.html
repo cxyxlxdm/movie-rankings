@@ -1,0 +1,489 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>花样合肥，热烈盛开 — 地铁专列设计方案</title>
+<style>
+  :root {
+    --gold: #E8A838;
+    --gold-light: #FFF3DC;
+    --blue: #2B6CB0;
+    --blue-dark: #1A365D;
+    --bg: #FAFAF7;
+    --text: #1A1A1A;
+    --text-secondary: #555;
+    --border: #E5E5E0;
+    --card-bg: #FFFFFF;
+  }
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  body {
+    font-family: -apple-system, "Noto Serif SC", "Source Han Serif SC", serif;
+    background: var(--bg);
+    color: var(--text);
+    line-height: 1.85;
+    font-size: 16px;
+  }
+  @media (max-width: 768px) { body { font-size: 15px; } }
+
+  /* Hero */
+  .hero {
+    background: linear-gradient(135deg, var(--blue-dark) 0%, var(--blue) 50%, var(--gold) 100%);
+    color: #fff;
+    text-align: center;
+    padding: 80px 24px 60px;
+    position: relative;
+    overflow: hidden;
+  }
+  .hero::before {
+    content: "✿";
+    position: absolute;
+    font-size: 300px;
+    opacity: 0.06;
+    top: -40px;
+    right: -60px;
+  }
+  .hero h1 { font-size: 2.4em; letter-spacing: 0.12em; margin-bottom: 12px; }
+  .hero .subtitle { font-size: 1.1em; opacity: 0.85; }
+  .hero .theme {
+    display: inline-block;
+    margin-top: 24px;
+    padding: 8px 28px;
+    border: 1px solid rgba(255,255,255,0.5);
+    border-radius: 24px;
+    font-size: 0.95em;
+    letter-spacing: 0.08em;
+  }
+
+  /* Nav */
+  .toc {
+    background: var(--card-bg);
+    border-bottom: 1px solid var(--border);
+    padding: 16px 24px;
+    position: sticky;
+    top: 0;
+    z-index: 100;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px 16px;
+    justify-content: center;
+  }
+  .toc a {
+    color: var(--text-secondary);
+    text-decoration: none;
+    font-size: 0.88em;
+    padding: 4px 10px;
+    border-radius: 4px;
+    transition: all 0.2s;
+  }
+  .toc a:hover { color: var(--blue); background: #EBF4FF; }
+
+  /* Main */
+  .container { max-width: 860px; margin: 0 auto; padding: 40px 24px 80px; }
+
+  /* Sections */
+  .section { margin-bottom: 56px; }
+  .section-label {
+    font-size: 0.8em;
+    text-transform: uppercase;
+    letter-spacing: 0.15em;
+    color: var(--gold);
+    margin-bottom: 8px;
+  }
+  h2 {
+    font-size: 1.6em;
+    margin-bottom: 20px;
+    padding-bottom: 12px;
+    border-bottom: 2px solid var(--gold);
+    color: var(--blue-dark);
+  }
+  h3 {
+    font-size: 1.15em;
+    margin: 28px 0 12px;
+    color: var(--blue);
+  }
+  p { margin-bottom: 16px; }
+  strong { color: var(--blue-dark); }
+
+  /* Cards */
+  .card {
+    background: var(--card-bg);
+    border: 1px solid var(--border);
+    border-radius: 12px;
+    padding: 24px;
+    margin: 20px 0;
+    box-shadow: 0 1px 4px rgba(0,0,0,0.04);
+  }
+  .card-highlight {
+    border-left: 4px solid var(--gold);
+    background: var(--gold-light);
+  }
+
+  /* Table */
+  .scroll-wrap {
+    overflow-x: auto;
+    -webkit-overflow-scrolling: touch;
+    margin: 16px 0;
+    border-radius: 8px;
+  }
+  table {
+    width: 100%;
+    min-width: 520px;
+    border-collapse: collapse;
+    font-size: 0.92em;
+  }
+  th {
+    background: var(--blue-dark);
+    color: #fff;
+    padding: 10px 14px;
+    text-align: left;
+    font-weight: 500;
+    white-space: nowrap;
+  }
+  td {
+    padding: 10px 14px;
+    border-bottom: 1px solid var(--border);
+    vertical-align: top;
+  }
+  tr:nth-child(even) td { background: #F8F8F5; }
+
+  /* Quote */
+  .slogan {
+    text-align: center;
+    font-size: 1.5em;
+    color: var(--gold);
+    padding: 40px 24px;
+    border-top: 1px solid var(--border);
+    border-bottom: 1px solid var(--border);
+    margin: 40px 0;
+    letter-spacing: 0.06em;
+    font-weight: 600;
+  }
+  .slogan small {
+    display: block;
+    font-size: 0.55em;
+    color: var(--text-secondary);
+    margin-top: 8px;
+    font-weight: 400;
+  }
+
+  /* Download bar */
+  .download-bar {
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    background: var(--card-bg);
+    border-top: 1px solid var(--border);
+    padding: 12px 24px;
+    display: flex;
+    justify-content: center;
+    gap: 16px;
+    z-index: 200;
+    box-shadow: 0 -2px 12px rgba(0,0,0,0.06);
+  }
+  .btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    padding: 10px 24px;
+    border-radius: 8px;
+    font-size: 0.92em;
+    cursor: pointer;
+    border: none;
+    font-family: inherit;
+    transition: all 0.2s;
+  }
+  .btn-primary {
+    background: var(--blue);
+    color: #fff;
+  }
+  .btn-primary:hover { background: var(--blue-dark); }
+  .btn-secondary {
+    background: var(--gold-light);
+    color: var(--blue-dark);
+    border: 1px solid var(--gold);
+  }
+  .btn-secondary:hover { background: var(--gold); color: #fff; }
+
+  /* Print */
+  @media print {
+    .toc, .download-bar { display: none !important; }
+    .hero { padding: 40px 24px; }
+    .container { padding: 20px; }
+    .card { box-shadow: none; border: 1px solid #ccc; }
+    body { font-size: 12pt; }
+  }
+
+  /* Scroll margin for anchors */
+  .section[id] { scroll-margin-top: 60px; }
+
+  /* Footer spacer for fixed bar */
+  .footer-spacer { height: 64px; }
+</style>
+</head>
+<body>
+
+<!-- Hero -->
+<header class="hero">
+  <h1>花样合肥 热烈盛开</h1>
+  <p class="subtitle">合肥地铁「花开专列」概念设计方案</p>
+  <span class="theme">✿ 湖 · 山 · 城 · 智 · 味 · 盛 ✿</span>
+</header>
+
+<!-- TOC -->
+<nav class="toc">
+  <a href="#concept">设计理念</a>
+  <a href="#exterior">车身外观</a>
+  <a href="#interior">车厢内部</a>
+  <a href="#interact">互动机制</a>
+  <a href="#station">花开站点</a>
+  <a href="#tod">TOD 扩展</a>
+  <a href="#spread">传播策略</a>
+</nav>
+
+<div class="container">
+
+<!-- 1. 设计理念 -->
+<div class="section" id="concept">
+  <div class="section-label">Section 01</div>
+  <h2>设计理念</h2>
+  <p>主题意象取自合肥的市花——<strong>桂花</strong>与市树——<strong>广玉兰</strong>。桂花小而密，聚而成簇，暗合合肥"小城大业"的城市性格——不声不响地把量子、AI、新能源干到了全国前列。广玉兰花开得大、开得直接，热烈不扭捏，像这座城市这几年的气质：不藏着掖着，我就是要冒出来。</p>
+  <p>整车以<strong>「从一朵花看向一座城」</strong>为叙事线索——外部是花的形态，内部是花的根系，根系里藏着这座城市的产业、历史和山水。乘客从上车到下车，完成一次从"看见合肥"到"理解合肥"的旅程。</p>
+  <div class="card card-highlight">
+    <strong>主色调：</strong>桂花金 + 科技蓝渐变，车头到车尾由暖入冷，象征从"人文古韵"到"科技前沿"的城市纵深感。
+  </div>
+</div>
+
+<!-- 2. 车身外观 -->
+<div class="section" id="exterior">
+  <div class="section-label">Section 02</div>
+  <h2>车身外观</h2>
+  <h3>「花开十二帧」连续画卷</h3>
+  <p>车身两侧用现代插画风格将列车设计成一幅连贯的画卷，从车头到车尾依次展开十二个合肥意象。列车停靠时是一幅完整的长卷，运行时每个意象在站台视角依次闪过。</p>
+  <div class="scroll-wrap">
+    <table>
+      <thead>
+        <tr><th>位置</th><th>意象</th><th>画面描述</th></tr>
+      </thead>
+      <tbody>
+        <tr><td>第 1 节</td><td>逍遥津</td><td>张辽骑马渡水，背景是古合肥城墙，水面倒影里藏着一只量子猫的剪影</td></tr>
+        <tr><td>第 2 节</td><td>包河清莲</td><td>包公祠前的荷塘，莲花正开，花瓣间隐约浮现"清廉"二字的篆书</td></tr>
+        <tr><td>第 3 节</td><td>巢湖日出</td><td>湖面铺满金光，远帆点点，岸边湿地栖着白琵鹭（巢湖特有候鸟）</td></tr>
+        <tr><td>第 4 节</td><td>大蜀山春</td><td>满山樱花与杜鹃，山脊线勾勒成芯片电路板的纹样</td></tr>
+        <tr><td>第 5 节</td><td>中科大银杏</td><td>秋天的中科大校园，银杏落满路面，落叶里藏着手写的薛定谔方程</td></tr>
+        <tr><td>第 6 节</td><td>量子大道</td><td>笔直的城市街道，建筑玻璃幕墙反射出叠加态的光斑，路面标线是纠缠态双螺旋</td></tr>
+        <tr><td>第 7 节</td><td>讯飞之声</td><td>声波可视化从老式收音机扩散成 AI 语音频谱，渐变成花瓣形态</td></tr>
+        <tr><td>第 8 节</td><td>新能源之城</td><td>蔚来/比亚迪车身流线抽象成花瓣脉络，充电桩生长在草地里像蘑菇</td></tr>
+        <tr><td>第 9 节</td><td>淮军故道</td><td>晚清淮军旗帜和兵器以博物馆展陈方式呈现，旁边是今天的合肥制造车间</td></tr>
+        <tr><td>第 10 节</td><td>罍街烟火</td><td>夜市的灯笼、龙虾、啤酒杯，热气升腾变成花瓣散开</td></tr>
+        <tr><td>第 11 节</td><td>骆岗公园</td><td>原机场跑道变身城市中央公园，草坪上有人放风筝，跑道尽头是一片花海</td></tr>
+        <tr><td>第 12 节</td><td>盛开花城</td><td>所有意象汇聚成一朵巨型桂花，花瓣里包含前 11 帧的微缩画面</td></tr>
+      </tbody>
+    </table>
+  </div>
+  <div class="card">
+    <strong>车头：</strong>桂花花瓣造型的 LED 灯带，到站时亮起"花样合肥，热烈盛开"动态字样。车窗边框做成花瓣弧线，远看整列车像一朵正在移动的花。
+  </div>
+</div>
+
+<!-- 3. 车厢内部 -->
+<div class="section" id="interior">
+  <div class="section-label">Section 03</div>
+  <h2>车厢内部</h2>
+  <p>六节车厢 × 六个主题，每节车独立成章，合在一起是一座完整的合肥。</p>
+
+  <h3>第 1 节 · 湖（巢湖主题）</h3>
+  <div class="card">
+    <p>顶部：巢湖水面波纹灯膜，随列车运行轻微明暗变化，模拟湖面光影。</p>
+    <p>地面：浅蓝色渐变，车门区域印着"八百里巢湖"等高线。</p>
+    <p>扶手：做成芦苇/荷茎造型，吊环是莲蓬形状。</p>
+    <p>车窗贴膜：远山剪影，让窗外真实的城市风景"长"在巢湖山水之间。</p>
+    <p>信息栏：标注"从本站到巢湖湿地公园 XX 分钟"，关联最近的 TOD 项目。</p>
+  </div>
+
+  <h3>第 2 节 · 山（大蜀山/紫蓬山主题）</h3>
+  <div class="card">
+    <p>顶部：山林鸟瞰的航拍画面，树冠纹理绵延整节车厢。</p>
+    <p>地面：石板路纹理，车门区域标着登山步道示意图。</p>
+    <p>扶手：竹节造型。</p>
+    <p>侧墙：四季大蜀山——春樱、夏绿、秋枫、冬雪，四幅竖幅插画。</p>
+  </div>
+
+  <h3>第 3 节 · 城（历史人文主题）</h3>
+  <div class="card">
+    <p>顶部：古合肥城池地图，标注逍遥津、明教寺、教弩台等古迹位置。</p>
+    <p>地面：青石板+古砖纹理。</p>
+    <p>侧墙：三幅人物长卷——包拯审案、张辽守城、李鸿章办洋务，用现代线描风格，不搞古装剧那套。</p>
+    <p>信息栏：标注这些古迹距离最近的地铁站步行时间。</p>
+  </div>
+
+  <h3>第 4 节 · 智（科技创新主题）</h3>
+  <div class="card">
+    <p>顶部：量子电路的光纹，蓝紫色为主，间歇性闪动模拟量子叠加态。</p>
+    <p>地面：电路板走线纹理。</p>
+    <p>扶手：透明亚克力内嵌发光丝，像光纤。</p>
+    <p>侧墙：六块"合肥智造"展示窗：</p>
+    <ul style="margin-left:20px;margin-bottom:12px;">
+      <li>量子计算（本源量子/国盾量子）</li>
+      <li>AI 语音（科大讯飞）</li>
+      <li>新能源汽车（蔚来/比亚迪/大众安徽）</li>
+      <li>面板显示（京东方）</li>
+      <li>人工智能芯片</li>
+      <li>可控核聚变（EAST 全超导托卡马克）</li>
+    </ul>
+    <p>每块展示窗用一句话 + 一个可视化符号，不用专业术语轰炸。比如量子那块就写：<em>"在这里，一个原子同时在两个地方。"</em></p>
+  </div>
+
+  <h3>第 5 节 · 味（美食生活主题）</h3>
+  <div class="card">
+    <p>顶部：俯拍视角的合肥美食——三河米饺、吴山贡鹅、庐州烤鸭、巢湖银鱼、小龙虾。</p>
+    <p>地面：罍街夜市的暖色调灯影。</p>
+    <p>侧墙：手绘风格的"合肥觅食地图"，标注地铁沿线值得去的本地老店，不是网红店。</p>
+    <p>扶手吊环：做成小蒸笼/小锅子造型（卡通化）。</p>
+    <p>信息栏：每站标注"本站周边推荐：XX 老店，步行 X 分钟"，持续更新。</p>
+  </div>
+
+  <h3>第 6 节 · 盛（主题总结车厢）</h3>
+  <div class="card">
+    <p>整节车厢是一朵"正在盛开"的桂花——从车头到车尾，花瓣从含苞到怒放。</p>
+    <p>顶部：巨型桂花俯视图，花瓣向两侧延伸。</p>
+    <p>地面：花瓣飘落的动态投影（车门开关时触发）。</p>
+    <p>尾部墙：留白墙，乘客可以扫码写下"你眼中的合肥"，优质内容轮播到站台屏幕。</p>
+    <p><strong>这节车厢是打卡点，适合拍照传播。</strong></p>
+  </div>
+</div>
+
+<!-- 4. 互动机制 -->
+<div class="section" id="interact">
+  <div class="section-label">Section 04</div>
+  <h2>互动机制</h2>
+
+  <h3>「花开护照」集章小程序</h3>
+  <div class="card">
+    <p>每节车厢内有 NFC/二维码，扫一次盖一朵花瓣。</p>
+    <p>集齐六瓣解锁"花样合肥"电子勋章 + 合肥文旅优惠券。</p>
+    <p>连续打卡不同线路的花开专列，解锁隐藏款花瓣（对应不同季节的合肥花期）。</p>
+  </div>
+
+  <h3>车窗 AR（关联 APP）</h3>
+  <div class="card">
+    <p>手机对准车窗，叠加 AR 信息层：</p>
+    <ul style="margin-left:20px;">
+      <li>经过逍遥津站：弹出"公元 215 年，张辽在这里带着八百人打退了孙权十万大军"</li>
+      <li>经过中科大站：弹出"这里走出了量子九章的创造者"</li>
+      <li>经过巢湖大桥：弹出实时水质数据 + 候鸟监测信息</li>
+    </ul>
+  </div>
+</div>
+
+<!-- 5. 花开站点 -->
+<div class="section" id="station">
+  <div class="section-label">Section 05</div>
+  <h2>花开站点</h2>
+  <p>选取 6 个关键站点做"花开主题站台"，每个站台对应一节车厢主题。</p>
+  <div class="scroll-wrap">
+    <table>
+      <thead>
+        <tr><th>站点</th><th>主题</th><th>站台特色</th></tr>
+      </thead>
+      <tbody>
+        <tr><td>巢湖周边站</td><td>湖</td><td>站台地面做水面波纹，候车区立芦苇造型灯柱</td></tr>
+        <tr><td>大蜀山站</td><td>山</td><td>站台墙面做森林剪影，空气里喷淡松木香氛</td></tr>
+        <tr><td>逍遥津站</td><td>城</td><td>站台还原古合肥城墙片段，地面标注张辽突围路线</td></tr>
+        <tr><td>量子大道站（规划中）</td><td>智</td><td>站台全息投影量子态粒子，人走过触发随机坍缩效果</td></tr>
+        <tr><td>罍街站</td><td>味</td><td>站台做成夜市入口的感觉，灯笼、招牌、龙虾模型</td></tr>
+        <tr><td>骆岗公园站</td><td>盛</td><td>站台出口直接对接公园花海，出站即入画</td></tr>
+      </tbody>
+    </table>
+  </div>
+</div>
+
+<!-- 6. TOD 扩展 -->
+<div class="section" id="tod">
+  <div class="section-label">Section 06</div>
+  <h2>TOD 扩展：骆岗公园站「花城客厅」</h2>
+  <p>骆岗公园是合肥最重磅的城市更新项目（原机场改建），建议以此为核心 TOD 打造"花样合肥"的线下落点。</p>
+
+  <div class="card card-highlight">
+    <strong>定位：</strong>合肥的城市客厅 + 花卉主题文旅目的地
+  </div>
+
+  <h3>核心业态</h3>
+  <div class="card">
+    <p><strong>花开市集</strong> — 周末限定，本地手作、独立花店、合肥老字号快闪。</p>
+    <p><strong>量子花园</strong> — 互动装置展，用灯光模拟量子叠加态，夜晚是城市地标。</p>
+    <p><strong>巢湖书房</strong> — 湖景阅读空间，合肥本地出版物和独立书店联合运营。</p>
+    <p><strong>航空记忆馆</strong> — 保留原机场塔台，讲述骆岗机场到城市公园的变迁。</p>
+    <p><strong>花期日历广场</strong> — 一年四季种不同花卉，每个月换一个主题花海，制造"每个月来合肥的理由都不一样"。</p>
+  </div>
+
+  <h3>与地铁的衔接</h3>
+  <div class="card">
+    <p>出站通道做成"花径"——自动扶梯两侧是垂直花墙，人从地下"走入花中"。</p>
+    <p>站厅层设置"花开专列"主题回顾墙，展示整列车的十二帧画卷。</p>
+    <p>站外步行道铺设与车厢内呼应的花瓣地砖，从站台到公园形成完整的视觉引导线。</p>
+  </div>
+</div>
+
+<!-- 7. 传播策略 -->
+<div class="section" id="spread">
+  <div class="section-label">Section 07</div>
+  <h2>传播策略</h2>
+
+  <div class="slogan">
+    合肥，不止一朵花开的方式。
+    <small>核心对外 Slogan</small>
+  </div>
+
+  <h3>社交媒体引爆点</h3>
+  <div class="card">
+    <p>第 6 节车厢的打卡墙天然适合传播。</p>
+    <p>"花开护照"集章制造复乘动机和社交分享。</p>
+    <p>AR 车窗功能本身就是体验类短视频素材。</p>
+    <p>骆岗公园花海每月一换，每月都有新的视觉素材流入社交平台。</p>
+  </div>
+
+  <h3>面向外地人的关键信息</h3>
+  <div class="card card-highlight">
+    <p>整列专列反复传递一个信息——<strong>合肥不只有科教和产业，它也是一座会生活、有山水、懂烟火的城市。</strong>来合肥不需要特别的理由，坐一趟地铁就够了。</p>
+  </div>
+</div>
+
+</div><!-- /container -->
+
+<div class="footer-spacer"></div>
+
+<!-- Download bar -->
+<div class="download-bar">
+  <button class="btn btn-primary" onclick="downloadPDF()">⬇ 下载 PDF 方案</button>
+  <button class="btn btn-secondary" onclick="window.print()">🖨 打印 / 导出</button>
+</div>
+
+<!-- html2pdf.js -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.1/html2pdf.bundle.min.js"></script>
+<script>
+function downloadPDF() {
+  const btn = document.querySelector('.btn-primary');
+  btn.textContent = '正在生成 PDF…';
+  btn.disabled = true;
+
+  const el = document.querySelector('.container');
+  const opt = {
+    margin: [12, 16],
+    filename: '花样合肥-地铁专列设计方案.pdf',
+    image: { type: 'jpeg', quality: 0.95 },
+    html2canvas: { scale: 2, useCORS: true, letterRendering: true },
+    jsPDF: { unit: 'mm', format: 'a4', orientation: 'portrait' },
+    pagebreak: { mode: ['avoid-all', 'css', 'legacy'] }
+  };
+
+  html2pdf().set(opt).from(el).save().then(() => {
+    btn.textContent = '⬇ 下载 PDF 方案';
+    btn.disabled = false;
+  });
+}
+</script>
+
+</body>
+</html>
