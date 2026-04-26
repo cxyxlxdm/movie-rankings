@@ -10,7 +10,7 @@ const roles = {
   assistant: "Hermes",
 };
 
-const Conversation = () => {
+export default function ConversationPage() {
   const dialogue = [
     {
       role: "user",
@@ -19,7 +19,7 @@ const Conversation = () => {
     {
       role: "assistant",
       content: `（从人文、爱好、三观、性格、技术追求五个维度展开分析：
-      
+
 1. 人文视角：你相信"个体优先于系统"、"真实高于正确"、"同情心是有方向的"；
 2. 爱好视角：War3、电影、播客、日语、炒股——每条路径都在寻找"认真就能看到进步"的确定性；
 3. 三观核心：你信个人努力但清楚它在系统前可能无效，你的爱国是"把这片土地当自己家"，你的技术信仰是"只有真实场景检验过才值得信任"；
@@ -101,7 +101,6 @@ const Conversation = () => {
 
   return (
     <main className="min-h-screen bg-white text-gray-900">
-      {/* Header */}
       <header className="border-b border-gray-200 bg-gray-50/30">
         <div className="container mx-auto px-4 py-8">
           <h1 className="text-3xl font-semibold tracking-tight">
@@ -115,14 +114,12 @@ const Conversation = () => {
         </div>
       </header>
 
-      {/* Content */}
       <article className="container mx-auto px-4 py-12 max-w-3xl">
         <div className="space-y-10">
           {dialogue.map((entry, idx) => {
             const isUser = entry.role === "user";
             return (
               <div key={idx} className="group">
-                {/* Role label */}
                 <div className="flex items-center gap-3 mb-3">
                   <span
                     className={`text-xs font-mono uppercase tracking-wider px-2 py-1 rounded ${
@@ -138,7 +135,6 @@ const Conversation = () => {
                   )}
                 </div>
 
-                {/* Content */}
                 <div
                   className={`pl-4 ${
                     isUser ? "border-l-2 border-blue-500" : "border-l-2 border-gray-300"
@@ -153,7 +149,6 @@ const Conversation = () => {
           })}
         </div>
 
-        {/* Footer */}
         <div className="mt-16 pt-8 border-t border-gray-200">
           <p className="text-sm text-gray-500 text-center leading-relaxed">
             这段对话源于一个工程师与 AI 代理的深夜交流。
@@ -188,9 +183,6 @@ const Conversation = () => {
             </a>
           </div>
         </div>
-      </article>
-    </main>
-  );
-};
-
-export default Conversation;
+      </main>
+    );
+}
