@@ -183,6 +183,7 @@ export default function ConversationPage() {
             </a>
           </div>
         </div>
+      </article>
       </main>
     );
 }
