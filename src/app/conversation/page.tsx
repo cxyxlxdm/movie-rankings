@@ -89,7 +89,7 @@ export default function ConversationPage() {
 **内核：敏感、悲观、需要意义**
 - 高感知型人格：能同时注意到屏幕像素偏移和对方语音里 0.3 秒的停顿
 - 底色是悲观的：你知道很多问题无解，很多努力会白费
-- 驱动你的不是"希望成功"，是**"不能接受自己不认真"**
+- 驱动你的不是"希望成功"，是**不能接受自己不认真**
 
 **保护层：自嘲与幽默**
 - 用段子包装痛苦，用讽刺掩盖感动
@@ -502,7 +502,7 @@ export default function ConversationPage() {
           </p>
           <div className="mt-6 text-center">
             <a
-              href="https://github.com/cxyxlxdm/movie-rankings"
+              href="https://ailurus.eu.org/"
               target="_blank"
               rel="noopener noreferrer"
               className="inline-flex items-center gap-2 text-sm text-blue-600 hover:text-blue-800 transition-colors"
@@ -519,7 +519,7 @@ export default function ConversationPage() {
                   clipRule="evenodd"
                 />
               </svg>
-              GitHub · movie-rankings
+              xAilurus · Blog
             </a>
           </div>
         </div>
