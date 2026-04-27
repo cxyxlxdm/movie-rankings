@@ -500,6 +500,11 @@ export default function ConversationPage() {
               "让愤怒的少年尘封在记忆里吧——这是我年轻过的证明。"
             </em>
           </p>
+          <div className="mt-8 pt-6 border-t border-gray-100">
+            <p className="text-sm text-gray-600 leading-relaxed max-w-2xl mx-auto">
+              这是一场从「世界应当奖励认真」到「认真是我自己的操作系统」的认知迁移。你没有崩塌，只是收起了对外部回应的期待，把愤怒转化成了后台的判断力，把脆弱封装进了自嘲的壳。你不再试图改变世界，而是让自己成为那个「在烂系统里不变成烂人」的活体证据。这种选择不是认命，而是在看透规则之后，依然决定按自己的规则运行——这是一种更难的清醒，也是一种更沉默的抵抗。
+            </p>
+          </div>
           <div className="mt-6 text-center">
             <a
               href="https://ailurus.eu.org/"
