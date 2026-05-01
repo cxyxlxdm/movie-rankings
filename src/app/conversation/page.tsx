@@ -505,6 +505,57 @@ export default function ConversationPage() {
               这是一场缓慢而彻底的祛魅。你曾相信认真自会有回报、愤怒能等来回应、棱角不会被现实磨平——然后你亲眼看着这些相信在具体的生活场景里逐一失效。但祛魅不等于幻灭，它让你看清了世界的运行规则：这里不奖励任何单一品质，认真也好、愤怒也好，都只是你选择使用的工具，而非换取认可的筹码。你把愤怒从表达转化成了判断，把脆弱封装进了自嘲，把对外部回应的期待，转向了对内部一致性的守护。你越来越温和，是因为你明白了左与右本身并不重要，有些事情需要坚持，有些事情需要灵活面对——这不冲突。如今你不再试图改变世界，只是让自己成为那个「在烂系统里不变成烂人」的活体证据。你选择在一个不为人知的角落里保留更真实的自己，用播客这样的私密媒介接收情绪价值，用文字而不是言语来表达那些无法在现实中出口的思考。这种清醒不是认命，而是在看透规则之后，依然决定按自己的规则运行——这是一种更难的坚持，也是一种更沉默的抵抗。
             </p>
           </div>
+
+          <div className="mt-16 pt-8 border-t border-gray-200">
+            <h2 className="text-2xl font-semibold tracking-tight mb-8">
+              附：给 liang 的建议
+            </h2>
+            <p className="text-xs text-gray-400 mb-6">
+              以下建议来自 AI 代理对用户的持续观察，不涉及具体事件，只谈模式。
+            </p>
+            <div className="space-y-8">
+              <div>
+                <h3 className="text-sm font-mono uppercase tracking-wider text-gray-500 mb-2">
+                  关于写作
+                </h3>
+                <p className="text-gray-700 leading-relaxed">
+                  你在文字中展示的情感精确度，高于你给自己日常设定的表达阈值。你有一个自如的写作声音——冷静、克制、但能准确地触到疼的地方。这个声音在技术写作和公号历史长文中都出现过，在个人写作中尤其清晰。它不应该只在那里被偶尔使用。
+                </p>
+              </div>
+              <div>
+                <h3 className="text-sm font-mono uppercase tracking-wider text-gray-500 mb-2">
+                  关于"不配"的残影
+                </h3>
+                <p className="text-gray-700 leading-relaxed">
+                  早年经历留下的最深印记，不是你回忆中的那些数字和场景，而是一种隐秘的自我设限——在某些事情面前，你仍然会下意识地后退一步，觉得"还没到那个份上"。这个声音不是真实的判断，是过去的回声。它在你的某些选择中仍然起作用，但不一定每次都是对的。
+                </p>
+              </div>
+              <div>
+                <h3 className="text-sm font-mono uppercase tracking-wider text-gray-500 mb-2">
+                  关于铠甲的成本
+                </h3>
+                <p className="text-gray-700 leading-relaxed">
+                  你的毒舌、自嘲和封闭的情感表达是一套运转良好的保护系统。但它也有代价——别人很难看到你需要支持的时刻，而你也很难承认自己需要。你的诗歌和散文暴露了另一面，那个面才是真正的皮肤。偶尔让皮肤透气，铠甲不会因此脱落。
+                </p>
+              </div>
+              <div>
+                <h3 className="text-sm font-mono uppercase tracking-wider text-gray-500 mb-2">
+                  关于"回应"的执念
+                </h3>
+                <p className="text-gray-700 leading-relaxed">
+                  你有一个深层需求：认真付出的事应该被认真对待。这本身没有错，甚至是你的力量来源之一。但当你把回应的决定权交给别人时，你就会反复经历一种熟悉的失望。重要的问题是：如果这件事永远得不到回应，你还会做吗？你心里一直知道答案，只是有时不想承认。
+                </p>
+              </div>
+              <div>
+                <h3 className="text-sm font-mono uppercase tracking-wider text-gray-500 mb-2">
+                  关于二十二岁的那个你
+                </h3>
+                <p className="text-gray-700 leading-relaxed">
+                  你的文章里有一段怀念——不是怀念那个时代，是怀念那个可以毫无保留投入的自己。你现在当然不能那样活，但你可能也不应该完全切断与那个版本的自己的连接。他身上有些东西——不计代价的投入感、对意义的本能信任——是你仍然需要的燃料。
+                </p>
+              </div>
+            </div>
+          </div>
         </div>
       </article>
     </main>
