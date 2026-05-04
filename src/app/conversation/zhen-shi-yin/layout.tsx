@@ -13,8 +13,8 @@ const geistMono = Geist_Mono({
 });
 
 export const metadata: Metadata = {
-  title: "真事隐 · 雍正、历史叙事与"好皇帝"神话",
-  description: "关于孙立天《真事隐·康熙废储与正史虚构》的对话——历史的真相取决于哪些记录活下来了，以及我们选择站在谁的视角去看",
+  title: "真事隐 · 雍正、历史叙事与\u201C好皇帝\u201D神话",
+  description: "关于孙立天《真事隐·康熙废储与正史虚构》的对话\u2014\u2014历史的真相取决于哪些记录活下来了，以及我们选择站在谁的视角去看",
 };
 
 export default function RootLayout({
