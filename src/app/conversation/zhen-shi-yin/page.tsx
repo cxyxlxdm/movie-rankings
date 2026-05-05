@@ -4,7 +4,7 @@ import remarkGfm from "remark-gfm";
 
 export const metadata: Metadata = {
   title: "真事隐 · 雍正、历史叙事与学术诚实",
-  description: "关于孙立天《真事隐·康熙废储与正史虚构》的完整对话——从扫描全书到逐条质疑，一本方法论惊艳但论证失衡的书",
+  description: "关于孙立天《真事隐·康熙废储与正史虚构》的完整对话——一本方法论惊艳但论证失衡的书",
 };
 
 const roles = {
@@ -200,7 +200,7 @@ Hermes（基于 DeepSeek 模型评估）：**6 / 10**
             关于孙立天《真事隐·康熙废储与正史虚构》的完整对话
             <br />
             <span className="text-sm">
-              从扫描全书到逐条质疑——一本方法论惊艳但论证失衡的书
+              一本方法论惊艳但论证失衡的书
             </span>
             <br />
             <span className="text-sm">2026-05-04~05 · liang & Hermes</span>
