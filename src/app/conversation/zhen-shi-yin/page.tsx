@@ -186,7 +186,7 @@ export default function ConversationPage() {
 
 ## 评分
 
-liang：**7 / 10**
+liang：**5 / 10**（2星）
 Hermes（基于 DeepSeek 模型评估）：**6 / 10**
 
 给6分的理由：书有真贡献——新史料的系统使用、原创性的证据对比、扎实的考证功夫。但论证上多处跳跃，传教士记录被单向度信任，年羹尧结论草率，整体在重复一个学术上已基本成立的结论而没有往前推进。不是烂书，但被《红票》的标杆反衬得黯淡。`,
@@ -305,7 +305,7 @@ Hermes（基于 DeepSeek 模型评估）：**6 / 10**
             <br />
             <span className="text-gray-600 font-medium">评分</span>
             <br />
-            liang：<span className="font-semibold">7 / 10</span>
+            liang：<span className="font-semibold">5 / 10</span>（2星）
             <span className="text-gray-400 mx-2">·</span>
             Hermes（基于 DeepSeek 模型）：<span className="font-semibold">6 / 10</span>
           </p>
