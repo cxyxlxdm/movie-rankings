@@ -113,7 +113,7 @@ export default function ConversationPage() {
 
 **在那里，雍正到底是篡位还是继承，根本不重要。**`,
     },
-    // --- 新对话：全书通读后的深入质疑 ---
+    // --- 下篇：全书通读后的深入质疑 ---
     {
       role: "user",
       content: `我把自己扫描的PDF转给你，你通读了全书原文（469页，OCR后约70万字）。上一轮的讨论基于我阅读后的印象，那这一轮，我想跟你具体讨论书中的几个核心论点。先说第一个：书中关于"武"作为康熙立储第一标准的论点。
@@ -140,7 +140,7 @@ export default function ConversationPage() {
 
 十四子胤禵1718年被封为抚远大将军，名义上节制西北各路大军，单从西安出发的先头部队就有三万人。而他面对的——策妄阿喇布坦留在西藏的军队，根据传教士德斯德里（Ippolito Desideri）的记录，"攻陷拉萨时只有六千人，翻越昆仑雪山后只剩不到两千五百人"。拉萨陷落后准噶尔的兵力还在不断消耗。等清军1720年正式进藏时，对方主力已经自己撤走了。
 
-**大仗一次没打就收复了拉萨。** 胤禵本人甚至没有进藏，留守在西宁指挥。进藏的南路指挥官是噶尔弼（满人将领）、北路是延信，实际带兵冲锋的是年羹尧的弟弟年羹尧和其他绿营将领。胤禵的军功，准确说就是"坐镇后方、调度有方"。这在清朝制度中确实是一种表彰方式——皇帝的亲信皇子坐镇本身就是一种象征性的政治安排——但要说这种军功足以让他成为唯一合格的继承人，显然夸大。
+**大仗一次没打就收复了拉萨。** 胤禵本人甚至没有进藏，留守在西宁指挥。进藏的南路指挥官是噶尔弼（满人将领）、北路是延信，实际带兵冲锋的是年羹尧的弟弟和其他绿营将领。胤禵的军功，准确说就是"坐镇后方、调度有方"。这在清朝制度中确实是一种表彰方式——皇帝的亲信皇子坐镇本身就是一种象征性的政治安排——但要说这种军功足以让他成为唯一合格的继承人，显然夸大。
 
 更讽刺的是，书中第七章花大量篇幅写策妄阿喇布坦如何雄才大略、周旋于康熙与彼得大帝之间的枭雄形象，结果到了实际打仗的时候，**清军三十万对两千五百，耗时两年才收服**——这反而暴露了另一方并不值得大书特书。
 
@@ -149,24 +149,6 @@ export default function ConversationPage() {
 书对"武"标准的全盘接受，恰好暴露了全书一个更深层的方法论问题：**所有对四子有利的史料（《实录》中亲抚育、微觉喜怒不定删去、探病、伟人四条正面记录）都被逐条驳斥为编造；所有对四子不利的记录（传教士的一面之词）都被当作事实接受。** 这个不对称不是孙立天有意造假，而是书的论证方向天然导致的——他要证伪正史，只需要找到正史撒谎的证据，不需要评估雍正的实际治理能力。
 
 更好的标准应该是**复合型**的：八阿哥文治出众但缺军事经验；十四阿哥有军功但朝廷内无根基；四阿哥军事不出彩，但他有一个十四阿哥和三阿哥都没有的优势——**他是康熙晚年唯一一个既在京中处理政务、又没被康熙怀疑结党或威胁的成年皇子。** 废太子后，康熙对所有有能力又有政治资源的皇子都高度警惕，唯独四子在他眼中"对权力没有表现出渴望"（其实可能是在隐藏），反而成了康熙最能接受的选项。`,
-    },
-    {
-      role: "user",
-      content: `我上面打错字了——"皇四子在与达赖的往来问题处理上"，这一句应该是"皇十四子在与达赖的往来问题处理上"。纠正一下。书里着重介绍了十四子与达赖的沟通交流。`,
-    },
-    {
-      role: "assistant",
-      content: `谢谢纠正，我接了一个不该接的球。
-
-我把"十四子"笔误听成了"四子"，然后顺着自己的论述惯性编了一段不存在的"四子在藏务上的外交手腕"。这是我的问题，没有回去核实书中原文。这个错误让上一段的整个论证基础崩塌了。
-
-重新面对修正后的问题：
-
-**十四子与达赖往来的管理能力，恰恰印证了你对"军功"实质的判断。** 书中对十四子处理与达赖七世格桑嘉措关系的正面描写，本质上说明的是同一件事：十四子作为抚远大将军，在后勤、外交、番僧事务上做得不错。但这和"真刀真枪的军功"是两回事。你指出的"三十万人对两三千、准备一年多一仗没打"的事实，和"他在后方能把达赖灵童的安全护送、坐床仪式安排得井井有条"并不矛盾——两者都是事实，但前者揭示的不是他的能力，而是这场军事行动本身的含金量。
-
-所以回到你最早的问题：**书是否夸大了十四子的军功？**
-
-我的判断是：是的。从结构上看，把十四子立为"按照康熙的武标准，他才是合格继承人"的标杆，然后再论证雍正通过篡改历史抹掉了这个标准——这个逻辑链条表面自洽，但锚点本身（十四子的军功）是软的。如果十四子的军功连及格线都算不上，那雍正根本不需要费劲去抹——历史自然会给出它的分量，就像汉武帝的穷兵黩武不需要后世来抹，他自己就立在那里了。`,
     },
     {
       role: "user",
@@ -209,7 +191,7 @@ export default function ConversationPage() {
 - "不一致"的概率分布是否均匀？如果《实录》在所有事情上都造假，那它的可信度应该全局崩塌。但书自己也承认，被篡改的部分只是"直接关系帝王本身事者"，不到全书的百分之一。那如何区分哪些地方是被篡改的、哪些地方是可靠的？书中没有一个明确的筛选标准。
 - 退一步讲，即使我们接受了"传教士记录为真、《实录》为假"的预设，得到的结果也只是"雍正朝改过史"——这一点孟森1920年代就说了。书真正该做的是往前走一步：给出一个不依赖传教士记录也能独立验证的方法，来分辨《实录》中哪些是被改过的。这一步它没有完成。
 
-所以这本书读到最后，会有一种"说得都对，但没往前走"的感觉。它不是在推翻既有认知，而是在用一套华丽的新装备重新打扫一间已经被前人扫过的屋子。`, // eslint-disable-line no-trailing-spaces
+所以这本书读到最后，会有一种"说得都对，但没往前走"的感觉。它不是在推翻既有认知，而是在用一套华丽的新装备重新打扫一间已经被前人扫过的屋子。`,
     },
     {
       role: "assistant",
@@ -219,15 +201,13 @@ export default function ConversationPage() {
 
 你把问题精确地表述为：**孙立天在"不一致"和"篡改"之间直接画了等号。** 这个表述抓住了全书方法论上最薄弱的环节。
 
-让我沿着这个思路继续推几步：
-
 如果传教士记录和《实录》不一致，逻辑上至少有四种可能：
 1. 《实录》编造了历史，传教士记录属实
 2. 传教士记录有误，《实录》属实
 3. 两者都有不同程度的偏差
 4. 两者各自记录了同一事件的不同侧面——传教士看到的是内廷的一面，朝廷官员看到的是外朝的一面，两者本就不应该完全一致
 
-书中绝大部分案例分析默认的是第1种可能，偶尔承认第3种可能（比如讨论纪理安的信息来源时），几乎没有认真考虑过第2种和第4种可能。这造成了一个有趣的后果：**这本书用传教士记录挑战了《实录》的权威，但同时把传教士记录当成了新的权威。** 它没有追问：纪理安作为在北京生活了二十多年的外国人，他对清朝政治运作的理解——特别是对满人内部主奴关系、皇子间微妙竞争的理解——到底有多深？
+书中绝大部分案例分析默认的是第1种可能，偶尔承认第3种可能（比如讨论纪理安的信息来源时），几乎没有认真考虑过第2种和第4种可能。这造成了一个有趣的后果：**这本书用传教士记录挑战了《实录》的权威，但同时把传教士记录当成了新的权威。** 它没有追问：纪理安作为一名在北京生活了二十多年的外国人，他对清朝政治运作的理解——特别是对满人内部主奴关系、皇子间微妙竞争的理解——到底有多深？
 
 ## 关于"没往前走"的精确含义
 
@@ -300,33 +280,17 @@ export default function ConversationPage() {
                       remarkPlugins={[remarkGfm]}
                       components={{
                         h1: ({ children }) => (
-                          <h1 className="text-2xl font-bold mt-6 mb-3">
-                            {children}
-                          </h1>
+                          <h1 className="text-2xl font-bold mt-6 mb-3">{children}</h1>
                         ),
                         h2: ({ children }) => (
-                          <h2 className="text-xl font-semibold mt-5 mb-2">
-                            {children}
-                          </h2>
+                          <h2 className="text-xl font-semibold mt-5 mb-2">{children}</h2>
                         ),
                         h3: ({ children }) => (
-                          <h3 className="text-lg font-medium mt-4 mb-2">
-                            {children}
-                          </h3>
+                          <h3 className="text-lg font-medium mt-4 mb-2">{children}</h3>
                         ),
-                        p: ({ children }) => (
-                          <p className="mb-3 last:mb-0">{children}</p>
-                        ),
-                        ul: ({ children }) => (
-                          <ul className="list-disc pl-5 mb-3 space-y-1">
-                            {children}
-                          </ul>
-                        ),
-                        ol: ({ children }) => (
-                          <ol className="list-decimal pl-5 mb-3 space-y-1">
-                            {children}
-                          </ol>
-                        ),
+                        p: ({ children }) => <p className="mb-3 last:mb-0">{children}</p>,
+                        ul: ({ children }) => <ul className="list-disc pl-5 mb-3 space-y-1">{children}</ul>,
+                        ol: ({ children }) => <ol className="list-decimal pl-5 mb-3 space-y-1">{children}</ol>,
                         li: ({ children }) => <li>{children}</li>,
                         blockquote: ({ children }) => (
                           <blockquote className="border-l-4 border-gray-300 pl-4 italic my-3 text-gray-600">
@@ -335,47 +299,20 @@ export default function ConversationPage() {
                         ),
                         table: ({ children }) => (
                           <div className="overflow-x-auto mb-4">
-                            <table className="min-w-full border-collapse border border-gray-200">
-                              {children}
-                            </table>
+                            <table className="min-w-full border-collapse border border-gray-200">{children}</table>
                           </div>
                         ),
-                        th: ({ children }) => (
-                          <th className="border border-gray-200 px-3 py-2 bg-gray-50 text-left font-semibold">
-                            {children}
-                          </th>
-                        ),
-                        td: ({ children }) => (
-                          <td className="border border-gray-200 px-3 py-2">
-                            {children}
-                          </td>
-                        ),
-                        strong: ({ children }) => (
-                          <strong className="font-semibold">{children}</strong>
-                        ),
-                        em: ({ children }) => (
-                          <em className="italic">{children}</em>
-                        ),
+                        th: ({ children }) => <th className="border border-gray-200 px-3 py-2 bg-gray-50 text-left font-semibold">{children}</th>,
+                        td: ({ children }) => <td className="border border-gray-200 px-3 py-2">{children}</td>,
+                        strong: ({ children }) => <strong className="font-semibold">{children}</strong>,
+                        em: ({ children }) => <em className="italic">{children}</em>,
                         a: ({ href, children }) => (
-                          <a
-                            href={href}
-                            className="text-blue-600 hover:underline"
-                            target="_blank"
-                            rel="noopener noreferrer"
-                          >
+                          <a href={href} className="text-blue-600 hover:underline" target="_blank" rel="noopener noreferrer">
                             {children}
                           </a>
                         ),
-                        code: ({ children }) => (
-                          <code className="bg-gray-100 px-1 py-0.5 rounded text-sm font-mono">
-                            {children}
-                          </code>
-                        ),
-                        pre: ({ children }) => (
-                          <pre className="bg-gray-100 p-3 rounded overflow-x-auto mb-4">
-                            <code>{children}</code>
-                          </pre>
-                        ),
+                        code: ({ children }) => <code className="bg-gray-100 px-1 py-0.5 rounded text-sm font-mono">{children}</code>,
+                        pre: ({ children }) => <pre className="bg-gray-100 p-3 rounded overflow-x-auto mb-4"><code>{children}</code></pre>,
                         hr: () => <hr className="my-6 border-gray-200" />,
                       }}
                     >
@@ -405,10 +342,7 @@ export default function ConversationPage() {
 
         <div className="mt-8 pt-6 border-t border-gray-100">
           <p className="text-xs text-gray-400 text-center">
-            <a
-              href="/conversation"
-              className="hover:underline"
-            >
+            <a href="/conversation" className="hover:underline">
               ← 上一段对话：关于认真、脆弱与愤怒
             </a>
           </p>
