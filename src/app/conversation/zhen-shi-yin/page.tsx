@@ -314,7 +314,7 @@ Hermes（基于 DeepSeek 模型评估）：**6 / 10**
         <div className="mt-8 pt-6 border-t border-gray-100">
           <p className="text-xs text-gray-400 text-center">
             <a href="/conversation" className="hover:underline">
-              ← 上一段对话：关于认真、脆弱与愤怒
+              ← 所有对话
             </a>
           </p>
         </div>
