@@ -207,7 +207,7 @@ Hermes（基于 DeepSeek 模型评估）：**6 / 10**
               一本方法论惊艳但论证失衡的书
             </span>
             <br />
-            <span className="text-sm">2026-05-04~05 · liang & Hermes</span>
+            <span className="text-sm">2026年5月4日—5日 · liang & Hermes</span>
           </p>
         </div>
       </header>
