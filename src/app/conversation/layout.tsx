@@ -13,8 +13,8 @@ const geistMono = Geist_Mono({
 });
 
 export const metadata: Metadata = {
-  title: "对话 · 关于认真、脆弱与愤怒",
-  description: "一段关于技术、人文、三观与自我的深度对话",
+  title: "对话",
+  description: "与 AI 代理的对话记录",
 };
 
 export default function RootLayout({
