@@ -52,6 +52,18 @@ export default async function ArticlePage({ params }: Props) {
             const trimmed = para.trim();
             if (!trimmed) return null;
 
+            // Markdown h3 headings: ### text
+            if (trimmed.startsWith("### ")) {
+              return (
+                <h3
+                  key={i}
+                  className="text-lg font-semibold mt-10 mb-4 tracking-tight"
+                >
+                  {trimmed.replace(/^### /, "")}
+                </h3>
+              );
+            }
+
             // Bold headings: starts with **
             if (trimmed.startsWith("**") && trimmed.endsWith("**")) {
               return (
