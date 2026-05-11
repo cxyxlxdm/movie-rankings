@@ -4,7 +4,7 @@ import { articlesMeta } from "@/data/articles";
 
 export const metadata: Metadata = {
   title: "文章",
-  description: "xAilurus 的文章——关于历史、电影与思考",
+  description: "文章——关于历史、电影与思考",
 };
 
 export default function ArticlesIndex() {
@@ -13,7 +13,7 @@ export default function ArticlesIndex() {
       <header className="border-b border-gray-200 bg-gray-50/30">
         <div className="container mx-auto px-4 py-12">
           <h1 className="text-3xl font-semibold tracking-tight">文章</h1>
-          <p className="mt-2 text-gray-500">xAilurus · 历史、电影与思考</p>
+          <p className="mt-2 text-gray-500">历史、电影与思考</p>
         </div>
       </header>
 
