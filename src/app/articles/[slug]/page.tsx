@@ -2,6 +2,17 @@ import type { Metadata } from "next";
 import Link from "next/link";
 import { notFound } from "next/navigation";
 import { articlesMeta, getArticleContent } from "@/data/articles";
+import type { ReactNode } from "react";
+
+function renderInlineBold(text: string): ReactNode {
+  const parts = text.split(/(\*\*.+?\*\*)/);
+  return parts.map((part, i) => {
+    if (part.startsWith("**") && part.endsWith("**")) {
+      return <strong key={i}>{part.slice(2, -2)}</strong>;
+    }
+    return part;
+  });
+}
 
 interface Props {
   params: Promise<{ slug: string }>;
@@ -52,6 +63,18 @@ export default async function ArticlePage({ params }: Props) {
             const trimmed = para.trim();
             if (!trimmed) return null;
 
+            // Markdown h2 headings: ## text
+            if (trimmed.startsWith("## ")) {
+              return (
+                <h2
+                  key={i}
+                  className="text-xl font-semibold mt-10 mb-4 tracking-tight"
+                >
+                  {trimmed.replace(/^## /, "")}
+                </h2>
+              );
+            }
+
             // Markdown h3 headings: ### text
             if (trimmed.startsWith("### ")) {
               return (
@@ -64,7 +87,7 @@ export default async function ArticlePage({ params }: Props) {
               );
             }
 
-            // Bold headings: starts with **
+            // Bold-only paragraph: render as h2
             if (trimmed.startsWith("**") && trimmed.endsWith("**")) {
               return (
                 <h2
@@ -76,28 +99,12 @@ export default async function ArticlePage({ params }: Props) {
               );
             }
 
-            // Bold headings with colon: **text**subtitle
-            const boldMatch = trimmed.match(/^\*\*(.+?)\*\*(.*)$/);
-            if (boldMatch) {
-              return (
-                <h2
-                  key={i}
-                  className="text-xl font-semibold mt-10 mb-4 tracking-tight"
-                >
-                  {boldMatch[1]}
-                  {boldMatch[2] && (
-                    <span className="font-normal">{boldMatch[2]}</span>
-                  )}
-                </h2>
-              );
-            }
-
             return (
               <p
                 key={i}
                 className="mb-5 text-[15px] text-gray-700 leading-[1.8]"
               >
-                {trimmed}
+                {renderInlineBold(trimmed)}
               </p>
             );
           })}
