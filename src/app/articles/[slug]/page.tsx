@@ -2,17 +2,65 @@ import type { Metadata } from "next";
 import Link from "next/link";
 import { notFound } from "next/navigation";
 import { articlesMeta, getArticleContent } from "@/data/articles";
-import type { ReactNode } from "react";
+import ReactMarkdown from "react-markdown";
+import remarkGfm from "remark-gfm";
+import type { Components } from "react-markdown";
 
-function renderInlineBold(text: string): ReactNode {
-  const parts = text.split(/(\*\*.+?\*\*)/);
-  return parts.map((part, i) => {
-    if (part.startsWith("**") && part.endsWith("**")) {
-      return <strong key={i}>{part.slice(2, -2)}</strong>;
-    }
-    return part;
-  });
-}
+const customComponents: Components = {
+  h2: ({ children }) => (
+    <h2 className="text-xl font-semibold mt-10 mb-4 tracking-tight">
+      {children}
+    </h2>
+  ),
+  h3: ({ children }) => (
+    <h3 className="text-lg font-semibold mt-10 mb-4 tracking-tight">
+      {children}
+    </h3>
+  ),
+  p: ({ children }) => (
+    <p className="mb-5 text-[15px] text-gray-700 leading-[1.8]">{children}</p>
+  ),
+  a: ({ href, children }) => (
+    <a
+      href={href}
+      target="_blank"
+      rel="noopener noreferrer"
+      className="text-blue-600 hover:underline"
+    >
+      {children}
+    </a>
+  ),
+  ul: ({ children }) => (
+    <ul className="list-disc pl-6 mb-5 text-[15px] text-gray-700 leading-[1.8]">
+      {children}
+    </ul>
+  ),
+  ol: ({ children }) => (
+    <ol className="list-decimal pl-6 mb-5 text-[15px] text-gray-700 leading-[1.8]">
+      {children}
+    </ol>
+  ),
+  li: ({ children }) => <li className="mb-1">{children}</li>,
+  blockquote: ({ children }) => (
+    <blockquote className="border-l-4 border-gray-300 pl-4 my-6 text-gray-500 italic">
+      {children}
+    </blockquote>
+  ),
+  code: ({ children }) => (
+    <code className="bg-gray-100 rounded px-1.5 py-0.5 text-sm font-mono">
+      {children}
+    </code>
+  ),
+  pre: ({ children }) => (
+    <pre className="bg-gray-100 rounded-lg p-4 my-6 overflow-x-auto text-sm">
+      {children}
+    </pre>
+  ),
+  hr: () => <hr className="my-10 border-gray-200" />,
+  strong: ({ children }) => (
+    <strong className="font-semibold">{children}</strong>
+  ),
+};
 
 interface Props {
   params: Promise<{ slug: string }>;
@@ -37,8 +85,6 @@ export default async function ArticlePage({ params }: Props) {
   const content = getArticleContent(slug);
   if (!content) notFound();
 
-  const paragraphs = content.split("\n\n");
-
   return (
     <main className="min-h-screen bg-white text-gray-900">
       <article className="container mx-auto px-4 py-12 max-w-2xl">
@@ -58,56 +104,13 @@ export default async function ArticlePage({ params }: Props) {
           </div>
         </header>
 
-        <div className="prose prose-gray max-w-none leading-relaxed">
-          {paragraphs.map((para, i) => {
-            const trimmed = para.trim();
-            if (!trimmed) return null;
-
-            // Markdown h2 headings: ## text
-            if (trimmed.startsWith("## ")) {
-              return (
-                <h2
-                  key={i}
-                  className="text-xl font-semibold mt-10 mb-4 tracking-tight"
-                >
-                  {trimmed.replace(/^## /, "")}
-                </h2>
-              );
-            }
-
-            // Markdown h3 headings: ### text
-            if (trimmed.startsWith("### ")) {
-              return (
-                <h3
-                  key={i}
-                  className="text-lg font-semibold mt-10 mb-4 tracking-tight"
-                >
-                  {trimmed.replace(/^### /, "")}
-                </h3>
-              );
-            }
-
-            // Bold-only paragraph: render as h2
-            if (trimmed.startsWith("**") && trimmed.endsWith("**")) {
-              return (
-                <h2
-                  key={i}
-                  className="text-xl font-semibold mt-10 mb-4 tracking-tight"
-                >
-                  {trimmed.replace(/\*\*/g, "")}
-                </h2>
-              );
-            }
-
-            return (
-              <p
-                key={i}
-                className="mb-5 text-[15px] text-gray-700 leading-[1.8]"
-              >
-                {renderInlineBold(trimmed)}
-              </p>
-            );
-          })}
+        <div className="leading-relaxed">
+          <ReactMarkdown
+            remarkPlugins={[remarkGfm]}
+            components={customComponents}
+          >
+            {content}
+          </ReactMarkdown>
         </div>
 
         <footer className="mt-16 pt-8 border-t border-gray-200">
