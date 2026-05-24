@@ -11,6 +11,13 @@ export interface ArticleMeta {
 
 export const articlesMeta: ArticleMeta[] = [
   {
+    slug: "south-slav-mirror",
+    title: "南斯拉夫的镜子",
+    date: "2026年5月17日",
+    description:
+      "从南斯拉夫男篮黄金一代的友谊与破碎，到《澎湖海战》引发的舆论撕裂——民族主义如何撕裂一个国家、一段友谊、一个更衣室。南斯拉夫的教训，今天读来格外刺耳。",
+  },
+  {
     slug: "tai-ping-nian-song-dynasty",
     title: "历史的十字路口：《太平年》与宋朝命运的三次关键选择",
     date: "2026年5月10日",
