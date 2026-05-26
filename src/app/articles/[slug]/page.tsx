@@ -56,6 +56,24 @@ const customComponents: Components = {
       {children}
     </pre>
   ),
+  table: ({ children }) => (
+    <div className="overflow-x-auto my-6">
+      <table className="w-full border-collapse border border-gray-300 text-sm">
+        {children}
+      </table>
+    </div>
+  ),
+  thead: ({ children }) => (
+    <thead className="bg-gray-100">{children}</thead>
+  ),
+  th: ({ children }) => (
+    <th className="border border-gray-300 px-3 py-2 text-left font-semibold whitespace-nowrap">
+      {children}
+    </th>
+  ),
+  td: ({ children }) => (
+    <td className="border border-gray-300 px-3 py-2">{children}</td>
+  ),
   hr: () => <hr className="my-10 border-gray-200" />,
   strong: ({ children }) => (
     <strong className="font-semibold">{children}</strong>
