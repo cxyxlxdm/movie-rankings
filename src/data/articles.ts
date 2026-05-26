@@ -11,6 +11,13 @@ export interface ArticleMeta {
 
 export const articlesMeta: ArticleMeta[] = [
   {
+    slug: "multi-agent-code-review",
+    title: "多 Agent 协同代码审查：独立进程 Review Agent 架构设计与实践",
+    date: "2026年5月17日",
+    description:
+      "基于 Claude Code + Qoder CLI 的实战经验，提炼出一套轻量、通用的多 Agent 协同审查方案。Shell 脚本即全部基础设施，不需要额外平台或服务。",
+  },
+  {
     slug: "south-slav-mirror",
     title: "南斯拉夫的镜子",
     date: "2026年5月17日",
