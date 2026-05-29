@@ -5,7 +5,6 @@ import { articlesMeta, getArticleContent } from "@/data/articles";
 import ReactMarkdown from "react-markdown";
 import remarkGfm from "remark-gfm";
 import type { Components } from "react-markdown";
-import MermaidRenderer from "@/components/MermaidRenderer";
 
 const customComponents: Components = {
   h2: ({ children }) => (
@@ -47,18 +46,11 @@ const customComponents: Components = {
       {children}
     </blockquote>
   ),
-  code: ({ className, children }) => {
-    const isMermaid =
-      typeof className === "string" && className.includes("language-mermaid");
-    if (isMermaid) {
-      return <MermaidRenderer code={String(children)} />;
-    }
-    return (
-      <code className="bg-gray-100 rounded px-1.5 py-0.5 text-sm font-mono">
-        {children}
-      </code>
-    );
-  },
+  code: ({ children }) => (
+    <code className="bg-gray-100 rounded px-1.5 py-0.5 text-sm font-mono">
+      {children}
+    </code>
+  ),
   pre: ({ children }) => (
     <pre className="bg-gray-100 rounded-lg p-4 my-6 overflow-x-auto text-sm">
       {children}
