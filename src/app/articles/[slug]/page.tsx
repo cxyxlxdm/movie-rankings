@@ -5,7 +5,6 @@ import { articlesMeta, getArticleContent } from "@/data/articles";
 import ReactMarkdown from "react-markdown";
 import remarkGfm from "remark-gfm";
 import type { Components } from "react-markdown";
-import { Children } from "react";
 import MermaidRenderer from "@/components/MermaidRenderer";
 
 const customComponents: Components = {
@@ -52,30 +51,12 @@ const customComponents: Components = {
     const isMermaid =
       typeof className === "string" && className.includes("language-mermaid");
     if (isMermaid) {
-      return (
-        <div data-mermaid="true">
-          <MermaidRenderer code={String(children)} />
-        </div>
-      );
+      return <MermaidRenderer code={String(children)} />;
     }
     return (
       <code className="bg-gray-100 rounded px-1.5 py-0.5 text-sm font-mono">
         {children}
       </code>
-    );
-  },
-  pre: ({ children }) => {
-    const child = Children.only(children);
-    if (child && typeof child === "object" && "props" in child) {
-      const el = child as React.ReactElement<{ [key: string]: unknown }>;
-      if (el.props && el.props["data-mermaid"] === "true") {
-        return <>{children}</>;
-      }
-    }
-    return (
-      <pre className="bg-gray-100 rounded-lg p-4 my-6 overflow-x-auto text-sm">
-        {children}
-      </pre>
     );
   },
   table: ({ children }) => (
