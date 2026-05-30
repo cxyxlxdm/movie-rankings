@@ -11,6 +11,13 @@ export interface ArticleMeta {
 
 export const articlesMeta: ArticleMeta[] = [
   {
+    slug: "dynamic-workflows",
+    title: "Claude Code Dynamic Workflows 技术指南",
+    date: "2026年5月17日",
+    description:
+      "多 Agent 编排从\u201c模型驱动\u201d到\u201c代码驱动\u201d的范式升级。深入分析 Agent Workflow 的设计缺陷，提出动态工作流引擎的架构方案。",
+  },
+  {
     slug: "multi-agent-code-review",
     title: "多 Agent 协同代码审查：独立进程 Review Agent 架构设计与实践",
     date: "2026年5月17日",
