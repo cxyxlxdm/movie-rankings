@@ -2,12 +2,25 @@ import type { Metadata } from "next";
 import Link from "next/link";
 import { articlesMeta } from "@/data/articles";
 
+function parseDate(dateStr: string): number {
+  // "2026年5月29日" → 20260529
+  const m = dateStr.match(/(\d+)年(\d+)月(\d+)日/);
+  if (!m) return 0;
+  const y = m[1].padStart(4, "0");
+  const mo = m[2].padStart(2, "0");
+  const d = m[3].padStart(2, "0");
+  return parseInt(`${y}${mo}${d}`);
+}
+
 export const metadata: Metadata = {
   title: "文章",
   description: "文章——关于历史、电影与思考",
 };
 
 export default function ArticlesIndex() {
+  const sorted = [...articlesMeta].sort(
+    (a, b) => parseDate(b.date) - parseDate(a.date)
+  );
   return (
     <main className="min-h-screen bg-white text-gray-900">
       <header className="border-b border-gray-200 bg-gray-50/30">
@@ -19,7 +32,7 @@ export default function ArticlesIndex() {
 
       <div className="container mx-auto px-4 py-12 max-w-2xl">
         <div className="space-y-6">
-          {articlesMeta.map((article) => (
+          {sorted.map((article) => (
             <Link
               key={article.slug}
               href={`/articles/${article.slug}`}
