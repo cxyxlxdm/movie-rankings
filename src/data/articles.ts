@@ -13,14 +13,14 @@ export const articlesMeta: ArticleMeta[] = [
   {
     slug: "dynamic-workflows",
     title: "Claude Code Dynamic Workflows 技术指南",
-    date: "2026年5月29日",
+    date: "2026年5月31日",
     description:
       "多 Agent 编排从\u201c模型驱动\u201d到\u201c代码驱动\u201d的范式升级。深入分析 Agent Workflow 的设计缺陷，提出动态工作流引擎的架构方案。",
   },
   {
     slug: "multi-agent-code-review",
     title: "多 Agent 协同代码审查：独立进程 Review Agent 架构设计与实践",
-    date: "2026年5月17日",
+    date: "2026年5月31日",
     description:
       "基于 Claude Code + Qoder CLI 的实战经验，提炼出一套轻量、通用的多 Agent 协同审查方案。Shell 脚本即全部基础设施，不需要额外平台或服务。",
   },
@@ -49,7 +49,7 @@ export const articlesMeta: ArticleMeta[] = [
   {
     slug: "yi-ju-ding-yi-wan-ju",
     title: "咽下的话，和走过的路",
-    date: "2026年5月29日",
+    date: "2026年5月31日",
     description:
       "重读《一句顶一万句》——三代人，近百年，都在找一个能说得着的人。吴摩西丢了巧玲，用一辈子躲。巧玲被弄丢了，用一辈子守。牛爱国什么也没弄明白，用一辈子走。孤独是宿命，但有人让你愿意把孤独咽下去，替他担一份安宁。",
   },
