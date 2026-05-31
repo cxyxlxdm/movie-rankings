@@ -46,6 +46,13 @@ export const articlesMeta: ArticleMeta[] = [
     description:
       "《太平年》把我们引向了那个时代更复杂的褶皱处：它用一份勇气和同情，把那些被历史标签框住的人，重新变成了有血有肉、充满矛盾的个体。赵光义、钱弘俶、李煜、冯道、桑维翰——每个人都在自己的十字路口做出了选择。",
   },
+  {
+    slug: "yi-ju-ding-yi-wan-ju",
+    title: "咽下的话，和走过的路",
+    date: "2026年5月29日",
+    description:
+      "重读《一句顶一万句》——三代人，近百年，都在找一个能说得着的人。吴摩西丢了巧玲，用一辈子躲。巧玲被弄丢了，用一辈子守。牛爱国什么也没弄明白，用一辈子走。孤独是宿命，但有人让你愿意把孤独咽下去，替他担一份安宁。",
+  },
 ];
 
 export function getArticleContent(slug: string): string | null {
