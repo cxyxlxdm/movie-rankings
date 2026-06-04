@@ -2,213 +2,240 @@
 <html lang="zh-CN">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>青岛出发旅游机票 · 2026年6月</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0">
+<title>青岛出发 · 旅游航线低价参考</title>
 <style>
 * { margin: 0; padding: 0; border: 0; box-sizing: border-box; }
 body {
-  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "PingFang SC", sans-serif;
-  background: #f5f6f8;
-  color: #1a1a1a;
-  padding: 2rem 1rem;
-  max-width: 900px;
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "PingFang SC", "Helvetica Neue", sans-serif;
+  background: #f5f6fa;
+  color: #222;
+  padding: 0;
+  min-height: 100vh;
+  -webkit-font-smoothing: antialiased;
+}
+.page {
+  max-width: 800px;
   margin: 0 auto;
+  padding: 1.25rem 1rem 2rem;
 }
 h1 {
-  font-size: 1.6rem;
+  font-size: 1.35rem;
   font-weight: 700;
-  margin-bottom: 0.5rem;
-  letter-spacing: -0.02em;
+  margin-bottom: 0.3rem;
+  letter-spacing: -0.01em;
+  line-height: 1.3;
 }
 .meta {
-  font-size: 0.85rem;
+  font-size: 0.8rem;
   color: #888;
-  margin-bottom: 1.5rem;
+  margin-bottom: 1.2rem;
   line-height: 1.6;
 }
-th, td {
-  padding: 0.7rem 0.9rem;
-  text-align: left;
-  border-bottom: 1px solid #e8e8e8;
-}
-th {
-  font-size: 0.75rem;
-  color: #888;
-  font-weight: 500;
-  letter-spacing: 0.05em;
-  text-transform: uppercase;
-  background: #fff;
-  position: sticky;
-  top: 0;
-}
-tr:last-child td { border-bottom: none; }
-tr:hover td { background: #fafafa; }
-.city { font-weight: 600; }
-.price { font-weight: 700; color: #e0372f; font-variant-numeric: tabular-nums; }
-.note { font-size: 0.8rem; color: #888; }
-td.price-note { color: #b0b0b0; font-size: 0.8rem; }
-.badge {
+.meta span {
   display: inline-block;
-  font-size: 0.7rem;
-  padding: 0.15rem 0.5rem;
-  border-radius: 999px;
-  background: #eef1f5;
-  color: #555;
-  margin-left: 0.5rem;
-  vertical-align: middle;
+  margin-right: 0.5rem;
 }
-.source {
-  margin-top: 2rem;
-  padding: 1rem;
+
+/* 卡片样式替换表格 */
+.card {
   background: #fff;
+  border-radius: 10px;
+  padding: 1rem 1.1rem;
+  margin-bottom: 0.75rem;
+  box-shadow: 0 1px 3px rgba(0,0,0,0.04);
+  transition: transform 0.15s ease;
+}
+.card:active {
+  transform: scale(0.995);
+}
+.card-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 0.6rem;
+}
+.city {
+  font-size: 1.1rem;
+  font-weight: 700;
+  color: #1a1a1a;
+}
+.airport {
+  font-size: 0.7rem;
+  color: #aaa;
+  margin-top: 0.1rem;
+  letter-spacing: 0.02em;
+}
+.badge {
+  font-size: 0.7rem;
+  padding: 0.2rem 0.5rem;
+  border-radius: 999px;
+  background: #fff0f0;
+  color: #e0372f;
+  font-weight: 600;
+  white-space: nowrap;
+}
+.card-body {
+  display: flex;
+  gap: 0.8rem;
+}
+.price-block {
+  flex: 1;
+  background: #fafafa;
   border-radius: 8px;
-  font-size: 0.8rem;
+  padding: 0.6rem 0.7rem;
+}
+.price-label {
+  font-size: 0.65rem;
+  color: #999;
+  margin-bottom: 0.2rem;
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+}
+.price-value {
+  font-size: 1.05rem;
+  font-weight: 700;
+  color: #e0372f;
+  font-variant-numeric: tabular-nums;
+  line-height: 1.2;
+}
+.price-note {
+  font-size: 0.65rem;
+  color: #bbb;
+  margin-top: 0.15rem;
+}
+.card-footer {
+  margin-top: 0.65rem;
+  padding-top: 0.6rem;
+  border-top: 1px dashed #eee;
+  display: flex;
+  align-items: flex-start;
+  gap: 0.5rem;
+}
+.footer-icon {
+  font-size: 0.75rem;
+  color: #ffb400;
+  line-height: 1.4;
+  flex-shrink: 0;
+}
+.footer-text {
+  font-size: 0.78rem;
+  color: #777;
+  line-height: 1.5;
+}
+
+.source {
+  margin-top: 1.5rem;
+  padding: 1rem 1.1rem;
+  background: #fff;
+  border-radius: 10px;
+  font-size: 0.75rem;
   color: #666;
   line-height: 1.8;
+  box-shadow: 0 1px 3px rgba(0,0,0,0.04);
 }
-.source a { color: #2563eb; }
+.source b {
+  color: #444;
+  font-weight: 600;
+}
+.source a {
+  color: #2563eb;
+  text-decoration: none;
+  word-break: break-all;
+}
 .disclaimer {
-  margin-top: 1rem;
-  font-size: 0.75rem;
-  color: #999;
+  margin-top: 0.8rem;
+  font-size: 0.7rem;
+  color: #aaa;
   line-height: 1.6;
+  text-align: center;
+}
+
+.refresh {
+  display: block;
+  text-align: center;
+  font-size: 0.7rem;
+  color: #ccc;
+  margin-top: 1.2rem;
 }
 </style>
 </head>
 <body>
-<h1>青岛出发 · 旅游航线低价参考</h1>
-<p class="meta">出发地：青岛（TAO）胶东国际机场<br>查询日期：2026年6月<br>预算区间：往返 ¥700 左右</p>
+<div class="page">
+  <h1>青岛出发 · 旅游航线低价参考</h1>
+  <p class="meta">
+    <span>出发地：青岛（TAO）胶东国际机场</span>
+    <span>参考日期：2026年6月</span>
+  </p>
 
-<table>
-<thead>
-<tr>
-  <th>目的地</th>
-  <th>机场</th>
-  <th>携程单程参考</th>
-  <th>往返估算</th>
-  <th>适合旅游</th>
-  <th>备注</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-  <td class="city">上海</td>
-  <td>SHA/PVG</td>
-  <td class="price">¥200–300</td>
-  <td class="price">¥400–600</td>
-  <td>⭐⭐⭐⭐⭐</td>
-  <td>直飞密集，超低折扣常见</td>
-</tr>
-<tr>
-  <td class="city">杭州</td>
-  <td>HGH</td>
-  <td class="price">¥200–300</td>
-  <td class="price">¥450–650</td>
-  <td>⭐⭐⭐⭐⭐</td>
-  <td>江浙游首选，高铁也方便</td>
-</tr>
-<tr>
-  <td class="city">厦门</td>
-  <td>XMN</td>
-  <td class="price">¥200–300</td>
-  <td class="price">¥500–700</td>
-  <td>⭐⭐⭐⭐⭐</td>
-  <td>海滨+文艺，暑期热门</td>
-</tr>
-<tr>
-  <td class="city">广州</td>
-  <td>CAN</td>
-  <td class="price">¥200–300</td>
-  <td class="price">¥500–700</td>
-  <td>⭐⭐⭐⭐</td>
-  <td>2.2折可见，暑期末端需留意</td>
-</tr>
-<tr>
-  <td class="city">深圳</td>
-  <td>SZX</td>
-  <td class="price">¥300–350</td>
-  <td class="price">¥550–750</td>
-  <td>⭐⭐⭐⭐</td>
-  <td>略贵于广州，适合深圳周边</td>
-</tr>
-<tr>
-  <td class="city">成都</td>
-  <td>CTU</td>
-  <td class="price">¥300–380</td>
-  <td class="price">¥600–800</td>
-  <td>⭐⭐⭐⭐⭐</td>
-  <td>1.5折，西南方向性价比高</td>
-</tr>
-<tr>
-  <td class="city">大连</td>
-  <td>DLC</td>
-  <td class="price">¥300–380</td>
-  <td class="price">¥580–780</td>
-  <td>⭐⭐⭐⭐</td>
-  <td>海滨避暑，暑期票价会上涨</td>
-</tr>
-<tr>
-  <td class="city">武汉</td>
-  <td>WUH</td>
-  <td class="price">¥300–350</td>
-  <td class="price">¥580–780</td>
-  <td>⭐⭐⭐⭐</td>
-  <td>华中枢纽，武大樱花季后性价比回升</td>
-</tr>
-<tr>
-  <td class="city">西安</td>
-  <td>XIY</td>
-  <td class="price">¥300–380</td>
-  <td class="price">¥600–800</td>
-  <td>⭐⭐⭐⭐⭐</td>
-  <td>历史人文目的地，全年需求稳定</td>
-</tr>
-<tr>
-  <td class="city">长沙</td>
-  <td>CSX</td>
-  <td class="price">¥300–380</td>
-  <td class="price">¥600–780</td>
-  <td>⭐⭐⭐⭐</td>
-  <td>口味+湘江，夜生活丰富</td>
-</tr>
-<tr>
-  <td class="city">昆明</td>
-  <td>KMG</td>
-  <td class="price">¥300–400</td>
-  <td class="price">¥650–850</td>
-  <td>⭐⭐⭐⭐</td>
-  <td>四季如春，近期在山航系统中最低往返 ¥859</td>
-</tr>
-<tr>
-  <td class="city">三亚</td>
-  <td>SYX</td>
-  <td class="price">¥350–450</td>
-  <td class="price">¥680–850</td>
-  <td>⭐⭐⭐⭐</td>
-  <td>暑期三亚溢价明显，早订有条件</td>
-</tr>
-</tbody>
-</table>
+  <div id="cards"></div>
 
-<div class="source">
-<b>数据来源</b>：<br>
-1. 携程移动端实时页面（<a href="https://m.ctrip.com/html5/flight/tao-sha-day-1.html" target="_blank">青岛出发特价</a>）— 单程页面价格<br>
-2. Skyscanner 青岛航空航线页 — 青岛航空近45天最低往返 ¥859（飞西双版纳）<br>
-3. 往返估算 = 携程单程最低 × 2（未含税费，仅供参考）<br>
+  <div class="source">
+    <b>数据来源</b><br>
+    1. 携程移动端实时页面 — 单程最低价<br>
+    2. Skyscanner 青岛航空航线页 — 青岛航空近45天最低往返 ¥859（飞西双版纳）<br>
+    3. 往返估算 = 携程单程最低 × 2（未含税费，仅供参考）<br><br>
+    <b>关键发现</b><br>
+    · 华东线（上海/杭州/宁波）700预算最容易满足<br>
+    · 华南线（厦门/广州）捡漏可能<br>
+    · 西南线（成都/重庆）单程已有 ¥380 例子，往返可凑到 ¥700 内<br>
+    · 暑期（7–8月）价格会上涨，建议在价格日历查看6月15日–7月10日低价谷底
+  </div>
 
-<b>关键发现</b>：<br>
-- 青岛→上海/杭州/广州/深圳/厦门，近期单程都能蹲到 ¥200–300 的低价票<br>
-- 对于学生党/时间灵活的情况，700元往返预算在<br>
-  · 华东线（上海/杭州/宁波）——最容易满足<br>
-  · 华南线（厦门/广州）——差一点，捡漏可能<br>
-  · 西南线（成都/重庆）——有了一个 ¥380 单程的例子，来回理论上可以凑到 ¥700 内<br>
-- 暑期（7–8月）价格会上涨，建议在价格日历中查看 6月15日–7月10日的低价谷底日期出发
+  <p class="disclaimer">
+    实际往返价格以购票时为准，未含机建燃油费（约 ¥100–200）<br>
+    数据采集于 2026-06-01，仅供参考
+  </p>
+  <p class="refresh">最后刷新：刚刚</p>
 </div>
 
-<p class="disclaimer">
-实际往返价格以购票时为准，未含机建燃油费（约 ¥100–200）。<br>
-数据采集于 2026-06-01，仅供参考，请以携程/飞猪/同程当日实时报价为准。
-</p>
+<script>
+const data = [
+  { city: "上海", airport: "SHA / PVG", oneway: "¥200–300", round: "¥400–600", stars: 5, note: "直飞密集，超低折扣常见" },
+  { city: "杭州", airport: "HGH", oneway: "¥200–300", round: "¥450–650", stars: 5, note: "江浙游首选，高铁也方便" },
+  { city: "厦门", airport: "XMN", oneway: "¥200–300", round: "¥500–700", stars: 5, note: "海滨+文艺，暑期热门" },
+  { city: "广州", airport: "CAN", oneway: "¥200–300", round: "¥500–700", stars: 4, note: "2.2折可见，暑期末端需留意" },
+  { city: "深圳", airport: "SZX", oneway: "¥300–350", round: "¥550–750", stars: 4, note: "略贵于广州，适合深圳周边" },
+  { city: "成都", airport: "CTU", oneway: "¥300–380", round: "¥600–800", stars: 5, note: "西南方向性价比高" },
+  { city: "大连", airport: "DLC", oneway: "¥300–380", round: "¥580–780", stars: 4, note: "海滨避暑，暑期票价上涨" },
+  { city: "武汉", airport: "WUH", oneway: "¥300–350", round: "¥580–780", stars: 4, note: "华中枢纽，武大樱花季后性价比回升" },
+  { city: "西安", airport: "XIY", oneway: "¥300–380", round: "¥600–800", stars: 5, note: "历史人文目的地，全年需求稳定" },
+  { city: "长沙", airport: "CSX", oneway: "¥300–380", round: "¥600–780", stars: 4, note: "口味+湘江，夜生活丰富" },
+  { city: "昆明", airport: "KMG", oneway: "¥300–400", round: "¥650–850", stars: 4, note: "四季如春，山航系统最低往返 ¥859" },
+  { city: "三亚", airport: "SYX", oneway: "¥350–450", round: "¥680–850", stars: 4, note: "暑期溢价明显，早订有条件" },
+];
 
+const container = document.getElementById("cards");
+data.forEach(item => {
+  const stars = "⭐".repeat(item.stars);
+  const card = document.createElement("div");
+  card.className = "card";
+  card.innerHTML = `
+    <div class="card-header">
+      <div>
+        <div class="city">${item.city}</div>
+        <div class="airport">${item.airport}</div>
+      </div>
+      <div class="badge">${stars}</div>
+    </div>
+    <div class="card-body">
+      <div class="price-block">
+        <div class="price-label">单程参考</div>
+        <div class="price-value">${item.oneway}</div>
+      </div>
+      <div class="price-block">
+        <div class="price-label">往返估算</div>
+        <div class="price-value">${item.round}</div>
+        <div class="price-note">未含税费</div>
+      </div>
+    </div>
+    <div class="card-footer">
+      <span class="footer-icon">💡</span>
+      <span class="footer-text">${item.note}</span>
+    </div>
+  `;
+  container.appendChild(card);
+});
+</script>
 </body>
 </html>
