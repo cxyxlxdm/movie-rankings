@@ -53,6 +53,13 @@ export const articlesMeta: ArticleMeta[] = [
     description:
       "重读《一句顶一万句》——三代人，近百年，都在找一个能说得着的人。吴摩西丢了巧玲，用一辈子躲。巧玲被弄丢了，用一辈子守。牛爱国什么也没弄明白，用一辈子走。孤独是宿命，但有人让你愿意把孤独咽下去，替他担一份安宁。",
   },
+  {
+    slug: "code-bets-flywheel",
+    title: "代码、赌局与飞轮：大模型智能进化的隐秘路径",
+    date: "2026年6月5日",
+    description:
+      "从 Anthropic 在代码数据上的重注，到 Coding Agent 带来的线上回流——大模型的进化路径，正从拼数据转向拼手艺。",
+  },
 ];
 
 export function getArticleContent(slug: string): string | null {
