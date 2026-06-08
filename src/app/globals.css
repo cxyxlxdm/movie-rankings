@@ -2,47 +2,15 @@
 
 @variant dark (&:where(.dark, .dark *));
 
+/* ===== 白天模式 (默认) ===== */
 :root {
+  /* body */
   --background: #f9fafb;
   --foreground: #111827;
-  --surface: #ffffff;
-  --surface-hover: #f9fafb;
-  --surface-card: #ffffff;
-  --border: #e5e7eb;
-  --border-light: #f3f4f6;
-  --text-secondary: #6b7280;
-  --text-muted: #9ca3af;
-  --text-inverse: #ffffff;
-  --accent: #2563eb;
-  --accent-soft: #eff6ff;
-  --gradient-from: #111827;
-  --gradient-via: #1f2937;
-  --gradient-to: #111827;
   /* 滚动条 */
   --scrollbar-track: #f1f1f1;
   --scrollbar-thumb: #888;
   --scrollbar-thumb-hover: #555;
-}
-
-.dark {
-  --background: #0f172a;
-  --foreground: #f1f5f9;
-  --surface: #1e293b;
-  --surface-hover: #334155;
-  --surface-card: #1e293b;
-  --border: #334155;
-  --border-light: #1e293b;
-  --text-secondary: #94a3b8;
-  --text-muted: #64748b;
-  --text-inverse: #0f172a;
-  --accent: #60a5fa;
-  --accent-soft: #1e293b;
-  --gradient-from: #020617;
-  --gradient-via: #0f172a;
-  --gradient-to: #020617;
-  --scrollbar-track: #1e293b;
-  --scrollbar-thumb: #475569;
-  --scrollbar-thumb-hover: #64748b;
 }
 
 body {
@@ -51,7 +19,42 @@ body {
   font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
 }
 
-/* 平滑滚动 */
+/* ===== 夜间模式 ===== */
+/* 只覆盖常用 Tailwind 工具类，不碰 --color-* 变量——
+   这样 from-gray-900 等 gradient 颜色不受影响 */
+.dark {
+  --background: #0f172a;
+  --foreground: #f1f5f9;
+  --scrollbar-track: #1e293b;
+  --scrollbar-thumb: #475569;
+  --scrollbar-thumb-hover: #64748b;
+}
+
+/* --- 背景 --- */
+.dark .bg-white { background-color: #0f172a; }
+.dark .bg-gray-50 { background-color: #1e293b; }
+.dark .bg-gray-100 { background-color: #334155; }
+.dark .bg-blue-50 { background-color: #1e293b !important; }
+
+/* --- 文字 --- */
+.dark .text-gray-900 { color: #f1f5f9; }
+.dark .text-gray-700 { color: #cbd5e1; }
+.dark .text-gray-600 { color: #94a3b8; }
+.dark .text-gray-500 { color: #94a3b8; }
+.dark .text-gray-400 { color: #64748b; }
+.dark .text-gray-300 { color: #475569; }
+.dark .text-blue-600 { color: #60a5fa; }
+.dark .text-blue-700 { color: #93c5fd; }
+
+/* --- 边框 --- */
+.dark .border-gray-200 { border-color: #334155; }
+.dark .border-gray-300 { border-color: #475569; }
+
+/* --- 悬停 --- */
+.dark .hover\\:bg-gray-50\\/50:hover { background-color: #334155; }
+.dark .hover\\:text-gray-600:hover { color: #94a3b8; }
+
+/* ===== 全局基础样式 ===== */
 html {
   scroll-behavior: smooth;
 }
@@ -102,13 +105,19 @@ img:not([src]) {
   align-items: center;
   justify-content: center;
   cursor: pointer;
-  border: 1px solid var(--border);
-  background: var(--surface);
-  color: var(--foreground);
+  border: 1px solid #e5e7eb;
+  background: #ffffff;
+  color: #111827;
   box-shadow: 0 2px 12px rgba(0, 0, 0, 0.12);
   transition: all 0.2s ease;
   font-size: 20px;
   line-height: 1;
+}
+
+.dark .theme-toggle {
+  border-color: #334155;
+  background: #1e293b;
+  color: #f1f5f9;
 }
 
 .theme-toggle:hover {
