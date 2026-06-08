@@ -60,6 +60,13 @@ export const articlesMeta: ArticleMeta[] = [
     description:
       "从 Anthropic 在代码数据上的重注，到 Coding Agent 带来的线上回流——大模型的进化路径，正从拼数据转向拼手艺。",
   },
+  {
+    slug: "zhen-shi-yin-review",
+    title: "《真事隐》书评：一本被高估的清史著作",
+    date: "2026年6月8日",
+    description:
+      "孙立天新作延续《康熙的红票》的路径，从传教士记录切入九子夺嫡。切入点不错，但证据到结论之间缺了好几环。在\u201c不一致\u201d和\u201c篡改\u201d之间画了等号——这是全书最核心的论证缺陷。",
+  },
 ];
 
 export function getArticleContent(slug: string): string | null {

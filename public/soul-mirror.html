@@ -214,19 +214,19 @@
   </p>
   <div class="config-field">
     <label>API Base URL</label>
-    <input type="text" id="cfg-base-url" placeholder="https://openrouter.ai/api/v1" onchange="saveConfig()" />
+    <input type="text" id="cfg-base-url" placeholder="https://openrouter.ai/api/v1" oninput="saveConfig()" />
   </div>
   <div class="config-field">
     <label>API Key</label>
-    <input type="password" id="cfg-api-key" placeholder="sk-or-v1-..." onchange="saveConfig()" />
+    <input type="password" id="cfg-api-key" placeholder="sk-or-v1-..." oninput="saveConfig()" />
   </div>
   <div class="config-field">
     <label>Model</label>
-    <input type="text" id="cfg-model" placeholder="deepseek/deepseek-chat-v3-0324" onchange="saveConfig()" />
+    <input type="text" id="cfg-model" placeholder="deepseek/deepseek-chat-v3-0324" oninput="saveConfig()" />
   </div>
   <div class="config-field">
     <label>题目数量</label>
-    <select id="cfg-count" onchange="saveConfig()">
+    <select id="cfg-count" oninput="saveConfig()">
       <option value="30" selected>30 题</option>
       <option value="40">40 题</option>
       <option value="50">50 题</option>
@@ -388,12 +388,18 @@ function loadConfig() {
 
 function saveConfig() {
   try {
-    const cfg = {
-      baseUrl: document.getElementById('cfg-base-url').value,
-      apiKey: document.getElementById('cfg-api-key').value,
-      model: document.getElementById('cfg-model').value,
-      count: document.getElementById('cfg-count').value,
-    };
+    let baseUrl = document.getElementById('cfg-base-url').value.trim();
+    const apiKey = document.getElementById('cfg-api-key').value.trim();
+    let model = document.getElementById('cfg-model').value.trim();
+    const count = document.getElementById('cfg-count').value;
+
+    // 自动补全：如果是 OpenRouter key 但 baseUrl 为空，自动填 OpenRouter 地址
+    if (apiKey.startsWith('sk-or-') && !baseUrl) {
+      baseUrl = 'https://openrouter.ai/api/v1';
+      document.getElementById('cfg-base-url').value = baseUrl;
+    }
+
+    const cfg = { baseUrl, apiKey, model, count };
     localStorage.setItem(CONFIG_KEY, JSON.stringify(cfg));
     console.log('[Config] 配置已保存:', cfg);
     updateConfigStatus();

@@ -10,7 +10,7 @@ export default function ConversationIndex() {
     {
       title: "关于认真、脆弱与愤怒",
       subtitle: "一个工程师与 AI 代理的深夜交流——技术、人文、三观与自我",
-      path: "/conversation/about-self",
+      path: "/about-self",
       date: "2026年4月26日",
     },
     {
