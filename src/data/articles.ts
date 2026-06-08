@@ -62,7 +62,7 @@ export const articlesMeta: ArticleMeta[] = [
   },
   {
     slug: "zhen-shi-yin-review",
-    title: "真事隐 · 雍正、历史叙事与「好皇帝」神话",
+    title: "真事隐 · 从新材料到旧结论",
     date: "2026年6月8日",
     description:
       "孙立天新作延续《康熙的红票》的路径，从传教士记录切入九子夺嫡。切入点不错，但证据到结论之间缺了好几环。在\u201c不一致\u201d和\u201c篡改\u201d之间画了等号——这是全书最核心的论证缺陷。",
