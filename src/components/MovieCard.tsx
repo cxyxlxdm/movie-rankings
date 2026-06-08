@@ -18,7 +18,7 @@ export default function MovieCard({ movie, showRank = false, rank }: MovieCardPr
 
   return (
     <Link href={`/movie/${movie.id}`} className="group block">
-      <div className="relative bg-white rounded-lg shadow-md overflow-hidden hover:shadow-xl transition-shadow duration-300">
+      <div className="relative bg-white dark:bg-[#1e293b] dark:border-[#334155] rounded-lg shadow-md overflow-hidden hover:shadow-xl transition-shadow duration-300">
         {/* 排名标记 */}
         {showRank && rank && (
           <div className={`absolute top-2 left-2 z-10 w-8 h-8 rounded-full flex items-center justify-center font-bold text-white shadow-lg
@@ -52,10 +52,10 @@ export default function MovieCard({ movie, showRank = false, rank }: MovieCardPr
 
         {/* 信息 */}
         <div className="p-3">
-          <h3 className="font-semibold text-gray-900 truncate group-hover:text-blue-600 transition-colors">
+          <h3 className="font-semibold text-gray-900 dark:text-[#f1f5f9] truncate group-hover:text-blue-600 transition-colors">
             {movie.title}
           </h3>
-          <p className="text-sm text-gray-500 mt-1">
+          <p className="text-sm text-gray-500 dark:text-[#94a3b8] mt-1">
             {releaseYear}
           </p>
         </div>

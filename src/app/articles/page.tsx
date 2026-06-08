@@ -22,11 +22,11 @@ export default function ArticlesIndex() {
     (a, b) => parseDate(b.date) - parseDate(a.date)
   );
   return (
-    <main className="min-h-screen bg-white text-gray-900">
-      <header className="border-b border-gray-200 bg-gray-50/30">
+    <main className="min-h-screen bg-white dark:bg-[#0f172a] text-gray-900 dark:text-[#f1f5f9]">
+      <header className="border-b border-gray-200 dark:border-[#334155] bg-gray-50/30 dark:bg-[#1e293b]">
         <div className="container mx-auto px-4 py-12">
           <h1 className="text-3xl font-semibold tracking-tight">文章</h1>
-          <p className="mt-2 text-gray-500">历史、电影与思考</p>
+          <p className="mt-2 text-gray-500 dark:text-[#94a3b8]">历史、电影与思考</p>
         </div>
       </header>
 
@@ -36,18 +36,18 @@ export default function ArticlesIndex() {
             <Link
               key={article.slug}
               href={`/articles/${article.slug}`}
-              className="block group border border-gray-200 rounded-lg p-6 hover:border-gray-300 hover:bg-gray-50/50 transition-colors"
+              className="block group border border-gray-200 dark:border-[#334155] rounded-lg p-6 hover:border-gray-300 dark:hover:border-[#475569] hover:bg-gray-50/50 dark:hover:bg-[#334155] transition-colors"
             >
               <div className="flex items-start justify-between gap-4">
                 <div className="min-w-0 flex-1">
-                  <h2 className="text-lg font-semibold text-gray-900 group-hover:text-blue-600 transition-colors">
+                  <h2 className="text-lg font-semibold text-gray-900 dark:text-[#f1f5f9] group-hover:text-blue-600 dark:group-hover:text-[#60a5fa] transition-colors">
                     {article.title}
                   </h2>
-                  <p className="mt-2 text-sm text-gray-500 leading-relaxed line-clamp-3">
+                  <p className="mt-2 text-sm text-gray-500 dark:text-[#94a3b8] leading-relaxed line-clamp-3">
                     {article.description}
                   </p>
                 </div>
-                <span className="text-xs text-gray-400 whitespace-nowrap mt-1">
+                <span className="text-xs text-gray-400 dark:text-[#64748b] whitespace-nowrap mt-1">
                   {article.date}
                 </span>
               </div>

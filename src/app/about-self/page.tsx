@@ -415,13 +415,13 @@ export default function ConversationPage() {
   ];
 
   return (
-    <main className="min-h-screen bg-white text-gray-900">
-      <header className="border-b border-gray-200 bg-gray-50/30">
+    <main className="min-h-screen bg-white dark:bg-[#0f172a] text-gray-900 dark:text-[#f1f5f9]">
+      <header className="border-b border-gray-200 dark:border-[#334155] bg-gray-50/30 dark:bg-[#1e293b]">
         <div className="container mx-auto px-4 py-8">
           <h1 className="text-3xl font-semibold tracking-tight">
             对话 · 关于认真、脆弱与愤怒
           </h1>
-          <p className="mt-2 text-gray-500">
+          <p className="mt-2 text-gray-500 dark:text-[#94a3b8]">
             一段关于技术、人文、三观与自我的深度对话
             <br />
             <span className="text-sm">2026-04-26 · liang & Hermes</span>
@@ -439,23 +439,23 @@ export default function ConversationPage() {
                   <span
                     className={`text-xs font-mono uppercase tracking-wider px-2 py-1 rounded ${
                       isUser
-                        ? "bg-blue-50 text-blue-700 border border-blue-200"
-                        : "bg-gray-100 text-gray-600 border border-gray-200"
+                        ? "bg-blue-50 dark:bg-blue-900/30 text-blue-700 dark:text-blue-300 border border-blue-200 dark:border-blue-800"
+                        : "bg-gray-100 dark:bg-[#334155] text-gray-600 dark:text-[#94a3b8] border border-gray-200 dark:border-[#475569]"
                     }`}
                   >
                     {isUser ? roles.user : roles.assistant}
                   </span>
                   {!isUser && (
-                    <span className="text-xs text-gray-400">AI 分析</span>
+                    <span className="text-xs text-gray-400 dark:text-[#64748b]">AI 分析</span>
                   )}
                 </div>
 
                 <div
                   className={`pl-4 ${
-                    isUser ? "border-l-2 border-blue-500" : "border-l-2 border-gray-300"
+                    isUser ? "border-l-2 border-blue-500 dark:border-blue-400" : "border-l-2 border-gray-300 dark:border-gray-600"
                   }`}
                 >
-                  <div className="prose prose-sm sm:prose-base max-w-none text-gray-700 leading-relaxed">
+                  <div className="prose prose-sm sm:prose-base max-w-none text-gray-700 dark:text-[#cbd5e1] leading-relaxed">
                     <ReactMarkdown
                       remarkPlugins={[remarkGfm]}
                       components={{
@@ -466,16 +466,16 @@ export default function ConversationPage() {
                         ul: ({ children }) => <ul className="list-disc pl-5 mb-3 space-y-1">{children}</ul>,
                         ol: ({ children }) => <ol className="list-decimal pl-5 mb-3 space-y-1">{children}</ol>,
                         li: ({ children }) => <li>{children}</li>,
-                        blockquote: ({ children }) => <blockquote className="border-l-4 border-gray-300 pl-4 italic my-3 text-gray-600">{children}</blockquote>,
-                        table: ({ children }) => <div className="overflow-x-auto mb-4"><table className="min-w-full border-collapse border border-gray-200">{children}</table></div>,
-                        th: ({ children }) => <th className="border border-gray-200 px-3 py-2 bg-gray-50 text-left font-semibold">{children}</th>,
-                        td: ({ children }) => <td className="border border-gray-200 px-3 py-2">{children}</td>,
+                        blockquote: ({ children }) => <blockquote className="border-l-4 border-gray-300 dark:border-[#475569] pl-4 italic my-3 text-gray-600 dark:text-[#94a3b8]">{children}</blockquote>,
+                        table: ({ children }) => <div className="overflow-x-auto mb-4"><table className="min-w-full border-collapse border border-gray-200 dark:border-[#334155]">{children}</table></div>,
+                        th: ({ children }) => <th className="border border-gray-200 dark:border-[#334155] px-3 py-2 bg-gray-50 dark:bg-[#1e293b] text-left font-semibold">{children}</th>,
+                        td: ({ children }) => <td className="border border-gray-200 dark:border-[#334155] px-3 py-2">{children}</td>,
                         strong: ({ children }) => <strong className="font-semibold">{children}</strong>,
                         em: ({ children }) => <em className="italic">{children}</em>,
                         a: ({ href, children }) => <a href={href} className="text-blue-600 hover:underline" target="_blank" rel="noopener noreferrer">{children}</a>,
-                        code: ({ children }) => <code className="bg-gray-100 px-1 py-0.5 rounded text-sm font-mono">{children}</code>,
-                        pre: ({ children }) => <pre className="bg-gray-100 p-3 rounded overflow-x-auto mb-4"><code>{children}</code></pre>,
-                        hr: () => <hr className="my-6 border-gray-200" />,
+                        code: ({ children }) => <code className="bg-gray-100 dark:bg-[#334155] px-1 py-0.5 rounded text-sm font-mono">{children}</code>,
+                        pre: ({ children }) => <pre className="bg-gray-100 dark:bg-[#334155] p-3 rounded overflow-x-auto mb-4"><code>{children}</code></pre>,
+                        hr: () => <hr className="my-6 border-gray-200 dark:border-[#334155]" />,
                       }}
                     >
                       {entry.content}
@@ -487,24 +487,22 @@ export default function ConversationPage() {
           })}
         </div>
 
-        <div className="mt-16 pt-8 border-t border-gray-200">
-          <p className="text-sm text-gray-500 text-center leading-relaxed">
+        <div className="mt-16 pt-8 border-t border-gray-200 dark:border-[#334155]">
+          <p className="text-sm text-gray-500 dark:text-[#94a3b8] text-center leading-relaxed">
             这段对话源于一个工程师与 AI 代理的深夜交流。
             <br />
             关于认真、脆弱、愤怒，以及如何在荒诞的世界里保持体面。
             <br />
             <br />
-            <em className="text-gray-400">
+            <em className="text-gray-400 dark:text-[#64748b]">
               "让愤怒的少年尘封在记忆里吧——这是我年轻过的证明。"
             </em>
           </p>
         </div>
 
-        <div className="mt-8 pt-6 border-t border-gray-100">
-          <p className="text-xs text-gray-400 text-center">
-            <a href="/conversation" className="hover:underline">
-              ← 所有对话
-            </a>
+        <div className="mt-8 pt-6 border-t border-gray-100 dark:border-[#1e293b]">
+          <p className="text-xs text-gray-400 dark:text-[#64748b] text-center">
+            <span className="text-gray-300 dark:text-[#475569]">← 所有对话</span>
           </p>
         </div>
       </article>

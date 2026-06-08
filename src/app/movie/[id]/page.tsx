@@ -26,7 +26,7 @@ export default async function MovieDetailPage({ params }: PageProps) {
     const releaseYear = movie.release_date ? new Date(movie.release_date).getFullYear() : 'N/A';
 
     return (
-      <main className="min-h-screen bg-gray-50">
+      <main className="min-h-screen bg-gray-50 dark:bg-[#0f172a]">
         {/* Backdrop */}
         <div className="relative h-96 overflow-hidden">
           <img
@@ -49,7 +49,7 @@ export default async function MovieDetailPage({ params }: PageProps) {
 
         {/* Content */}
         <div className="container mx-auto px-4 -mt-32 relative z-10 pb-12">
-          <div className="bg-white rounded-xl shadow-xl overflow-hidden">
+          <div className="bg-white dark:bg-[#1e293b] rounded-xl shadow-xl overflow-hidden">
             <div className="md:flex">
               {/* Poster */}
               <div className="md:w-1/3 lg:w-1/4">
@@ -62,12 +62,12 @@ export default async function MovieDetailPage({ params }: PageProps) {
 
               {/* Info */}
               <div className="p-6 md:p-8 md:w-2/3 lg:w-3/4">
-                <h1 className="text-3xl md:text-4xl font-bold text-gray-900 mb-2">
+                <h1 className="text-3xl md:text-4xl font-bold text-gray-900 dark:text-[#f1f5f9] mb-2">
                   {movie.title}
                 </h1>
                 
                 {movie.original_title && movie.original_title !== movie.title && (
-                  <p className="text-gray-500 text-lg mb-4">
+                  <p className="text-gray-500 dark:text-[#94a3b8] text-lg mb-4">
                     {movie.original_title}
                   </p>
                 )}
@@ -77,14 +77,14 @@ export default async function MovieDetailPage({ params }: PageProps) {
                   <div className="flex items-center gap-2">
                     <span className="text-2xl">⭐</span>
                     <span className="text-2xl font-bold text-yellow-500">{rating}</span>
-                    <span className="text-gray-500">/ 10</span>
+                    <span className="text-gray-500 dark:text-[#94a3b8]">/ 10</span>
                   </div>
-                  <span className="text-gray-500">·</span>
-                  <span className="text-gray-600">{releaseYear}</span>
+                  <span className="text-gray-500 dark:text-[#94a3b8]">·</span>
+                  <span className="text-gray-600 dark:text-[#94a3b8]">{releaseYear}</span>
                   {movie.runtime && (
                     <>
-                      <span className="text-gray-500">·</span>
-                      <span className="text-gray-600">{Math.floor(movie.runtime / 60)}小时{movie.runtime % 60}分钟</span>
+                      <span className="text-gray-500 dark:text-[#94a3b8]">·</span>
+                      <span className="text-gray-600 dark:text-[#94a3b8]">{Math.floor(movie.runtime / 60)}小时{movie.runtime % 60}分钟</span>
                     </>
                   )}
                 </div>
@@ -95,7 +95,7 @@ export default async function MovieDetailPage({ params }: PageProps) {
                     {movie.genres.map((genre) => (
                       <span
                         key={genre.id}
-                        className="bg-gray-100 text-gray-700 px-3 py-1 rounded-full text-sm"
+                        className="bg-gray-100 dark:bg-[#334155] text-gray-700 dark:text-[#cbd5e1] px-3 py-1 rounded-full text-sm"
                       >
                         {genre.name}
                       </span>
@@ -105,8 +105,8 @@ export default async function MovieDetailPage({ params }: PageProps) {
 
                 {/* Overview */}
                 <div className="mb-6">
-                  <h2 className="text-xl font-semibold text-gray-900 mb-3">剧情简介</h2>
-                  <p className="text-gray-600 leading-relaxed">
+                  <h2 className="text-xl font-semibold text-gray-900 dark:text-[#f1f5f9] mb-3">剧情简介</h2>
+                  <p className="text-gray-600 dark:text-[#94a3b8] leading-relaxed">
                     {movie.overview || '暂无剧情简介'}
                   </p>
                 </div>
@@ -115,14 +115,14 @@ export default async function MovieDetailPage({ params }: PageProps) {
                 <div className="grid grid-cols-2 gap-4 text-sm">
                   {movie.status && (
                     <div>
-                      <span className="text-gray-500">状态：</span>
-                      <span className="text-gray-700">{movie.status}</span>
+                      <span className="text-gray-500 dark:text-[#94a3b8]">状态：</span>
+                      <span className="text-gray-700 dark:text-[#cbd5e1]">{movie.status}</span>
                     </div>
                   )}
                   {movie.original_language && (
                     <div>
-                      <span className="text-gray-500">语言：</span>
-                      <span className="text-gray-700 uppercase">{movie.original_language}</span>
+                      <span className="text-gray-500 dark:text-[#94a3b8]">语言：</span>
+                      <span className="text-gray-700 dark:text-[#cbd5e1] uppercase">{movie.original_language}</span>
                     </div>
                   )}
                 </div>
@@ -132,7 +132,7 @@ export default async function MovieDetailPage({ params }: PageProps) {
         </div>
 
         {/* Footer */}
-        <footer className="bg-gray-900 text-gray-400 py-8 mt-12">
+        <footer className="bg-gray-900 dark:bg-[#020617] text-gray-400 py-8 mt-12">
           <div className="container mx-auto px-4 text-center">
             <p>© 2026 电影排行榜 · 数据由 TMDB 提供</p>
           </div>

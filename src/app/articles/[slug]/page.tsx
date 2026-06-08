@@ -18,7 +18,7 @@ const customComponents: Components = {
     </h3>
   ),
   p: ({ children }) => (
-    <p className="mb-5 text-[15px] text-gray-700 leading-[1.8]">{children}</p>
+    <p className="mb-5 text-[15px] text-gray-700 dark:text-[#cbd5e1] leading-[1.8]">{children}</p>
   ),
   a: ({ href, children }) => (
     <a
@@ -31,50 +31,50 @@ const customComponents: Components = {
     </a>
   ),
   ul: ({ children }) => (
-    <ul className="list-disc pl-6 mb-5 text-[15px] text-gray-700 leading-[1.8]">
+    <ul className="list-disc pl-6 mb-5 text-[15px] text-gray-700 dark:text-[#cbd5e1] leading-[1.8]">
       {children}
     </ul>
   ),
   ol: ({ children }) => (
-    <ol className="list-decimal pl-6 mb-5 text-[15px] text-gray-700 leading-[1.8]">
+    <ol className="list-decimal pl-6 mb-5 text-[15px] text-gray-700 dark:text-[#cbd5e1] leading-[1.8]">
       {children}
     </ol>
   ),
   li: ({ children }) => <li className="mb-1">{children}</li>,
   blockquote: ({ children }) => (
-    <blockquote className="border-l-4 border-gray-300 pl-4 my-6 text-gray-500 italic">
+    <blockquote className="border-l-4 border-gray-300 dark:border-[#475569] pl-4 my-6 text-gray-500 dark:text-[#94a3b8] italic">
       {children}
     </blockquote>
   ),
   code: ({ children }) => (
-    <code className="bg-gray-100 rounded px-1.5 py-0.5 text-sm font-mono">
+    <code className="bg-gray-100 dark:bg-[#334155] rounded px-1.5 py-0.5 text-sm font-mono">
       {children}
     </code>
   ),
   pre: ({ children }) => (
-    <pre className="bg-gray-100 rounded-lg p-4 my-6 overflow-x-auto text-sm">
+    <pre className="bg-gray-100 dark:bg-[#334155] rounded-lg p-4 my-6 overflow-x-auto text-sm">
       {children}
     </pre>
   ),
   table: ({ children }) => (
     <div className="overflow-x-auto my-6">
-      <table className="w-full border-collapse border border-gray-300 text-sm">
+      <table className="w-full border-collapse border border-gray-300 dark:border-[#475569] text-sm">
         {children}
       </table>
     </div>
   ),
   thead: ({ children }) => (
-    <thead className="bg-gray-100">{children}</thead>
+    <thead className="bg-gray-100 dark:bg-[#334155]">{children}</thead>
   ),
   th: ({ children }) => (
-    <th className="border border-gray-300 px-3 py-2 text-left font-semibold whitespace-nowrap">
+    <th className="border border-gray-300 dark:border-[#475569] px-3 py-2 text-left font-semibold whitespace-nowrap">
       {children}
     </th>
   ),
   td: ({ children }) => (
-    <td className="border border-gray-300 px-3 py-2">{children}</td>
+    <td className="border border-gray-300 dark:border-[#475569] px-3 py-2">{children}</td>
   ),
-  hr: () => <hr className="my-10 border-gray-200" />,
+  hr: () => <hr className="my-10 border-gray-200 dark:border-[#334155]" />,
   strong: ({ children }) => (
     <strong className="font-semibold">{children}</strong>
   ),
@@ -104,11 +104,11 @@ export default async function ArticlePage({ params }: Props) {
   if (!content) notFound();
 
   return (
-    <main className="min-h-screen bg-white text-gray-900">
+    <main className="min-h-screen bg-white dark:bg-[#0f172a] text-gray-900 dark:text-[#f1f5f9]">
       <article className="container mx-auto px-4 py-12 max-w-2xl">
         <Link
           href="/articles"
-          className="inline-flex items-center text-sm text-gray-400 hover:text-gray-600 transition-colors mb-8"
+          className="inline-flex items-center text-sm text-gray-400 dark:text-[#64748b] hover:text-gray-600 dark:hover:text-[#94a3b8] transition-colors mb-8"
         >
           ← 返回文章列表
         </Link>
@@ -117,7 +117,7 @@ export default async function ArticlePage({ params }: Props) {
           <h1 className="text-3xl font-semibold tracking-tight leading-snug">
             {meta.title}
           </h1>
-          <div className="mt-4 text-sm text-gray-400">
+          <div className="mt-4 text-sm text-gray-400 dark:text-[#64748b]">
             <time>{meta.date}</time>
           </div>
         </header>
@@ -131,10 +131,10 @@ export default async function ArticlePage({ params }: Props) {
           </ReactMarkdown>
         </div>
 
-        <footer className="mt-16 pt-8 border-t border-gray-200">
+        <footer className="mt-16 pt-8 border-t border-gray-200 dark:border-[#334155]">
           <Link
             href="/articles"
-            className="text-sm text-gray-400 hover:text-gray-600 transition-colors"
+            className="text-sm text-gray-400 dark:text-[#64748b] hover:text-gray-600 dark:hover:text-[#94a3b8] transition-colors"
           >
             ← 返回文章列表
           </Link>

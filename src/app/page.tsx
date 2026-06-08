@@ -15,7 +15,7 @@ export default async function HomePage() {
   ]);
 
   return (
-    <main className="min-h-screen bg-gray-50">
+    <main className="min-h-screen bg-gray-50 dark:bg-[#0f172a] dark:text-[#f1f5f9]">
       {/* Hero Section */}
       <section className="bg-gradient-to-br from-gray-900 via-gray-800 to-gray-900 text-white py-16">
         <div className="container mx-auto px-4">
@@ -81,7 +81,7 @@ export default async function HomePage() {
       </section>
 
       {/* Footer */}
-      <footer className="bg-gray-900 text-gray-400 py-8 mt-12">
+      <footer className="bg-gray-900 dark:bg-[#020617] text-gray-400 py-8 mt-12">
         <div className="container mx-auto px-4 text-center">
           <p>© 2026 电影排行榜 · 数据由 TMDB 提供</p>
           <p className="mt-2 text-sm">

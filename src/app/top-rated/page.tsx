@@ -24,7 +24,7 @@ export default async function TopRatedPage() {
   ].slice(0, 100);
 
   return (
-    <main className="min-h-screen bg-gray-50">
+    <main className="min-h-screen bg-gray-50 dark:bg-[#0f172a]">
       {/* Header */}
       <section className="bg-gradient-to-br from-yellow-700 via-amber-700 to-yellow-800 text-white py-12">
         <div className="container mx-auto px-4">
@@ -53,13 +53,13 @@ export default async function TopRatedPage() {
           </div>
         ) : (
           <div className="text-center py-20">
-            <p className="text-gray-500 text-lg">暂无数据，请检查 TMDB API 配置</p>
+            <p className="text-gray-500 dark:text-[#94a3b8] text-lg">暂无数据，请检查 TMDB API 配置</p>
           </div>
         )}
       </section>
 
       {/* Footer */}
-      <footer className="bg-gray-900 text-gray-400 py-8 mt-12">
+      <footer className="bg-gray-900 dark:bg-[#020617] text-gray-400 py-8 mt-12">
         <div className="container mx-auto px-4 text-center">
           <p>© 2026 电影排行榜 · 数据由 TMDB 提供</p>
         </div>
