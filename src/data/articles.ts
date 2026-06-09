@@ -11,6 +11,13 @@ export interface ArticleMeta {
 
 export const articlesMeta: ArticleMeta[] = [
   {
+    slug: "about-zhengzhou",
+    title: "关于郑州的记忆",
+    date: "2026年6月9日",
+    description:
+      "二十二岁那年的郑州，月薪八百，欠薪六千。苦难没有造就我，是我自己本来就是这个样子——认真，固执，在一个不认真的世界里一直做认真的事。",
+  },
+  {
     slug: "dynamic-workflows",
     title: "Claude Code Dynamic Workflows 技术指南",
     date: "2026年5月31日",
