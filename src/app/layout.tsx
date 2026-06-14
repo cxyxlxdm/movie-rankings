@@ -15,8 +15,11 @@ const geistMono = Geist_Mono({
 });
 
 export const metadata: Metadata = {
-  title: "电影排行榜",
-  description: "发现正在热映、即将上映和影史经典的优秀电影",
+  title: {
+    default: "Ailurus",
+    template: "%s · Ailurus",
+  },
+  description: "关于历史、电影与思考",
 };
 
 export default function RootLayout({
