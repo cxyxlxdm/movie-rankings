@@ -11,6 +11,13 @@ export interface ArticleMeta {
 
 export const articlesMeta: ArticleMeta[] = [
   {
+    slug: "inertia",
+    title: "惯性",
+    date: "2026年6月14日",
+    description:
+      "中年之后，日子变成了复印件。关于惯性、妥协、意义感的消散，和那种平静——分不清是智慧还是投降。",
+  },
+  {
     slug: "about-zhengzhou",
     title: "关于郑州的记忆",
     date: "2026年6月9日",
