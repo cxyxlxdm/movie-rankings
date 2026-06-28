@@ -11,6 +11,13 @@ export interface ArticleMeta {
 
 export const articlesMeta: ArticleMeta[] = [
   {
+    slug: "mcp-mission-accomplished",
+    title: "MCP 的使命已经完成",
+    date: "2026年6月28日",
+    description:
+      "MCP 的 token 开销是结构性的、有状态连接与云原生架构从底层就不兼容、数据被迫流经模型导致效率低下——经过一年多的工程实践检验，MCP 的设计代价已经清晰到无法回避。行业正在用脚投票。",
+  },
+  {
     slug: "inertia",
     title: "惯性",
     date: "2026年6月14日",
