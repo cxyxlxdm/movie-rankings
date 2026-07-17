@@ -11,6 +11,13 @@ export interface ArticleMeta {
 
 export const articlesMeta: ArticleMeta[] = [
   {
+    slug: "claude-code-codex-design",
+    title: "谈谈 Claude Code 与 Codex 的设计差异",
+    date: "2026年7月16日",
+    description:
+      "深入对比 Claude Code 与 Codex 的设计哲学差异——从上下文窗口、CLI 交互、上下文管理到 Goal 与 Dynamic Workflows，最终指向一个结论：它们正在从相反的方向走向同一个终点。",
+  },
+  {
     slug: "mcp-mission-accomplished",
     title: "MCP 的使命已经完成",
     date: "2026年6月28日",
