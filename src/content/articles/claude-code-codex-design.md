@@ -185,7 +185,11 @@ Goal、btw、Dynamic Workflows、长期上下文、Project State——这些不�
 
 > **LLM 成为 Agent 的推理引擎，Harness 成为 Agent 的操作系统。**
 
-模型负责思考，Harness 负责把这些思考组织成一个可持续、可协作、可恢复的软件工程过程。Goal、btw、动态工作流、长期上下文——这些几乎都属于后者。而这些能力，很难仅靠把模型做得更大、更强就自然获得。这也是我认为，不管是 Claude Code 还是 Codex，还是其他的 Coding Agent，在未来，设计上一定会趋同。而体现各家产品竞争力的关键就在于，如何更好地将自家的 LLM 模型与 Harness 结合在一起。无独有偶，Kimi K3 的博客也提到了这一点：“K3 was trained in the preserved thinking history mode. If the agent harness fails to pass back all the historical thinking content as required, or if an ongoing session with another model is switched over to K3, generation quality may become highly unstable”。翻译过来就是“K3接受了保存式思维历史模式的训练。如果代理机束未能按要求回传所有历史思考内容，或者从另一个模型的持续会话切换到K3，生成质量可能会变得极不稳定”。
+模型负责思考，Harness 负责把这些思考组织成一个可持续、可协作、可恢复的软件工程过程。Goal、btw、动态工作流、长期上下文——这些几乎都属于后者。而这些能力，很难仅靠把模型做得更大、更强就自然获得。
+
+这也是我认为的，不管是 Claude Code 还是 Codex，还是其他的 Coding Agent，在未来，设计上一定会趋同。而体现各家产品竞争力的关键就在于，如何更好地将自家的 LLM 模型与 Harness 结合在一起。
+
+无独有偶，Kimi K3 的博客也提到了这一点：“K3 was trained in the preserved thinking history mode. If the agent harness fails to pass back all the historical thinking content as required, or if an ongoing session with another model is switched over to K3, generation quality may become highly unstable”。翻译过来就是“K3接受了保存式思维历史模式的训练。如果代理机束未能按要求回传所有历史思考内容，或者从另一个模型的持续会话切换到K3，生成质量可能会变得极不稳定”。
 
 ---
 
