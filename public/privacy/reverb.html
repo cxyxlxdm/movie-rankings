@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>余音 Reverb 隐私政策</title>
+<style>
+:root { --bg:#F6F2E9; --fg:#22201C; --sub:#6B6459; --line:#DFD8C8; --accent:#3E8E7E; }
+@media (prefers-color-scheme: dark) {
+  :root { --bg:#0E1416; --fg:#E7ECEA; --sub:#9BA6A3; --line:#2A3538; --accent:#7FD1C0; }
+}
+* { box-sizing: border-box; }
+body { margin:0; padding:32px 20px 72px; background:var(--bg); color:var(--fg);
+  font:16px/1.75 -apple-system,BlinkMacSystemFont,"Helvetica Neue","PingFang SC","Hiragino Sans GB","Microsoft YaHei",sans-serif;
+  -webkit-text-size-adjust:100%; }
+main { max-width:760px; margin:0 auto; }
+h1 { font-size:28px; line-height:1.35; margin:0 0 24px; }
+h2 { font-size:19px; margin:40px 0 12px; padding-bottom:8px; border-bottom:1px solid var(--line); }
+p { margin:12px 0; }
+ul { margin:12px 0; padding-left:22px; }
+li { margin:6px 0; }
+strong { font-weight:600; }
+code { font-family:ui-monospace,SFMono-Regular,Menlo,monospace; font-size:.92em;
+  background:rgba(127,127,127,.14); padding:1px 5px; border-radius:4px; }
+table { width:100%; border-collapse:collapse; margin:16px 0; font-size:15px; display:block; overflow-x:auto; }
+th,td { border:1px solid var(--line); padding:9px 12px; text-align:left; vertical-align:top; }
+th { background:rgba(127,127,127,.12); font-weight:600; }
+hr { border:0; border-top:1px solid var(--line); margin:36px 0; }
+blockquote { margin:24px 0 0; padding:12px 16px; border-left:3px solid var(--accent);
+  color:var(--sub); background:rgba(127,127,127,.07); }
+</style>
+</head>
+<body><main>
+<h1>余音 Reverb 隐私政策</h1>
+<p><strong>最后更新：2026 年 8 月 15 日</strong></p>
+<p>余音 Reverb（以下简称&quot;本应用&quot;）是一款播客客户端，提供 Android、macOS、HarmonyOS 三个版本。</p>
+<p>本应用<strong>没有服务器</strong>。我们不运营任何后端服务，因此<strong>在技术上不具备收集、接收或存储你的个人信息的能力</strong>。本政策如实说明本应用会读写哪些数据、会连接哪些网络地址，以及这些行为发生在何处。</p>
+<hr>
+<h2>一、我们不收集任何个人信息</h2>
+<p>本应用<strong>不收集、不上传、不共享</strong>你的任何个人信息，具体包括但不限于：</p>
+<ul><li>不要求注册、不需要账号、不接入任何第三方登录</li><li>不收集姓名、手机号、邮箱、身份证件、生物特征等身份信息</li><li>不收集位置信息、通讯录、短信、通话记录、日历、相机、麦克风数据</li><li>不读取你安装的应用列表，不获取 IMEI、Android ID、OAID、IDFA 等设备标识符</li><li><strong>不接入任何第三方 SDK</strong>，包括但不限于统计分析、崩溃上报、广告、推送等</li><li>不埋点、不做用户行为分析、不展示任何广告</li></ul>
+<p>本应用没有服务器端，也没有向任何第三方传输数据的代码路径。全部网络请求均为 <strong>HTTP GET 读取</strong>（详见第三节），不存在任何上传（POST/PUT）行为。</p>
+<h2>二、本应用在你设备上保存哪些数据</h2>
+<p>以下数据<strong>全部仅保存在你的设备本地</strong>（应用沙箱私有目录），不会离开你的设备，卸载应用即随之删除：</p>
+<table><thead><tr><th>数据</th><th>用途</th></tr></thead><tbody><tr><td>订阅列表</td><td>记住你订阅的播客</td></tr><tr><td>播放历史与续播位置</td><td>让你从上次中断处继续收听</td></tr><tr><td>收藏的单集</td><td>你主动收藏的内容</td></tr><tr><td>已下载的音频文件</td><td>你主动下载的离线内容</td></tr><tr><td>最新单集聚合缓存</td><td>减少重复请求，加快打开速度</td></tr><tr><td>热门榜缓存与封面图缓存</td><td>同上</td></tr><tr><td>收听时长统计</td><td>展示你在每个频道上累计收听的时长</td></tr><tr><td>听觉印记</td><td>你主动为单集盖下的情绪标记</td></tr><tr><td>应用设置</td><td>主题、配色、字号、语言、地区、倍速等偏好</td></tr></tbody></table>
+<p><strong>关于&quot;设备标识&quot;的说明（如实披露）</strong>：为了在多台设备之间合并收听时长而不重复计数，本应用会在首次启动时<strong>在本机生成一个随机字符串</strong>（由时间戳与随机数拼成），保存在本地偏好中。它<strong>不是</strong>系统提供的设备标识符，不含任何硬件信息，<strong>不会被发送到任何网络地址</strong>。它唯一的用途是给本机的收听时长记账；当你主动导出备份文件时，该字符串会出现在备份内容里（这是跨设备合并所必需的），备份文件保存在你自己选择的位置。</p>
+<p><strong>日志</strong>：应用运行日志仅保存在<strong>内存</strong>中（最近若干条），不写入文件、不自动上传。只有当你主动点击「分享日志 / 导出日志」时，它才会被交给你选择的应用或保存位置。</p>
+<h2>三、本应用会连接哪些网络地址</h2>
+<p>本应用需要联网才能检索和播放播客，会<strong>直接</strong>访问以下地址。这些请求由你的设备直接发出，不经过我们的任何服务器（我们没有服务器）：</p>
+<table><thead><tr><th>地址</th><th>用途</th><th>传输内容</th></tr></thead><tbody><tr><td>Apple iTunes Search / Marketing RSS</td><td>搜索播客、获取分类榜单</td><td>你输入的搜索词、所选分类与地区</td></tr><tr><td>fyyd.de 公开接口</td><td>搜索兜底来源</td><td>同上</td></tr><tr><td>gpodder.net 公开接口</td><td>搜索兜底来源</td><td>同上</td></tr><tr><td>播客发布方的 RSS 地址</td><td>获取节目与单集信息</td><td>无附加信息</td></tr><tr><td>音频与封面图的原始地址</td><td>播放、下载、显示封面</td><td>无附加信息</td></tr></tbody></table>
+<p>上述接口均为公开接口，本应用<strong>不携带任何鉴权凭据、不附加任何用户标识</strong>。播放与下载一律直连发布方提供的原始地址，本应用<strong>不转存、不代理、不改写</strong>任何音频内容。</p>
+<p>请注意：当你的设备访问上述第三方地址时，这些第三方可能按其自身政策记录访问日志（例如 IP 地址）。这属于你的设备与第三方之间的直接通信，本应用无法干预，也无从获知。相关处理规则请参见各第三方的隐私政策。</p>
+<h2>四、权限说明</h2>
+<table><thead><tr><th>权限</th><th>为什么需要</th><th>时机</th></tr></thead><tbody><tr><td>网络访问</td><td>检索播客、获取节目信息、播放与下载音频</td><td>始终</td></tr><tr><td>获取网络状态</td><td>判断当前是否为 Wi-Fi，以支持「仅在 Wi-Fi 下载」</td><td>始终</td></tr><tr><td>后台运行（长时任务，仅音频播放）</td><td>让你退到后台或锁屏后音频能继续播放</td><td>仅播放时申请，暂停即释放</td></tr><tr><td>通知</td><td>订阅有新一期时提醒你</td><td><strong>仅在你主动开启「订阅更新提醒」时</strong>征求你的同意，可随时关闭</td></tr></tbody></table>
+<p><strong>本应用不申请</strong>位置、通讯录、相机、麦克风、短信、通话记录、日历、读取已安装应用列表等任何权限。</p>
+<p>保存图片到相册时（剪藏此刻、听觉足迹海报），本应用通过系统提供的<strong>保存确认弹窗</strong>完成，由你逐次确认，<strong>不申请</strong>相册写入类敏感权限。</p>
+<h2>五、数据的导出与分享，由你主动发起</h2>
+<p>以下操作<strong>只会在你主动点击时发生</strong>，且目标位置由你选择：</p>
+<ul><li><strong>导出备份 / 导出 OPML 订阅</strong>：通过系统文件选择器保存到你指定的位置</li><li><strong>分享日志 / 导出日志</strong>：交给你选择的应用或保存位置</li><li><strong>保存或分享图片</strong>（剪藏此刻、足迹海报）：保存到相册或通过系统分享面板发送</li></ul>
+<p>一旦你把这些文件交给其他应用或他人，其后续处理便超出本应用的控制范围，请你自行判断。</p>
+<h2>六、儿童隐私</h2>
+<p>本应用不针对儿童设计，也不收集任何个人信息，因此不存在收集儿童个人信息的情形。播客内容由第三方发布方提供，其内容分级与合规性由发布方负责；如你为未成年人的监护人，建议你关注其收听内容。</p>
+<h2>七、数据安全与你的权利</h2>
+<p>由于本应用不收集数据、所有数据仅存于你的设备，因此：</p>
+<ul><li><strong>删除</strong>：在应用设置内可「清除缓存」「清除下载」「清空播放历史」；卸载应用将删除全部本地数据</li><li><strong>导出</strong>：可随时通过「完整备份」「导出 OPML 订阅」取得你的数据副本</li><li><strong>访问与更正</strong>：全部数据均在你设备本地，你可直接查看与修改</li></ul>
+<p>我们不掌握你的任何数据，因此无法代你查询、更正或删除。</p>
+<h2>八、政策变更</h2>
+<p>本政策如有更新，我们将修改本页面顶部的&quot;最后更新&quot;日期。涉及重大变更时，会在应用内以显著方式提示。</p>
+<h2>九、联系我们</h2>
+<p>如对本政策有任何疑问，请通过以下方式联系：</p>
+<p><strong>（请在此处填写你的联系邮箱）</strong></p>
+<hr>
+<blockquote>本页面同时适用于余音 Reverb 的 Android、macOS 与 HarmonyOS 版本。</blockquote>
+</main></body>
+</html>
