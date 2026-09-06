@@ -11,6 +11,13 @@ export interface ArticleMeta {
 
 export const articlesMeta: ArticleMeta[] = [
   {
+    slug: "the-price-of-silence",
+    title: "沉默的代价",
+    date: "2026年9月6日",
+    description:
+      "从柴静面对熊召政的沉默，到波米对蒋方舟的不置一词——对陌生人的高标准与对亲近者的失语，是同一枚硬币的两面。当道德楷模自己打破设定的标准，沉默能持续一世吗？",
+  },
+  {
     slug: "claude-code-codex-design",
     title: "谈谈 Claude Code 与 Codex 的设计差异",
     date: "2026年7月16日",
