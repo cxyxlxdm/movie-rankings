@@ -11,6 +11,13 @@ export interface ArticleMeta {
 
 export const articlesMeta: ArticleMeta[] = [
   {
+    slug: "heroes-in-dark-times",
+    title: "「英雄志」：在黑暗时代里坚持做正确的事",
+    date: "2026年9月28日",
+    description:
+      "孙晓的「英雄志」把同一个问题摆在四个人面前：在一个并不公正的时代，究竟应该怎样活着？秦仲海的自由、伍定远的责任、杨肃观的秩序、卢云的正道——四种选择，同一种悲剧。当坚持并不保证胜利，是否还值得坚持。",
+  },
+  {
     slug: "the-price-of-silence",
     title: "沉默的代价",
     date: "2026年9月6日",
